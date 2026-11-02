@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 트렌드 데일리 — {{갱신일}}</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400&display=swap" />
+  <style>
+    :root {
+      --bg: #ffffff; --bg-alt: #f6f7f9; --border: #e5e8ec; --border-strong: #111827;
+      --ink: #111827; --text: #374151; --muted: #6b7280; --faint: #9ca3af;
+      --accent: #7c3aed; --new: #dc2626; --code-bg: #0f172a; --code-ink: #e2e8f0;
+      --model: #1d4ed8; --tool: #0f766e; --mcp: #b45309; --research: #be185d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; }
+    a { color: inherit; text-decoration: none; } a:hover { text-decoration: underline; }
+    .wrap { max-width: 840px; margin: 0 auto; padding: 0 20px 64px; }
+
+    header { display: flex; justify-content: space-between; align-items: flex-end; padding: 26px 0 14px; border-bottom: 2px solid var(--border-strong); gap: 16px; flex-wrap: wrap; }
+    header h1 { font-size: 24px; font-weight: 900; letter-spacing: -.03em; line-height: 1.2; }
+    header h1 span { color: var(--accent); }
+    header .sub { font-size: 12.5px; color: var(--muted); text-align: right; }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 2; }
+    .chip { padding: 5px 12px; border-radius: 999px; font-size: 12.5px; border: 1px solid var(--border); color: var(--text); background: transparent; cursor: pointer; font-family: inherit; }
+    .chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .sep { width: 1px; height: 16px; background: var(--border); margin: 0 4px; }
+    .search { margin-left: auto; display: flex; align-items: center; gap: 8px; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; min-width: 220px; }
+    .search input { border: 0; background: transparent; font: inherit; font-size: 13px; color: var(--ink); outline: none; width: 100%; }
+    .search input::placeholder { color: var(--faint); }
+
+    .day { display: flex; align-items: baseline; gap: 10px; padding: 26px 0 8px; }
+    .day h2 { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+    .day .n { font-size: 12px; color: var(--muted); }
+    .day .line { flex: 1; height: 1px; background: var(--border); }
+
+    .item { display: grid; grid-template-columns: minmax(0, 1fr) 168px; gap: 6px 22px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+    .item.no-img { grid-template-columns: 1fr; }
+    .item .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+    .item .meta .sec { font-weight: 700; }
+    .sec-model { color: var(--model); } .sec-tool { color: var(--tool); } .sec-mcp { color: var(--mcp); } .sec-research { color: var(--research); }
+    .item .meta .new { font-size: 10.5px; font-weight: 900; color: var(--new); letter-spacing: .04em; }
+    .item .meta .prov { color: var(--muted); }
+    .item .meta .prov::before { content: '·'; margin-right: 8px; color: var(--faint); }
+    .tag { padding: 1px 7px; border-radius: 3px; font-size: 11.5px; font-weight: 500; }
+    .tag-신규출시 { background: #dcfce7; color: #15803d; } .tag-업데이트 { background: #dbeafe; color: #1d4ed8; }
+    .tag-오픈소스 { background: #fef3c7; color: #b45309; } .tag-실전팁 { background: #fce7f3; color: #be185d; }
+    .item h3 { font-size: 18px; font-weight: 700; line-height: 1.4; letter-spacing: -.015em; }
+    .item h3 a:hover { color: var(--accent); }
+    .item p.one { font-size: 14.5px; color: var(--ink); line-height: 1.6; }
+    .item p.why { font-size: 13.5px; color: var(--text); line-height: 1.65;
+                  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .item .try { font-size: 12.5px; }
+    .item .try summary { cursor: pointer; color: var(--accent); font-weight: 500; user-select: none; width: max-content; }
+    .item .try summary:hover { text-decoration: underline; }
+    .item .try pre { margin-top: 8px; background: var(--code-bg); color: var(--code-ink); border-radius: 6px; padding: 12px 14px; overflow-x: auto; }
+    .item .try code { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: 12.5px; line-height: 1.6; white-space: pre; }
+    .item .foot { display: flex; gap: 10px; font-size: 12px; color: var(--muted); align-items: center; flex-wrap: wrap; }
+    .item .foot .rel { color: var(--faint); border: 1px solid var(--border); border-radius: 4px; padding: 0 6px; }
+    .item .foot .rel:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    .item .thumb { width: 168px; height: 112px; object-fit: cover; border-radius: 4px; background: var(--bg-alt); grid-column: 2; grid-row: 1 / span 6; align-self: start; }
+
+    .empty { text-align: center; color: var(--faint); padding: 40px 0; font-size: 14px; }
+    footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--faint); text-align: center; }
+    [hidden] { display: none !important; }
+
+    @media (max-width: 600px) {
+      .item { grid-template-columns: minmax(0, 1fr) 96px; }
+      .item .thumb { width: 96px; height: 72px; }
+      .item h3 { font-size: 16px; } .search { margin-left: 0; width: 100%; }
+      header .sub { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>AI <span>트렌드</span> 데일리</h1>
+    <div class="sub">최근 30일 {{총건수}}건 · {{섹션요약}}<br />{{갱신일}} 02:00 갱신</div>
+  </header>
+
+  <div class="controls" id="controls">
+    <button class="chip on" data-k="sec" data-v="">전체</button>
+    <button class="chip" data-k="sec" data-v="모델·API">모델·API</button>
+    <button class="chip" data-k="sec" data-v="도구·에이전트">도구·에이전트</button>
+    <button class="chip" data-k="sec" data-v="스킬·MCP">스킬·MCP</button>
+    <button class="chip" data-k="sec" data-v="기법·연구">기법·연구</button>
+    <span class="sep"></span>
+    <button class="chip" data-k="tag" data-v="신규출시">신규출시</button>
+    <button class="chip" data-k="tag" data-v="업데이트">업데이트</button>
+    <button class="chip" data-k="tag" data-v="오픈소스">오픈소스</button>
+    <button class="chip" data-k="tag" data-v="실전팁">실전팁</button>
+    <label class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="제목, 제공자, 키워드 검색" />
+    </label>
+  </div>
+
+  <main id="feed">
+    <!--FEED-->
+  </main>
+
+  <div class="empty" id="nomatch" hidden>조건에 맞는 항목이 없습니다.</div>
+  <footer>AI 트렌드 데일리 · 매일 02:00 KST 전날 공개분 자동 수집 · 30일 이전 항목은 아카이브에 보관</footer>
+</div>
+
+<script>
+(function () {
+  var state = { sec: '', tag: '', q: '' };
+  var items = Array.prototype.slice.call(document.querySelectorAll('.item'));
+  var days = Array.prototype.slice.call(document.querySelectorAll('.day'));
+  var chips = document.querySelectorAll('#controls .chip');
+  var input = document.getElementById('q');
+
+  function apply() {
+    var q = state.q.trim().toLowerCase(), visible = 0;
+    items.forEach(function (el) {
+      var ok = (!state.sec || el.dataset.sec === state.sec)
+        && (!state.tag || el.dataset.tag === state.tag)
+        && (!q || (el.dataset.text || '').indexOf(q) !== -1);
+      el.hidden = !ok; if (ok) visible++;
+    });
+    days.forEach(function (d) {
+      var any = false, n = d.nextElementSibling;
+      while (n && !n.classList.contains('day')) { if (!n.hidden) any = true; n = n.nextElementSibling; }
+      d.hidden = !any;
+    });
+    document.getElementById('nomatch').hidden = visible > 0;
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      var k = c.dataset.k, v = c.dataset.v;
+      state[k] = (k === 'tag' && state.tag === v) ? '' : v;
+      chips.forEach(function (o) { if (o.dataset.k === k) o.classList.toggle('on', o.dataset.v === state[k]); });
+      apply();
+    });
+  });
+  input.addEventListener('input', function () { state.q = input.value; apply(); });
+  document.querySelectorAll('img.thumb').forEach(function (img) {
+    img.addEventListener('error', function () {
+      var it = img.closest('.item'); if (it) it.classList.add('no-img'); img.remove();
+    });
+  });
+})();
+</script>
+</body>
+</html>
