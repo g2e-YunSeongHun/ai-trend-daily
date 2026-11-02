@@ -57,7 +57,9 @@
 
 보조 검색: `coding agent release {TARGET}`, `agent SDK release {TARGET}`, `CLI changelog {TARGET}`, `{도구명} v` + 릴리스
 
-패치 릴리스 처리: 같은 도구의 연속 패치(x.y.1 → x.y.2)는 사용자가 체감할 변경(새 명령·설정·모델 지원·동작 변경)이 있을 때만 1건으로 싣는다. 버그 수정만이면 제외한다.
+패치 릴리스 처리: 같은 도구의 연속 패치(x.y.1 → x.y.2)는 사용자가 체감할 변경(새 명령·설정·모델 지원·동작 변경)이 있을 때만 1건으로 싣는다. 버그 수정만이면 제외한다. `prerelease=true`인 알파·베타·나이틀리 릴리스와 릴리스 노트가 비어 있는 릴리스는 제외한다.
+
+릴리스 확인은 페이지를 열기보다 `gh api repos/OWNER/REPO/releases?per_page=10 --jq '.[] | [.tag_name, .published_at, .prerelease, .html_url] | @tsv'`로 한 번에 보는 편이 빠르다. 범위 밖 항목: 모델 가중치를 수정하는 도구(refusal 제거·abliteration 등)는 이 섹션도 모델 섹션도 아니므로 싣지 않는다.
 
 ### 3. 스킬·MCP
 
@@ -73,7 +75,11 @@
 
 보조 검색: `MCP server release {TARGET}`, `official MCP server {TARGET}`, `Agent Skills {TARGET}`, `Claude Code plugin {TARGET}`, `SKILL.md`
 
-커뮤니티 레포 포함 기준: `TARGET`에 공개됐거나 HN/Reddit에서 처음 주목받은 레포만. 스타 수보다 **용도가 명확하고 README에 설치·설정이 있는지**를 본다. 공식 서버 복제·토이 수준은 제외.
+커뮤니티 레포 포함 기준: `TARGET`에 공개됐거나 HN/Reddit에서 처음 주목받은 레포만. 스타 수보다 **용도가 명확하고 README에 설치·설정이 있는지**를 본다. 공식 서버 복제·토이 수준·"under construction" README·같은 템플릿으로 찍어낸 스킬 레포 묶음은 제외.
+
+당일 공개 레포 찾기: `gh search repos "mcp server" --created {TARGET} --sort stars --limit 15`, `gh search repos "SKILL.md" --created {TARGET}`, `gh search repos "claude code plugin" --created {TARGET}`. 결과는 반드시 README를 열어 판단한다.
+
+이 섹션은 후보가 가장 많이 나온다. 기준을 넘는 레포가 5개 이상이면 **영향 범위**(여러 에이전트·클라이언트에서 쓸 수 있음 > 한 도구 전용 > 특정 프레임워크·지역 전용)와 **일반 개발자에게 쓸모**(코딩·컨텍스트·관측 > 특정 콘텐츠 제작) 순으로 4~5개까지만 남긴다. 레포 소유자 아바타는 `이미지`로 쓰지 않는다.
 
 ### 4. 기법·연구
 
@@ -88,7 +94,9 @@
 
 보조 검색: `prompt engineering {TARGET}`, `context engineering`, `agent design pattern`, `LLM evaluation practical`, `token cost reduction`
 
-이 섹션은 `실전팁` 태그가 기본이다. 다른 섹션에 해당하는 발표를 다룬 커뮤니티 글은 여기가 아니라 해당 섹션에 **원본 URL**로 싣는다.
+이 섹션은 `실전팁` 태그가 기본이다. 다른 섹션에 해당하는 발표를 다룬 커뮤니티 글은 여기가 아니라 해당 섹션에 **원본 URL**로 싣는다. 구체적 절차·명령·수치 없이 "AI 시대의 엔지니어링" 류 주장만 있는 글은 HN 점수가 높아도 제외한다. 도구 간 비교·벤치마크 글(예: 여러 에이전트의 MCP 활용률 측정)은 MCP가 주제여도 이 섹션에 싣는다.
+
+HN은 Algolia API가 편하다: `https://hn.algolia.com/api/v1/search_by_date?tags=story&numericFilters=created_at_i>{T1},created_at_i<{T2},points>50` (`TARGET` 00:00 UTC ~ 다음날 12:00 UTC). 커뮤니티 글은 날짜가 `TARGET`이어도 **가리키는 원본의 날짜**로 판단한다 (예: HN에 어제 올라왔지만 레포는 2주 전 공개 → 제외).
 
 ## 태그 기준
 
@@ -96,6 +104,17 @@
 - `업데이트`: 기존 것의 기능 추가·변경·가격 변경·사양 개정
 - `오픈소스`: 가중치·코드 공개가 핵심인 항목 (신규든 업데이트든)
 - `실전팁`: 사용법·패턴·비교·사례 글
+
+## 출처 접근 메모
+
+실행 환경에 따라 아래 출처는 직접 열리지 않는다. 대체 경로를 쓰고, 끝내 확인 못 하면 보고에 "미확인"으로 남긴다. 우회를 위해 비공식 미러를 찾아다니지 않는다.
+
+- `reddit.com`, `old.reddit.com`: WebFetch·curl 모두 403. `site:reddit.com/r/ClaudeAI {TARGET}` 류 웹 검색으로만 보조 확인한다.
+- `openai.com/news`, `openai.com/index`: HTML 403. `https://openai.com/news/rss.xml`을 쓴다.
+- `x.ai/news`: 403. `docs.x.ai/developers/release-notes`로 대체한다 (월 단위 날짜만 있음).
+- `export.arxiv.org` API: 429가 잦다. 주말에는 신규 목록이 올라오지 않으므로 토·일 `TARGET`은 arXiv를 건너뛴다.
+- `blog.google/technology/ai`: HTML 목록이 내비게이션만 나온다. RSS를 쓴다.
+- GitHub API 무인증은 시간당 60회. `GITHUB_TOKEN`이 있으면 `extract.py`와 `gh`가 자동으로 쓴다.
 
 ## 제외 규칙
 
