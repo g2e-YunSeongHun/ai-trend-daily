@@ -23,6 +23,8 @@ from urllib.parse import urlsplit, urlunsplit
 KST = timezone(timedelta(hours=9))
 SECTIONS = ["모델·API", "도구·에이전트", "스킬·MCP", "기법·연구"]
 TAGS = {"신규출시", "업데이트", "오픈소스", "실전팁"}
+DATE_BASES = {"릴리스일", "공개일", "발행일", "발표일", "주목일"}
+TITLE_MAX = 60
 SEC_ORDER = {s: i for i, s in enumerate(SECTIONS)}
 
 
@@ -74,11 +76,24 @@ def main() -> None:
             raise SystemExit(f"섹션 값이 잘못됨: {item.get('섹션')!r} ({link})")
         if item.get("태그") not in TAGS:
             raise SystemExit(f"태그 값이 잘못됨: {item.get('태그')!r} ({link})")
+        basis = item.get("날짜근거")
+        if basis and basis not in DATE_BASES:
+            raise SystemExit(f"날짜근거 값이 잘못됨: {basis!r} ({link}) — {sorted(DATE_BASES)} 중 하나")
+        if len(str(item.get("제목", ""))) > TITLE_MAX:
+            print(f"WARN 제목 {len(str(item['제목']))}자 > {TITLE_MAX}자: {item['제목']}")
         item.pop("원문", None)
         item["수집일"] = today
         existing.append(item)
         seen.add(key)
         added += 1
+
+    hl_per_day: dict[str, int] = {}
+    for a in existing:
+        if a.get("하이라이트"):
+            hl_per_day[a.get("날짜", "")] = hl_per_day.get(a.get("날짜", ""), 0) + 1
+    for d, n in hl_per_day.items():
+        if n > 1:
+            print(f"WARN {d} 하이라이트 {n}건 — 하루 1건이 원칙")
 
     # 날짜 desc → 섹션 순서 → 제공자 asc → 제목 asc
     existing.sort(key=lambda a: (a.get("제공자", ""), a.get("제목", "")))

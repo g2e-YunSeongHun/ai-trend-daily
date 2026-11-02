@@ -19,7 +19,13 @@
 
 1. **실체가 있다**: 모델·API 기능·도구 릴리스·레포·사양·구체적 기법 중 하나다. "AI가 바꿀 미래" 류의 의견·전망·업계 동향 요약이 아니다.
 2. **써볼 수 있다**: API 호출, CLI 설치, 설정 변경, 레포 clone, 프롬프트 패턴 적용 중 하나로 사용자가 직접 해볼 수 있다. 내부 전용·초청 전용·발표만 되고 접근 불가면 `왜중요`에 그 사실을 적고, 영향이 큰 경우에만 포함한다.
-3. **어제 나왔다**: 공식 발표일·릴리스 날짜·레포 공개일·글 발행일이 `TARGET`이다.
+3. **어제 나왔다**: 공식 발표일·릴리스 날짜·레포 공개일·글 발행일이 `TARGET`이다. 예외는 커뮤니티 레포·글 하나다: 공개는 최근 4주 안에 됐지만 **어제 처음 주목받은 것**(HN 프론트 진입, ★ 급증, GeekNews·Reddit 상위)은 `날짜근거: 주목일`로 포함할 수 있다. 어떤 기준을 썼는지 항목의 `날짜근거`에 남긴다.
+
+## 신호·하이라이트·제목
+
+- `신호`: 독자가 열어볼지 판단할 근거. 공식 출처는 `공식 릴리스`/`공식 발표`, 커뮤니티 레포는 `★N`(가능하면 `★N (공개 당일)`처럼 맥락), HN은 `HN Npt`, 등재 사실(`PyPI·MCP 레지스트리 등재`)도 된다. 확인한 값만 쓴다.
+- `하이라이트`: 하루 최대 1건. 순서는 공식 모델·도구 발표 > 널리 쓰이는 도구의 큰 업데이트 > 실무 판단을 바꾸는 비교·벤치마크 > 커뮤니티 발견. 해당 없으면 비운다.
+- `제목`: 60자 이내, `이름 — 무엇을 하는지 한 구절`. 수치·조건은 한줄정리로 보낸다. 명령·모델 ID는 `백틱`으로 감싸면 피드에서 코드 서식으로 보인다.
 
 ## 섹션 정의와 출처
 
@@ -75,11 +81,14 @@
 
 보조 검색: `MCP server release {TARGET}`, `official MCP server {TARGET}`, `Agent Skills {TARGET}`, `Claude Code plugin {TARGET}`, `SKILL.md`
 
-커뮤니티 레포 포함 기준: `TARGET`에 공개됐거나 HN/Reddit에서 처음 주목받은 레포만. 스타 수보다 **용도가 명확하고 README에 설치·설정이 있는지**를 본다. 공식 서버 복제·토이 수준·"under construction" README·같은 템플릿으로 찍어낸 스킬 레포 묶음은 제외.
+커뮤니티 레포 포함 기준 — 아래 **둘 다** 만족해야 한다.
 
-당일 공개 레포 찾기: `gh search repos "mcp server" --created {TARGET} --sort stars --limit 15`, `gh search repos "SKILL.md" --created {TARGET}`, `gh search repos "claude code plugin" --created {TARGET}`. 결과는 반드시 README를 열어 판단한다.
+1. **주목 신호가 하나는 있다**: ★50 이상, HN 프론트 페이지(≈50pt 이상), Reddit 해당 서브 일간 상위, GeekNews 게재, 공식 레지스트리·PyPI·npm 등재 중 하나. 어제 생성된 ★3짜리 레포는 아무리 README가 좋아도 하루 더 기다린다(다음 날 신호가 생기면 `주목일`로 들어온다).
+2. **용도가 명확하고 README에 설치·설정이 있다.** 공식 서버 복제·토이 수준·"under construction" README·같은 템플릿으로 찍어낸 스킬 레포 묶음은 제외.
 
-이 섹션은 후보가 가장 많이 나온다. 기준을 넘는 레포가 5개 이상이면 **영향 범위**(여러 에이전트·클라이언트에서 쓸 수 있음 > 한 도구 전용 > 특정 프레임워크·지역 전용)와 **일반 개발자에게 쓸모**(코딩·컨텍스트·관측 > 특정 콘텐츠 제작) 순으로 4~5개까지만 남긴다. 레포 소유자 아바타는 `이미지`로 쓰지 않는다.
+당일 공개 레포 찾기: `gh search repos "mcp server" --created {TARGET} --sort stars --limit 15`, `gh search repos "SKILL.md" --created {TARGET}`, `gh search repos "claude code plugin" --created {TARGET}`. 최근 4주 생성 레포 중 어제 주목받은 것은 HN·Reddit·GeekNews 시드에서 찾는다. 결과는 반드시 README를 열어 판단한다.
+
+이 섹션은 후보가 가장 많이 나온다. **하루 3건까지만** 싣는다. 넘치면 **영향 범위**(여러 에이전트·클라이언트에서 쓸 수 있음 > 한 도구 전용 > 특정 프레임워크·지역 전용)와 **일반 개발자에게 쓸모**(코딩·컨텍스트·관측 > 특정 콘텐츠 제작) 순으로 고르고, 탈락한 것은 수집 기록에 `상한 초과`로 남긴다. 레포 소유자 아바타는 `이미지`로 쓰지 않는다(빌드가 GitHub 미리보기 이미지를 자동으로 쓴다).
 
 ### 4. 기법·연구
 
@@ -89,7 +98,7 @@
 
 - 공식 엔지니어링 블로그: `anthropic.com/engineering`, `openai.com/index` 연구 항목, `developers.googleblog.com`
 - 블로거·뉴스레터: `simonwillison.net`, `latent.space`, `interconnects.ai`, `www.oneusefulthing.org`, `newsletter.pragmaticengineer.com` AI 항목
-- 커뮤니티: `news.ycombinator.com` 프론트 페이지, `reddit.com/r/ClaudeAI`, `reddit.com/r/LocalLLaMA`, `reddit.com/r/MachineLearning`
+- 커뮤니티: `news.ycombinator.com` 프론트 페이지(Algolia API), Reddit RSS(`https://www.reddit.com/r/ClaudeAI/top.rss?t=day`, 같은 형식으로 `r/LocalLLaMA`, `r/MachineLearning`, `r/mcp`), GeekNews RSS(`https://news.hada.io/rss/news` → feedburner Atom, 한국어 큐레이션 — 모든 섹션의 시드로 쓴다. GeekNews 글이 가리키는 원본 URL을 후보로 삼는다)
 - 논문: `arxiv.org` cs.CL / cs.AI 중 **코드·데모가 공개되고 실무 적용 방법이 명확한 것**만. 순수 이론·벤치마크 수치 경쟁만인 논문은 제외
 
 보조 검색: `prompt engineering {TARGET}`, `context engineering`, `agent design pattern`, `LLM evaluation practical`, `token cost reduction`
@@ -109,7 +118,8 @@ HN은 Algolia API가 편하다: `https://hn.algolia.com/api/v1/search_by_date?ta
 
 실행 환경에 따라 아래 출처는 직접 열리지 않는다. 대체 경로를 쓰고, 끝내 확인 못 하면 보고에 "미확인"으로 남긴다. 우회를 위해 비공식 미러를 찾아다니지 않는다.
 
-- `reddit.com`, `old.reddit.com`: WebFetch·curl 모두 403. `site:reddit.com/r/ClaudeAI {TARGET}` 류 웹 검색으로만 보조 확인한다.
+- `reddit.com` HTML·JSON: 403. **RSS는 열린다**: `curl -s -A "Mozilla/5.0 ai-trend-daily" "https://www.reddit.com/r/ClaudeAI/top.rss?t=day"` (Atom, `<entry>`/`<published>`/`<link href>`). WebFetch로는 안 되므로 curl을 쓴다.
+- `news.hada.io` HTML: 403. RSS `https://news.hada.io/rss/news`는 `feeds.feedburner.com/geeknews-feed`로 302 리다이렉트되므로 `curl -sL`로 받는다. Atom 형식(`<entry>`, `<published>`는 KST, `<title>`은 CDATA, 링크는 `<link rel='alternate' href='...'>`), 최신 50건.
 - `openai.com/news`, `openai.com/index`: HTML 403. `https://openai.com/news/rss.xml`을 쓴다.
 - `x.ai/news`: 403. `docs.x.ai/developers/release-notes`로 대체한다 (월 단위 날짜만 있음).
 - `export.arxiv.org` API: 429가 잦다. 주말에는 신규 목록이 올라오지 않으므로 토·일 `TARGET`은 arXiv를 건너뛴다.

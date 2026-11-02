@@ -2,10 +2,12 @@
   {
     "섹션": "도구·에이전트",
     "태그": "업데이트",
-    "제목": "crewAI 1.15.34 — `crewai skill search`, `run --inputs` 플로우 전달, `deploy create --zip` 추가",
+    "제목": "crewAI 1.15.34 — skill search·run --inputs·deploy --zip 추가",
     "제공자": "crewAI",
     "출처": "GitHub crewAIInc/crewAI 릴리스",
     "날짜": "2026-11-01",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
     "링크": "https://github.com/crewAIInc/crewAI/releases/tag/1.15.34",
     "관련링크": [
       {
@@ -29,10 +31,12 @@
   {
     "섹션": "스킬·MCP",
     "태그": "신규출시",
-    "제목": "stack-diagram — 스택을 한 문장으로 설명하면 공식 로고가 들어간 아키텍처 다이어그램을 그려주는 Agent Skill",
+    "제목": "stack-diagram — 공식 로고가 들어간 아키텍처 다이어그램을 그리는 Agent Skill",
     "제공자": "커뮤니티(caru-ini)",
     "출처": "GitHub caru-ini/stack-diagram",
     "날짜": "2026-11-01",
+    "날짜근거": "공개일",
+    "신호": "★549 (공개 당일)",
     "링크": "https://github.com/caru-ini/stack-diagram",
     "관련링크": [
       {
@@ -57,10 +61,12 @@
   {
     "섹션": "스킬·MCP",
     "태그": "신규출시",
-    "제목": "surgical-context-mcp — 파일 전체 대신 편집에 필요한 코드 컨텍스트만 돌려주는 MCP 서버",
+    "제목": "surgical-context-mcp — 파일 전체 대신 편집 컨텍스트만 주는 MCP 서버",
     "제공자": "커뮤니티(erayerturk)",
     "출처": "GitHub erayerturk/surgical-context-mcp",
     "날짜": "2026-11-01",
+    "날짜근거": "공개일",
+    "신호": "PyPI·MCP 레지스트리 등재",
     "링크": "https://github.com/erayerturk/surgical-context-mcp",
     "관련링크": [
       {
@@ -81,10 +87,12 @@
   {
     "섹션": "스킬·MCP",
     "태그": "신규출시",
-    "제목": "AI Media Router — 43개 공급자의 이미지·영상 생성 모델을 자기 키로 묶어 쓰는 단일 MCP 서버",
+    "제목": "AI Media Router — 43개 공급자의 이미지·영상 생성을 묶는 MCP 서버",
     "제공자": "커뮤니티(jutsuhq)",
     "출처": "GitHub jutsuhq/ai-media-router",
     "날짜": "2026-11-01",
+    "날짜근거": "공개일",
+    "신호": "★3 (공개 당일)",
     "링크": "https://github.com/jutsuhq/ai-media-router",
     "관련링크": [
       {
@@ -105,10 +113,12 @@
   {
     "섹션": "스킬·MCP",
     "태그": "신규출시",
-    "제목": "session-lens — 컨텍스트 창·토큰 비용·서브에이전트별 도구/MCP/스킬 사용을 실시간으로 보여주는 Claude Code 플러그인",
+    "제목": "session-lens — Claude Code 토큰·서브에이전트 사용을 보여주는 관측 플러그인",
     "제공자": "커뮤니티(neokn)",
     "출처": "GitHub neokn/session-lens",
     "날짜": "2026-11-01",
+    "날짜근거": "공개일",
+    "신호": "★3 (공개 당일)",
     "링크": "https://github.com/neokn/session-lens",
     "한줄정리": "`/session-lens`로 패널을 열어 메인·서브에이전트의 컨텍스트 점유, 종류별 토큰 비용, 도구·스킬·MCP 호출 타임라인, 컴팩션 횟수, 실행 중인 백그라운드 셸을 보여주는 Claude Code 플러그인.",
     "왜중요": "서브에이전트까지 포함해 세션 중에 어디서 토큰이 새는지 바로 볼 수 있다. Anthropic 공식 session-report 플러그인을 함께 설치해 리포트 생성에 쓴다. Claude Code 2.1.308 이상과 jq가 필요하다.",
@@ -123,10 +133,12 @@
   {
     "섹션": "스킬·MCP",
     "태그": "신규출시",
-    "제목": "llx-desk — 에이전트가 조작하고 사람이 지켜보는 브라우저·터미널 네이티브 창 (MCP 서버 + Claude Code 플러그인)",
+    "제목": "llx-desk — 에이전트가 조작하고 사람이 지켜보는 브라우저·터미널 창",
     "제공자": "커뮤니티(rsaryev)",
     "출처": "GitHub rsaryev/llx-desk",
     "날짜": "2026-11-01",
+    "날짜근거": "공개일",
+    "신호": "★4 (공개 당일)",
     "링크": "https://github.com/rsaryev/llx-desk",
     "관련링크": [
       {
@@ -147,10 +159,13 @@
   {
     "섹션": "기법·연구",
     "태그": "실전팁",
-    "제목": "같은 Haiku 5.5인데 에이전트가 다르면 17점 차이 — 21개 MCP 서버로 Claude Code·OpenCode·Codex 비교",
+    "제목": "같은 Haiku 5.5, 에이전트 따라 MCP 활용률 17점 차이 — 3,717회 벤치마크",
     "제공자": "커뮤니티(SineFrame)",
     "출처": "SineFrame M3 블로그",
     "날짜": "2026-11-01",
+    "날짜근거": "발행일",
+    "신호": "3,717회 측정 · 방법론·도구 공개",
+    "하이라이트": true,
     "링크": "https://m3.sineframe.com/blog/same-model-different-agent",
     "관련링크": [
       {
