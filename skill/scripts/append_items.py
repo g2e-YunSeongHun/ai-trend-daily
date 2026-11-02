@@ -23,7 +23,7 @@ from urllib.parse import urlsplit, urlunsplit
 KST = timezone(timedelta(hours=9))
 SECTIONS = ["모델·API", "도구·에이전트", "스킬·MCP", "기법·연구"]
 TAGS = {"신규출시", "업데이트", "오픈소스", "실전팁"}
-DATE_BASES = {"릴리스일", "공개일", "발행일", "발표일", "주목일"}
+DATE_BASES = {"릴리스일", "공개일", "발행일", "발표일", "발효일", "주목일"}
 TITLE_MAX = 60
 SEC_ORDER = {s: i for i, s in enumerate(SECTIONS)}
 
