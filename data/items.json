@@ -1,6 +1,175 @@
 [
   {
     "섹션": "모델·API",
+    "태그": "신규출시",
+    "제목": "Claude API message threads — 새 메시지만 보내는 대화 스레드 베타",
+    "제공자": "Anthropic",
+    "출처": "Claude Platform 릴리스 노트",
+    "날짜": "2026-11-02",
+    "날짜근거": "발표일",
+    "신호": "공식 릴리스 노트",
+    "하이라이트": true,
+    "링크": "https://platform.claude.com/docs/en/build-with-claude/message-threads",
+    "관련링크": [
+      {
+        "라벨": "릴리스 노트",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview"
+      }
+    ],
+    "한줄정리": "Messages API가 대화를 서버에 잠시 보관해, 이후 요청에는 직전 응답 id와 새 메시지만 보내면 되는 message threads 기능이 `message-threads-2026-08-12` 베타 헤더로 나왔다.",
+    "왜중요": "긴 대화·에이전트 루프에서 매 턴 전체 대화를 다시 올리고 검증·토큰화하던 부담이 줄어 요청이 작아지고 첫 토큰 지연이 낮아진다. 스레드는 마지막 요청 5분 뒤 만료되고 최대 1시간 안에 삭제되는 best-effort 방식이라, 만료 시 404를 받고 전체 대화로 다시 create해야 한다. 가격·레이트 리밋은 바뀌지 않으며 ZDR 대상이 아니고, Message Batches·토큰 카운팅과는 함께 쓸 수 없다.",
+    "써보기": "client = anthropic.Anthropic()\nthread = client.beta.messages.thread(\n    model=\"claude-opus-5-5\",\n    max_tokens=1024,\n    cache_control={\"type\": \"ephemeral\"},\n    system=\"You are a support agent for Acme. Keep replies short.\",\n)\nthread.send({\"role\": \"user\", \"content\": \"Hi! I have a question about an order.\"})",
+    "세부": {
+      "핵심 변경점": "Messages API 요청에 thread 파라미터 추가. 첫 요청은 \"thread\": {\"type\": \"create\"}, 이후는 \"thread\": {\"type\": \"continue\", \"previous_message_id\": \"<previous id>\"}로 새 메시지만 보내고 system·tools는 생략. SDK의 client.beta.messages.thread 헬퍼가 만료 시 재전송까지 처리",
+      "제약·가격": "베타(message-threads-2026-08-12 헤더). 가격·레이트 리밋 변화 없음. 마지막 요청 5분 후 만료, 최대 1시간 내 삭제. ZDR 비대상. Message Batches·토큰 카운팅 미지원",
+      "호환·요구사항": "Claude API, Claude Platform on AWS, Claude Models on Google Cloud(Anthropic managed), Claude in Microsoft Foundry에서 사용 가능"
+    },
+    "수집일": "2026-11-03"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "업데이트",
+    "제목": "Gemini 2.5 Pro·Flash 지원 종료 예고 — 12/1부터 3.x로 자동 전환",
+    "제공자": "Google",
+    "출처": "Gemini API 릴리스 노트",
+    "날짜": "2026-11-02",
+    "날짜근거": "발표일",
+    "신호": "공식 릴리스 노트",
+    "하이라이트": false,
+    "링크": "https://ai.google.dev/gemini-api/docs/deprecations",
+    "관련링크": [
+      {
+        "라벨": "릴리스 노트",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "한줄정리": "`gemini-2.5-pro`와 `gemini-2.5-flash`가 지원 종료(deprecated)되어 AI Studio에서 더는 선택할 수 없고, 2026년 12월 1일부터 API 요청이 각각 `gemini-3.8-flash`·`gemini-3.5-flash-lite`로 자동 라우팅된다.",
+    "왜중요": "12월 1일 이후에는 2.5 모델 문자열로 보낸 요청이 다른 모델로 처리되고 그 모델 요금으로 과금된다. 마이그레이션 시 함수 호출·`thought_signature` 검증, `thinking_budget` 대신 `thinking_level`, 샘플링 파라미터와 미리 채운 모델 턴 제거 같은 호환성 깨지는 변경이 있어, 2.5를 쓰는 코드는 그 전에 모델 문자열과 요청 형식을 점검해야 한다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "gemini-2.5-pro → gemini-3.8-flash, gemini-2.5-flash → gemini-3.5-flash-lite로 12/1부터 자동 라우팅. AI Studio 선택 목록에서 제거",
+      "제약·가격": "전환 후 Gemini 3.8 Flash / Gemini 3.5 Flash-Lite 요금으로 과금",
+      "호환·요구사항": "함수 호출·thought_signature 검증, thinking_level이 thinking_budget 대체, 샘플링 파라미터·prefilled model turn 제거"
+    },
+    "수집일": "2026-11-03"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "DeepSeek-V4.1-Flash GSQ-RCO Coder — 763B를 1비트 72GB로 압축",
+    "제공자": "커뮤니티(ISTA-DASLab)",
+    "출처": "Hugging Face ISTA-DASLab",
+    "날짜": "2026-11-02",
+    "날짜근거": "공개일",
+    "신호": "HF ♥90 (공개 당일) · r/LocalLLaMA 주간 상위",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-Coder-GGUF",
+    "관련링크": [
+      {
+        "라벨": "Reddit 토론",
+        "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xlys6k/release_ista_deepseekv41flash1017_gsqrco_coder_a/"
+      }
+    ],
+    "한줄정리": "DeepSeek-V4.1-Flash-1017(763B MoE)에서 레이어당 384개 전문가 중 절반을 제거하고 나머지를 양자화해, 트랜스포머 가중치를 72.1GB(원본 대비 1.05 bpw)로 줄인 코드·에이전트용 GGUF다.",
+    "왜중요": "카드 기준 SWE-bench Verified 77.00(원본 81.20, 94.8% 유지), LiveCodeBench v6 88.57(98.7% 유지)로, 코드·에이전트 도구 사용·긴 컨텍스트·비전에 필요한 전문가만 남긴 것이 핵심이다. 그 밖의 영역 성능 저하는 감수한 실험 릴리스라 범용 용도에는 가지치기하지 않은 GSQ-RCO 빌드를 권한다. 별도 Engram 테이블(110.6GB)은 토큰당 한 행만 읽어 디스크에 둘 수 있다.",
+    "써보기": "pip install -U \"huggingface_hub[cli]\"\nhf download ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-Coder-GGUF \\\n  --include \"IQ2_XXS/*\" \"*Engram*\" --local-dir .",
+    "세부": {
+      "핵심 변경점": "라우팅 전문가 192/384개 제거 + IQ2_XXS 빌드의 텐서별 양자화 유지. 트랜스포머 72.1GB(비가지치기 IQ2_XXS 138.2GB)",
+      "제약·가격": "실험 릴리스. 코드·에이전트·긴 컨텍스트·비전 외 영역은 성능 저하. 가중치는 베이스 모델 라이선스(MIT) 승계",
+      "호환·요구사항": "llama.cpp b11870 이상(DeepSeek-V4.1 지원). Engram 파일을 6번째 샤드 이름으로 링크해야 함. Strata로도 로컬 추론 가능"
+    },
+    "수집일": "2026-11-03"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Claude Code 2.1.317 — 훅 onFailure: \"block\"·OTel 속성 추가",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/claude-code",
+    "날짜": "2026-11-02",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm 2026-11-02 23:57 UTC)",
+    "하이라이트": false,
+    "링크": "https://github.com/anthropics/claude-code/releases/tag/v2.1.317",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://code.claude.com/docs/en/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.317"
+      }
+    ],
+    "한줄정리": "Agent SDK 훅 콜백 실패 시 동작을 막는 `onFailure: \"block\"`, OTel 메트릭·이벤트·스팬의 플랜·좌석·공급자 속성, Claude apps gateway 비용 리포트 API 등을 더한 Claude Code 릴리스다.",
+    "왜중요": "지금까지는 훅 콜백이 실패하면 동작이 그대로 진행됐지만, `onFailure: \"block\"`을 주면 실패한 검사가 동작을 막는다. OTel에 `anthropic.plan`·`anthropic.seat_type`·`anthropic.provider`·`anthropic.custom_base_url`이 붙어 조직 단위 관측이 쉬워졌고, gateway 관리자는 `GET /v1/organizations/analytics/cost`로 개발자·일자·IdP 그룹별 지출을 볼 수 있다. 웹·셸 도구 호출이 계정 이메일을 네트워크로 보내기 전에 묻는 확인도 추가됐다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "Agent SDK 훅 onFailure: \"block\", /schedule 커넥터 경고, 이메일 전송 전 확인, OTel 속성 4종, gateway 비용 리포트 API·IdP 그룹 일일 기록, CLAUDE_CODE_DISABLE_NESTED_SESSION_ID, 다수 버그 수정(데스크톱 MCP 연결 끊김, 압축 후 Prompt is too long 등)",
+      "제약·가격": "",
+      "호환·요구사항": "claude --version으로 버전 확인"
+    },
+    "수집일": "2026-11-03"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "LLM 0.37 — gpt-6.1 모델·OpenAI 호환 엔드포인트 추가 명령",
+    "제공자": "커뮤니티(Simon Willison)",
+    "출처": "Simon Willison",
+    "날짜": "2026-11-02",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (작성자 블로그)",
+    "하이라이트": false,
+    "링크": "https://simonwillison.net/2026/Nov/2/llm/",
+    "관련링크": [],
+    "한줄정리": "Simon Willison의 LLM CLI·Python 라이브러리 0.37 릴리스로, `gpt-6.1-sol`·`gpt-6.1-terra` 지원과 OpenAI 호환 엔드포인트를 쉽게 등록하는 `llm openai endpoint add` 명령이 추가됐다.",
+    "왜중요": "약 두 달치 기능·수정을 모은 릴리스다. 사용자가 기본 모델을 지정하지 않았다면 기본값이 이전 `gpt-5.6-luna`의 절반 가격인 `gpt-6-luna`로 바뀌므로 비용·결과가 달라질 수 있다. 임베딩이 바이너리 콘텐츠별 content-type을 받게 돼 Gemini Embedding 2처럼 텍스트·오디오·이미지·영상을 임베딩하는 모델을 쓸 수 있다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "gpt-6.1-sol·gpt-6.1-terra 추가, llm openai endpoint add 명령, 기본 모델 gpt-6-luna로 변경, 임베딩 content-type 지원",
+      "제약·가격": "",
+      "호환·요구사항": ""
+    },
+    "수집일": "2026-11-03"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "오픈소스",
+    "제목": "Weight-Space Programming — LLM이 가중치를 직접 읽고 고쳐 Qwen 개선",
+    "제공자": "커뮤니티(Rikiya Takehi 외)",
+    "출처": "rikiyat.github.io",
+    "날짜": "2026-11-02",
+    "날짜근거": "발행일",
+    "신호": "HN 2477pt",
+    "하이라이트": false,
+    "링크": "https://rikiyat.github.io/blog/weight-space-programming/",
+    "관련링크": [
+      {
+        "라벨": "실험 로그",
+        "url": "https://github.com/RikiyaT/lm_understand-logs"
+      },
+      {
+        "라벨": "수정 모델",
+        "url": "https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming"
+      },
+      {
+        "라벨": "HN",
+        "url": "https://news.ycombinator.com/item?id=50341174"
+      }
+    ],
+    "한줄정리": "GPT-6 Astra가 학습 루프 없이 신경망 가중치를 직접 읽고 써서, Qwen3.5-0.8B의 가중치 0.016%를 고쳐 MATH-500을 7.9%에서 48.1%로 올렸다는 연구 글이다.",
+    "왜중요": "옵티마이저 대신 LLM이 추론으로 네트워크 각 부분이 무엇을 계산하는지 파악해 가중치를 바꾸는 'Weight-Space Programming'을 제안한다. 같은 수정이 IFEval도 3배 올렸고, 원시 가중치만 보고 네트워크 용도를 맞히거나 PPO 1억 스텝 학습 네트워크보다 나은 게임 네트워크를 처음부터 쓰는 실험도 담았다. 모든 실험의 입출력·코드 로그를 공개해 재현·검토가 가능하다. 반박 글(seangoedecke.com)도 같은 날 HN에 올라왔다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "LLM이 가중치를 직접 읽기·쓰기. Qwen3.5-0.8B 추론 루프 문제를 가중치 0.016% 수정으로 해결, MATH-500 7.9%→48.1%, IFEval 3배",
+      "제약·가격": "초기 결과. 실험에는 GPT-6 Astra 사용",
+      "호환·요구사항": "실험 로그 github.com/RikiyaT/lm_understand-logs, 수정 모델 Hugging Face 공개"
+    },
+    "수집일": "2026-11-03"
+  },
+  {
+    "섹션": "모델·API",
     "태그": "업데이트",
     "제목": "DeepSeek Search·Fetch API — 11/1부터 1,000건당 $0.75 과금 시작",
     "제공자": "DeepSeek",
