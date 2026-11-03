@@ -42,6 +42,7 @@ _work/                        작업 파일. git에 올리지 않는다
 ```bash
 pip install trafilatura requests playwright
 playwright install chromium   # 실패해도 계속 진행한다. trafilatura+requests만으로 동작한다
+python -c "import trafilatura, requests"   # 설치가 끝났는지 확인하고 나서 extract.py를 쓴다
 ```
 
 `GITHUB_TOKEN` 환경 변수가 있으면 `extract.py`가 GitHub API 호출에 사용한다. 없어도 동작한다(시간당 60회 제한).
@@ -88,6 +89,7 @@ echo '["https://url1", "https://url2"]' | python skill/scripts/extract.py > _wor
 - `github_release`: `date`는 릴리스 `published_at`, `text`는 릴리스 노트.
 - `github_repo`: `date`는 최신 릴리스 날짜, 없으면 레포 생성일. `text`는 설명+README 앞부분, `title`에 스타 수 포함.
 - `github_file`(CHANGELOG.md 등): `date=null`. 본문에서 `TARGET` 버전 항목을 직접 찾아 판단한다.
+- 클라우드 루틴 환경에서는 GitHub 접근이 이 저장소로 제한돼 GitHub URL 검증이 `error: github api unavailable`로 끝난다. 그 경우 `source-rules.md`의 "클라우드 루틴 환경에서의 제약"대로 PyPI/npm·공식 체인지로그로 날짜를 확정하고, `날짜근거`에 그 출처를 적는다.
 
 판정 규칙:
 

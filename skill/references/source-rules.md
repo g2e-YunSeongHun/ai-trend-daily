@@ -125,6 +125,17 @@ HN은 Algolia API가 편하다: `https://hn.algolia.com/api/v1/search_by_date?ta
 - `export.arxiv.org` API: 429가 잦다. 주말에는 신규 목록이 올라오지 않으므로 토·일 `TARGET`은 arXiv를 건너뛴다.
 - `blog.google/technology/ai`: HTML 목록이 내비게이션만 나온다. RSS를 쓴다.
 - GitHub API 무인증은 시간당 60회. `GITHUB_TOKEN`이 있으면 `extract.py`와 `gh`가 자동으로 쓴다.
+- `blog.modelcontextprotocol.io`: 404가 나는 날이 있다. `github.com/modelcontextprotocol/modelcontextprotocol` 커밋·릴리스로 대체한다.
+
+### 클라우드 루틴 환경에서의 제약 (2026-11-03 첫 실행에서 확인)
+
+- **GitHub 접근이 이 저장소로 제한된다.** `gh api`, `api.github.com`, `github.com/.../releases.atom` 모두 다른 레포에는 "GitHub access to this repository is not enabled for this session"을 돌려준다. `extract.py`의 GitHub 분기도 같은 이유로 실패한다. 순서대로 시도한다:
+  1. 세션에 `add_repo` 툴이 있으면 필요한 공개 레포(anthropics/claude-code, openai/codex, google-gemini/gemini-cli, modelcontextprotocol/servers, anthropics/skills, crewAIInc/crewAI 등)에 읽기 접근을 요청한 뒤 `gh api`를 쓴다.
+  2. 안 되면 **패키지 레지스트리로 릴리스 날짜를 확인한다**: PyPI `https://pypi.org/pypi/<pkg>/json` (`releases[<ver>][0].upload_time`), npm `https://registry.npmjs.org/<pkg>` (`time[<ver>]`). 예: `@anthropic-ai/claude-code`, `@openai/codex`, `@google/gemini-cli`, `crewai`, `aider-chat`, `claude-agent-sdk`, `openai-agents`, `langgraph`, `google-adk`, `pydantic-ai`, `@modelcontextprotocol/sdk`, `mcp`.
+  3. 공식 체인지로그 페이지: `code.claude.com/docs/en/changelog`, Codex 체인지로그, `cursor.com/changelog`, `github.blog/changelog/feed/`.
+  4. 그래도 못 본 레포는 수집 기록의 `unavailable`에 "클라우드 GitHub 제한"으로 남긴다. `gh search repos`도 불가하므로 스킬·MCP의 당일 레포 탐색은 HN·Reddit·GeekNews 시드와 MCP 레지스트리(`registry.modelcontextprotocol.io/v0.1/servers?updated_since=<TARGET>`)로 대신한다.
+- **`pip install`이 2분을 넘길 수 있다.** 설치가 끝나기 전에 `extract.py`를 돌리면 `trafilatura` 없음으로 전부 실패한다. 설치 명령에 넉넉한 타임아웃을 주고 `python -c "import trafilatura, requests"`로 확인한 뒤 진행한다.
+- 열리는 것: HN Algolia, Reddit RSS(curl), GeekNews RSS, simonwillison.net atom, anthropic.com/news, platform.claude.com 릴리스 노트, cursor.com/changelog, github.blog 피드, blog.google RSS, huggingface.co/blog/feed.xml, ai.google.dev 체인지로그. `openai.com/index`는 403(RSS 사용).
 
 ## 제외 규칙
 
