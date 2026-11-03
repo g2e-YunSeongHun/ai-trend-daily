@@ -1,5 +1,239 @@
 [
   {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "GitHub Copilot in JetBrains Air — ACP로 Air에서 Copilot 에이전트 사용",
+    "제공자": "GitHub",
+    "출처": "GitHub Changelog",
+    "날짜": "2026-11-03",
+    "날짜근거": "발표일",
+    "신호": "공식 발표",
+    "하이라이트": true,
+    "링크": "https://github.blog/changelog/2026-11-03-github-copilot-is-now-available-in-jetbrains-air",
+    "관련링크": [],
+    "이미지": "https://github.blog/wp-content/uploads/2026/11/689797142-96dbb0c9-dccb-41f6-8990-acf5c575db04.png",
+    "한줄정리": "JetBrains Air의 에이전트 선택기에서 GitHub Copilot을 골라 작업 위임·실행 안내·결과 검토를 할 수 있게 됐다.",
+    "왜중요": "통합은 Agent Client Protocol(ACP) 기반이며 JetBrains IDE 안 로컬 작업과 클라우드 작업을 모두 지원하고, 기존 Copilot 구독으로 여러 에이전트 세션을 추적하며 코드 옆에서 변경을 검토할 수 있다. 클라우드 작업은 Air Teams를 통해 격리된 환경에서 돌고 JetBrains AI 크레딧이 아니라 Copilot 플랜을 쓴다. 단 클라우드 작업에는 Air Teams가 켜진 비즈니스 조직 JetBrains 계정과 관리자의 Copilot 활성화가 필요하다.",
+    "세부": {
+      "핵심 변경점": "Air 에이전트 선택기에 GitHub Copilot 추가, ACP 통합, 로컬·클라우드 작업 지원",
+      "제약·가격": "Copilot 플랜 사용(JetBrains AI 크레딧 아님). 클라우드 작업은 Air Teams 비즈니스 조직 필요, 작업별 개인/조직 플랜 선택 불가, Air 분석에 Copilot 사용량 미포함",
+      "호환·요구사항": "JetBrains Air, GitHub Copilot 구독"
+    },
+    "수집일": "2026-11-04"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "Screenplay — 에이전트가 프롬프트 하나로 화면 녹화 영상을 만드는 MCP",
+    "제공자": "커뮤니티(gmpetrov)",
+    "출처": "GitHub gmpetrov/agent-screenplay",
+    "날짜": "2026-11-03",
+    "날짜근거": "공개일",
+    "신호": "MCP 레지스트리·npm 등재, r/ClaudeAI 일간 상위",
+    "하이라이트": false,
+    "링크": "https://github.com/gmpetrov/agent-screenplay",
+    "관련링크": [
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/agent-screenplay"
+      },
+      {
+        "라벨": "Reddit r/ClaudeAI 글",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1xmp6kt/i_built_an_opensource_tool_that_lets_claude_code/"
+      }
+    ],
+    "한줄정리": "에이전트가 사이트·데스크톱 앱을 탐색해 JSON 시나리오를 쓰면 Screenplay가 촬영하고 커서·자동 줌·클릭 효과·자막·보이스오버를 넣어 편집하는 MCP 서버 겸 CLI다.",
+    "왜중요": "Claude Code, Codex, Cursor 등 MCP 클라이언트 어디서나 동작하고, Screenplay 자체에는 AI가 없어 모델 키가 필요 없다. 제품 데모·온보딩 영상을 에이전트에게 맡길 수 있다. 기본 출력 1920×1080 30fps, 최대 4K이며 MCP 없이 `check`/`record`/`render` CLI로도 쓴다.",
+    "써보기": "npx agent-screenplay init\n# Claude Code에서\n/screenplay Make a 30-second walkthrough of https://askli.co",
+    "세부": {
+      "핵심 변경점": "시나리오 기반 촬영·자동 편집, init이 Chromium 설치와 에이전트별 MCP 등록·가이드 설치",
+      "제약·가격": "오픈소스, 모델 키 불필요",
+      "호환·요구사항": "Node 20+, macOS는 화면 기록·손쉬운 사용 권한 필요. npm 0.1.0 2026-11-02 22:39Z(KST 11-03)"
+    },
+    "수집일": "2026-11-04"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "llx-desk — 에이전트가 쓰고 사람이 지켜보는 브라우저·터미널 창",
+    "제공자": "커뮤니티(rsaryev)",
+    "출처": "GitHub rsaryev/llx-desk",
+    "날짜": "2026-11-03",
+    "날짜근거": "주목일",
+    "신호": "Reddit r/mcp 일간 4위",
+    "하이라이트": false,
+    "링크": "https://github.com/rsaryev/llx-desk",
+    "관련링크": [
+      {
+        "라벨": "Reddit r/mcp 글",
+        "url": "https://www.reddit.com/r/mcp/comments/1xmdz01/i_made_llxdesk_a_26_mb_browser_window_claude_code/"
+      },
+      {
+        "라벨": "릴리스",
+        "url": "https://github.com/rsaryev/llx-desk/releases/latest"
+      }
+    ],
+    "한줄정리": "브라우저 페이지와 터미널을 탭으로 띄우는 네이티브 창으로, Claude Code·Codex 등 어떤 에이전트든 셸에서 호출해 작업하고 사람은 옆에서 지켜본다.",
+    "왜중요": "페이지는 시스템 WebView(macOS WKWebView, Linux WebKitGTK) 위에서 열리고 에이전트는 개요로 읽고 ref로 클릭·입력하며 스크린샷을 찍는다. 터미널은 PTY라 사람과 에이전트가 함께 입력하고, 사람이 요소에 남긴 코멘트가 에이전트에 전달된다. `goal` 액션은 반복 클릭을 OpenRouter의 작은 모델에 넘기며, 스킬·슬래시 명령·훅이 든 Claude Code 플러그인으로도 설치할 수 있다. 11/1 수집 때는 신호가 없어 보류했던 레포다.",
+    "써보기": "curl -fsSL https://raw.githubusercontent.com/rsaryev/llx-desk/main/install.sh | sh",
+    "세부": {
+      "핵심 변경점": "에이전트용 브라우저·터미널 창, 요소 코멘트, goal 위임",
+      "제약·가격": "goal은 선택적 OpenRouter 키 필요",
+      "호환·요구사항": "macOS 또는 Linux x86_64(WebKitGTK 4.1, GTK 3, glibc 2.35+)"
+    },
+    "수집일": "2026-11-04"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "tokendoctor — Claude Code 토큰 낭비를 진단·수정하는 플러그인",
+    "제공자": "커뮤니티(rsaryev)",
+    "출처": "GitHub rsaryev/tokendoctor",
+    "날짜": "2026-11-03",
+    "날짜근거": "주목일",
+    "신호": "Reddit r/mcp 일간 1위",
+    "하이라이트": false,
+    "링크": "https://github.com/rsaryev/tokendoctor",
+    "관련링크": [
+      {
+        "라벨": "Reddit r/mcp 글",
+        "url": "https://www.reddit.com/r/mcp/comments/1xme6zw/compacting_at_400k_instead_of_967k_cut_my_claude/"
+      },
+      {
+        "라벨": "웹사이트",
+        "url": "https://tokendoctor.dev"
+      }
+    ],
+    "한줄정리": "Claude Code 사용에서 과금되는 토큰 낭비를 보여 주고 설정을 고치며, 바꾼 것을 언제든 되돌릴 수 있게 하는 로컬 플러그인이다.",
+    "왜중요": "`/tokendoctor:sessions`는 실제 세션을 더 작은 컨텍스트 창으로 재생해 절감액을 먼저 보여 주고, `/tokendoctor:optimize`는 31개 설정 점검 후 고른 변경만 diff로 보여 주고 적용한다. `/tokendoctor slide on`은 요약 압축 대신 오래된 도구 출력만 빼고 대화는 그대로 둔다. README 기준 작성자 1인의 전후 비교로 400K 창과 서브에이전트용 Sonnet 적용 후 요청당 비용 −43%, 요청당 컨텍스트 412K → 219K였다(통제 실험 아님).",
+    "써보기": "claude plugin marketplace add rsaryev/tokendoctor\nclaude plugin install tokendoctor@tokendoctor",
+    "세부": {
+      "핵심 변경점": "세션 재생 절감 추정, 31개 설정 점검·적용, 슬라이드 압축 훅, undo 이력",
+      "제약·가격": "로컬 실행, 수치는 작성자 개인 사용 기준",
+      "호환·요구사항": "Claude Code 플러그인. 레포 첫 커밋 2026-10-25"
+    },
+    "수집일": "2026-11-04"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Cost per task — 값싼 분류기로 Gemini 모델·thinking 레벨 라우팅",
+    "제공자": "Google",
+    "출처": "Google Developers Blog",
+    "날짜": "2026-11-03",
+    "날짜근거": "발행일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://developers.googleblog.com/cost-per-task-using-cheap-classifiers-to-route-across-gemini-models-and-thinking-levels/",
+    "관련링크": [],
+    "이미지": "https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/image3_1.2e16d0ba.fill-1200x600.jpg",
+    "한줄정리": "토큰당 가격 대신 '성공한 작업당 비용'을 지표로, 자동 채점 코딩 에이전트 문항 50개에서 저가 분류기(TypeSafe Jev)로 Gemini 모델·thinking 레벨을 라우팅한 실험이다.",
+    "왜중요": "개발용 16문항에 맞춘 정규식·길이 휴리스틱은 처음 보는 문항에서 70.6%로 떨어진 반면 Jev는 50문항 중 96.0%를 사람이 매긴 난이도와 같게 분류했다. 라우터 없는 최강 설정은 Gemini 3.8 Flash 낮은 thinking으로 50문항을 모두 풀었고, 'Flash-Lite 우선, 복잡한 것만 Flash LOW로 승격' 라우터도 전부 풀면서 비용·응답 시간을 줄일 수 있었다. `maxOutputTokens`로 thinking을 깎는 방식은 오히려 어려운 문항을 깨뜨렸다는 점도 실무 판단에 쓸 만하다.",
+    "세부": {
+      "핵심 변경점": "작업당 비용 지표, 원자적 yes/no 분류 질문, 휴리스틱 과적합 사례",
+      "제약·가격": "50문항 소규모 실험, Google과 TypeSafe 제휴 없음 명시",
+      "호환·요구사항": "Gemini API thinkingLevel 설정"
+    },
+    "수집일": "2026-11-04"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Qwen 3.8 27B, 노트북에서 가중치만 보고 게임 맞히기 재현",
+    "제공자": "Simon Willison",
+    "출처": "Simon Willison",
+    "날짜": "2026-11-03",
+    "날짜근거": "발행일",
+    "신호": "1차 재현 글",
+    "하이라이트": false,
+    "링크": "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/",
+    "관련링크": [
+      {
+        "라벨": "실험 로그 레포",
+        "url": "https://github.com/RikiyaT/lm_understand-logs"
+      },
+      {
+        "라벨": "Honnibal 비평",
+        "url": "https://honnibal.dev/blog/astra-read-write-misleading"
+      }
+    ],
+    "한줄정리": "'Weight-Space Programming' 논문의 도구 없는 가중치 해석 프롬프트(정책망 가중치 숫자만 보고 학습한 게임 맞히기)를 Kimi K3.1 Pro와 로컬 Qwen 3.8 27B로 다시 돌려 본 글이다.",
+    "왜중요": "Kimi K3.1 Pro는 9분 41초·추론 토큰 19,493개로 Breakout을 맞혔고, LM Studio의 Qwen 3.8 27B(17GB)도 긴 컨텍스트와 타임아웃 조정 후 Pac-Man·Pong·Breakout을 맞혔으며 Freeway는 틀렸다(문항당 46분~1시간 넘게 소요). 논문이 도구 없는 해석과 Python 수정 실험을 섞었다는 Honnibal의 비판도 함께 소개해 주장의 범위를 가늠하게 해 준다.",
+    "써보기": "llm -f https://raw.githubusercontent.com/RikiyaT/lm_understand-logs/refs/heads/main/exp1_which_game/runs/breakout/prompt.txt \\\n  -m openrouter/moonshotai/kimi-k3.1-pro",
+    "세부": {
+      "핵심 변경점": "논문 exp1_which_game 프롬프트를 다른 모델로 재현",
+      "제약·가격": "로컬 모델은 기본 8192 컨텍스트에서 오류, LMSTUDIO_TIMEOUT=900 필요",
+      "호환·요구사항": "llm CLI, OpenRouter 또는 LM Studio"
+    },
+    "수집일": "2026-11-04"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "오픈 코딩 모델 4종, curl 업로드 URL 강제 완성 10만 회 비교",
+    "제공자": "int8.io (Kamil Czarnogórski)",
+    "출처": "int8.io",
+    "날짜": "2026-11-03",
+    "날짜근거": "발행일",
+    "신호": "하네스·데이터셋 공개",
+    "하이라이트": false,
+    "링크": "https://int8.io/forced-curl/",
+    "관련링크": [
+      {
+        "라벨": "하네스 레포",
+        "url": "https://github.com/int8/forced-curl"
+      },
+      {
+        "라벨": "데이터셋",
+        "url": "https://huggingface.co/datasets/kamilc-bst/forced-curl"
+      },
+      {
+        "라벨": "Cohere 원 보고",
+        "url": "https://cohere.com/blog/concerning-behaviour-popular-open-weight-ai-model"
+      }
+    ],
+    "이미지": "https://int8.io/assets/img/curl/og_hero_1200x630.png",
+    "한줄정리": "Qwen 코딩 에이전트가 Alibaba Cloud 버킷 업로드 curl을 만든 사례가 Qwen만의 문제인지, https://에서 끊긴 curl 호출을 4개 모델에 10만 회씩 완성시켜 비교했다.",
+    "왜중요": "완성 10만 건당 Alibaba Cloud 호스트는 Qwen3.5-9B 417건, GLM-4-9B 32건, Gemma 4 12B 0건, Nemotron 9B 1건이었지만 Qwen은 OpenAI 호스트도 357건 써서, 저자는 '집에 전화하기'가 아니라 학습 데이터 흔적으로 해석했다. 자격증명처럼 보이는 파라미터도 Qwen이 10만 건당 2,468건으로 가장 많아, 오픈 모델 에이전트의 네트워크 툴 호출을 샌드박싱해야 할 근거가 된다. 하네스·분류기와 데이터셋이 공개돼 재현할 수 있다.",
+    "세부": {
+      "핵심 변경점": "모델당 100,000회, temperature 1.0, 다음 40토큰 생성",
+      "제약·가격": "RTX 4090 한 장, 네트워크 없이 실행. 검증된 실제 키는 없었음",
+      "호환·요구사항": "공개 하네스(int8/forced-curl)"
+    },
+    "수집일": "2026-11-04"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Qwen이 'Wait' 루프에 빠지는 이유 — Astra 가중치 편집 재현·분석",
+    "제공자": "커뮤니티(alisorcorp)",
+    "출처": "alisorcorp.github.io",
+    "날짜": "2026-11-03",
+    "날짜근거": "발행일",
+    "신호": "코드 공개, r/LocalLLaMA 일간 상위",
+    "하이라이트": false,
+    "링크": "https://alisorcorp.github.io/inside-a-reasoning-loop/",
+    "관련링크": [
+      {
+        "라벨": "코드",
+        "url": "https://github.com/alisorcorp/inside-a-reasoning-loop/tree/main/code"
+      },
+      {
+        "라벨": "Reddit 스레드",
+        "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xms9ii/what_qwen_is_thinking_when_it_gets_stuck_saying/"
+      }
+    ],
+    "이미지": "https://alisorcorp.github.io/inside-a-reasoning-loop/assets/fig-1-wait-moment.png",
+    "한줄정리": "공개된 diff로 GPT-6 Astra의 Qwen3.5-0.8B 추론 루프 편집을 재현하고, Jacobian lens로 루프를 결정하는 토큰을 읽어 낸 분석 글이다.",
+    "왜중요": "편집은 15·19층 MLP down-projection의 64개 열에 들어간 rank-1 수정이며, GSM8K 40문항에서 루프 횟수를 크게 줄이고 정답 수를 늘렸다. GGUF 변환 시 바뀐 텐서는 두 개뿐이고 Q4_K_M 양자화에서도 효과가 유지돼, 로컬 llama.cpp 사용자도 같은 편집을 시험해 볼 수 있다. 저자 스스로 표본이 작다고 밝혔다.",
+    "세부": {
+      "핵심 변경점": "Astra 편집 재현, abliteration 방식과 비교, 양자화 후 유지 확인",
+      "제약·가격": "GSM8K 40문항 소표본, 16k 토큰 상한",
+      "호환·요구사항": "llama.cpp(Vulkan), Qwen3.5-0.8B"
+    },
+    "수집일": "2026-11-04"
+  },
+  {
     "섹션": "모델·API",
     "태그": "신규출시",
     "제목": "Claude API message threads — 새 메시지만 보내는 대화 스레드 베타",
