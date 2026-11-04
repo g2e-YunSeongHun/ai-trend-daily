@@ -4,120 +4,197 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI 트렌드 데일리 — {{갱신일}}</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%237c3aed%27/%3E%3Cpath d=%27M8 22l5-12 5 12M10 18h6M20 10h4v12h-4%27 stroke=%27white%27 stroke-width=%272.5%27 fill=%27none%27 stroke-linecap=%27round%27/%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400&display=swap" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%234f46e5%27/%3E%3Cpath d=%27M8 22l5-12 5 12M10 18h6M20 10h4v12h-4%27 stroke=%27white%27 stroke-width=%272.5%27 fill=%27none%27 stroke-linecap=%27round%27/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" />
   <style>
     :root {
-      --bg: #ffffff; --bg-alt: #f6f7f9; --border: #e5e8ec; --border-strong: #111827;
-      --ink: #111827; --text: #374151; --muted: #6b7280; --faint: #9ca3af;
-      --accent: #7c3aed; --accent-soft: #f3eeff; --new: #dc2626; --code-bg: #0f172a; --code-ink: #e2e8f0;
-      --model: #1d4ed8; --tool: #0f766e; --mcp: #b45309; --research: #be185d;
+      --bg: #F4F5F7; --card: #ffffff; --border: #E3E5EA; --soft: #F0F1F4;
+      --ink: #15171C; --text: #3C414D; --muted: #6B7280; --faint: #9CA3AF;
+      --accent: #4F46E5; --accent-soft: #EEF0FF; --accent-line: #C7C4F5; --new: #DC2626;
+      --code-bg: #15171C; --code-ink: #E6E8EE;
+      --model: #1D4ED8; --tool: #0F766E; --mcp: #B45309; --research: #BE185D;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; }
-    a { color: inherit; text-decoration: none; } a:hover { text-decoration: underline; }
-    code { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: .9em; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 3px; padding: 0 4px; }
+    body { font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; word-break: keep-all; overflow-wrap: anywhere; }
+    a { color: inherit; text-decoration: none; } a:hover { color: var(--accent); }
+    button { font-family: inherit; cursor: pointer; }
+    code { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: .88em; background: var(--soft); border-radius: 4px; padding: 0 5px; }
     h3 code { font-weight: 500; }
-    .wrap { max-width: 840px; margin: 0 auto; padding: 0 20px 64px; }
-
-    header { display: flex; justify-content: space-between; align-items: flex-end; padding: 26px 0 14px; border-bottom: 2px solid var(--border-strong); gap: 16px; flex-wrap: wrap; }
-    header h1 { font-size: 24px; font-weight: 900; letter-spacing: -.03em; line-height: 1.2; }
-    header h1 span { color: var(--accent); }
-    header .sub { font-size: 12.5px; color: var(--muted); text-align: right; }
-
-    .controls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 2; }
-    .chip { padding: 5px 12px; border-radius: 999px; font-size: 12.5px; border: 1px solid var(--border); color: var(--text); background: transparent; cursor: pointer; font-family: inherit; }
-    .chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
-    .sep { width: 1px; height: 16px; background: var(--border); margin: 0 4px; }
-    .search { margin-left: auto; display: flex; align-items: center; gap: 8px; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; min-width: 220px; }
-    .search input { border: 0; background: transparent; font: inherit; font-size: 13px; color: var(--ink); outline: none; width: 100%; }
-    .search input::placeholder { color: var(--faint); }
-
-    .day { display: flex; align-items: baseline; gap: 10px; padding: 26px 0 8px; flex-wrap: wrap; }
-    .day h2 { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
-    .day .n { font-size: 12px; color: var(--muted); }
-    .day .log { font-size: 11.5px; color: var(--faint); border-bottom: 1px dotted var(--faint); }
-    .day .log:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
-    .day .line { flex: 1; height: 1px; background: var(--border); min-width: 40px; }
-
-    .item { display: grid; grid-template-columns: minmax(0, 1fr) 168px; gap: 6px 22px; padding: 18px 0; border-bottom: 1px solid var(--border); }
-    .item.no-img { grid-template-columns: 1fr; }
-    .item.hl { padding-left: 16px; border-left: 3px solid var(--accent); background: linear-gradient(90deg, var(--accent-soft), transparent 60%); margin-left: -16px; padding-right: 0; }
-    .item .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
-    .item .meta .sec { font-weight: 700; }
-    .sec-model { color: var(--model); } .sec-tool { color: var(--tool); } .sec-mcp { color: var(--mcp); } .sec-research { color: var(--research); }
-    .item .meta .new { font-size: 10.5px; font-weight: 900; color: var(--new); letter-spacing: .04em; }
-    .item .meta .hl-label { font-size: 10.5px; font-weight: 900; color: var(--accent); letter-spacing: .04em; }
-    .item .meta .prov { color: var(--muted); }
-    .item .meta .prov::before { content: '·'; margin-right: 8px; color: var(--faint); }
-    .item .meta .signal { margin-left: auto; font-size: 11.5px; color: var(--text); background: var(--bg-alt); border: 1px solid var(--border); border-radius: 999px; padding: 1px 9px; white-space: nowrap; }
-    .tag { padding: 1px 7px; border-radius: 3px; font-size: 11.5px; font-weight: 500; }
-    .tag-신규출시 { background: #dcfce7; color: #15803d; } .tag-업데이트 { background: #dbeafe; color: #1d4ed8; }
-    .tag-오픈소스 { background: #fef3c7; color: #b45309; } .tag-실전팁 { background: #fce7f3; color: #be185d; }
-    .item h3 { font-size: 18px; font-weight: 700; line-height: 1.4; letter-spacing: -.015em; }
-    .item h3 a:hover { color: var(--accent); }
-    .item p.one { font-size: 14.5px; color: var(--ink); line-height: 1.6; }
-    .item p.why { font-size: 13.5px; color: var(--text); line-height: 1.65;
-                  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .item p.why.open { display: block; -webkit-line-clamp: unset; overflow: visible; }
-    .item .more { align-self: start; font: inherit; font-size: 12.5px; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; margin-top: -2px; }
-    .item .more:hover { text-decoration: underline; }
-    .item .try { font-size: 12.5px; }
-    .item .try summary { cursor: pointer; color: var(--accent); font-weight: 500; user-select: none; width: max-content; }
-    .item .try summary:hover { text-decoration: underline; }
-    .item .try pre { margin-top: 8px; background: var(--code-bg); color: var(--code-ink); border-radius: 6px; padding: 12px 14px; overflow-x: auto; }
-    .item .try pre code { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: 12.5px; line-height: 1.6; white-space: pre; background: none; border: 0; padding: 0; }
-    .item .foot { display: flex; gap: 10px; font-size: 12px; color: var(--muted); align-items: center; flex-wrap: wrap; }
-    .item .foot .basis { color: var(--faint); }
-    .item .foot .basis::before { content: '·'; margin-right: 10px; }
-    .item .foot .rel { color: var(--faint); border: 1px solid var(--border); border-radius: 4px; padding: 0 6px; }
-    .item .foot .rel:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
-    .item .thumb { width: 168px; height: 112px; object-fit: cover; border-radius: 4px; background: var(--bg-alt); grid-column: 2; grid-row: 1 / span 7; align-self: start; }
-
-    .empty { text-align: center; color: var(--faint); padding: 40px 0; font-size: 14px; }
-    footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--faint); text-align: center; line-height: 1.8; }
-    footer a { border-bottom: 1px dotted var(--faint); }
     [hidden] { display: none !important; }
 
-    @media (max-width: 600px) {
-      .item { grid-template-columns: minmax(0, 1fr) 96px; }
-      .item .thumb { width: 96px; height: 72px; }
-      .item.hl { margin-left: -12px; padding-left: 10px; }
-      .item h3 { font-size: 16px; } .search { margin-left: 0; width: 100%; }
-      .item .meta .signal { margin-left: 0; }
-      header .sub { text-align: left; }
+    header.top { position: sticky; top: 0; z-index: 5; background: rgba(244,245,247,.94); backdrop-filter: blur(6px); border-bottom: 1px solid var(--border); }
+    .top-in { max-width: 1360px; margin: 0 auto; padding: 0 32px; height: 64px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .brand { font-size: 20px; font-weight: 900; letter-spacing: -.03em; line-height: 1; }
+    .brand span { color: var(--accent); }
+    .top .sub { font-size: 12.5px; color: var(--muted); }
+    .top .right { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .search { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border: 1px solid #DDE0E6; border-radius: 8px; background: #fff; min-width: 240px; }
+    .search input { border: 0; outline: none; background: transparent; font: inherit; font-size: 13px; width: 100%; color: var(--ink); }
+    .search input::placeholder { color: var(--faint); }
+    .icon-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #DDE0E6; background: #fff; color: var(--text); font-size: 13px; font-weight: 500; }
+    .icon-btn.on { background: var(--accent-soft); border-color: var(--accent-line); color: #3730A3; }
+
+    .wrap { max-width: 1360px; margin: 0 auto; padding: 24px 32px 80px; display: flex; flex-direction: column; gap: 24px; }
+
+    .brief { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+    .hl-box { grid-column: span 8; background: var(--ink); color: #fff; border-radius: 18px; padding: 26px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 196px; }
+    .hl-box .k { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #B9BDC9; flex-wrap: wrap; }
+    .hl-box .k b { font-weight: 900; color: #A5B4FC; letter-spacing: .06em; }
+    .hl-box .since { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.1); border-radius: 999px; padding: 3px 10px; }
+    .hl-box .since i { width: 6px; height: 6px; border-radius: 50%; background: #F87171; }
+    .hl-box h2 a { color: #fff; font-size: 24px; font-weight: 700; line-height: 1.35; letter-spacing: -.02em; }
+    .hl-box h2 a:hover { color: #C7D2FE; }
+    .hl-box p { font-size: 14.5px; color: #D5D8E1; line-height: 1.6; }
+    .hl-box .ev { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.14); color: #D5D8E1; }
+    .hl-box .ev b { color: #fff; }
+    .radar { grid-column: span 4; background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; }
+    .radar .k, .rail .k { font-size: 11.5px; font-weight: 900; color: var(--muted); letter-spacing: .06em; }
+    .radar .row { display: grid; grid-template-columns: 92px minmax(0, 1fr) 28px; align-items: center; gap: 10px; font-size: 13px; }
+    .radar .bar { height: 8px; background: #EEF0F4; border-radius: 4px; overflow: hidden; }
+    .radar .bar i { display: block; height: 8px; border-radius: 4px; }
+    .radar .row b { text-align: right; }
+    .radar .log { margin-top: auto; font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .radar .log a { color: var(--accent); border-bottom: 1px dotted var(--accent); }
+
+    .cols { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+    .rail { flex: 1 1 200px; max-width: 220px; min-width: 180px; display: flex; flex-direction: column; gap: 18px; position: sticky; top: 84px; }
+    .rail .k { padding: 0 12px 8px; display: block; }
+    .rail-list { display: flex; flex-direction: column; gap: 2px; }
+    .rail-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 40px; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: var(--text); font-size: 14px; text-align: left; }
+    .rail-btn:hover { background: rgba(255,255,255,.7); }
+    .rail-btn.on { background: #fff; color: var(--ink); font-weight: 700; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+    .rail-btn .n { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .rail .more { height: 36px; font-size: 13px; color: var(--muted); }
+    .rail .hint { padding: 0 12px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+    kbd { font-family: inherit; border: 1px solid #DDE0E6; border-radius: 4px; padding: 0 5px; background: #fff; }
+
+    main.feed { flex: 999 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+    .day { display: flex; align-items: baseline; gap: 12px; padding: 10px 4px 4px; flex-wrap: wrap; }
+    .day h2 { font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+    .day .n { font-size: 12.5px; color: var(--muted); }
+    .day .log { font-size: 12px; color: var(--faint); border-bottom: 1px dotted var(--faint); }
+    .day .log:hover { color: var(--accent); border-color: var(--accent); }
+    .day .line { flex: 1; height: 1px; background: var(--border); min-width: 40px; }
+
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px 18px; display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 90px; }
+    .card.read { opacity: .55; }
+    .card.hl { border-color: var(--accent-line); background: #FBFBFF; }
+    .card.focus { box-shadow: 0 0 0 2px var(--accent-line); }
+    .meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+    .meta .new { font-size: 10.5px; font-weight: 900; color: var(--new); letter-spacing: .04em; }
+    .meta .hl-label { font-size: 11px; font-weight: 900; color: var(--accent); letter-spacing: .06em; }
+    .meta .basis { margin-left: auto; color: var(--faint); }
+    .sec { font-size: 12px; font-weight: 700; }
+    .sec-model { color: var(--model); } .sec-tool { color: var(--tool); } .sec-mcp { color: var(--mcp); } .sec-research { color: var(--research); }
+    .tag { font-size: 11.5px; font-weight: 500; padding: 2px 8px; border-radius: 4px; background: var(--soft); color: var(--text); }
+    .card h3 { font-size: 19px; font-weight: 700; line-height: 1.4; letter-spacing: -.015em; }
+    .card p.one { font-size: 15px; line-height: 1.6; }
+    .card p.why { font-size: 13.5px; line-height: 1.7; color: var(--text); }
+    .evrow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .evrow .k { font-size: 11.5px; font-weight: 900; color: var(--muted); letter-spacing: .06em; }
+    .ev { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 9px; }
+    .ev b { color: var(--ink); }
+    .try { background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 12px 44px 12px 14px; font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: 12.5px; line-height: 1.6; white-space: pre; overflow-x: auto; position: relative; }
+    .try code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; font-family: inherit; }
+    .try .copy { position: absolute; top: 8px; right: 8px; height: 28px; padding: 0 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.08); color: var(--code-ink); font-size: 12px; }
+    .foot { display: flex; align-items: center; gap: 8px; padding-top: 4px; flex-wrap: wrap; }
+    .foot .open { margin-left: auto; font-size: 12.5px; color: var(--muted); border-bottom: 1px dotted var(--faint); }
+    .foot .rel { font-size: 12px; color: var(--faint); border: 1px solid var(--border); border-radius: 4px; padding: 0 6px; }
+    .foot .rel:hover { color: var(--accent); border-color: var(--accent); }
+
+    body.dense .why, body.dense .evrow, body.dense .try, body.dense .foot { display: none !important; }
+    body.dense .card { gap: 6px; padding: 16px 20px; }
+
+    aside.basket { flex: 1 1 260px; max-width: 300px; min-width: 240px; position: sticky; top: 84px; display: flex; flex-direction: column; gap: 14px; }
+    .box { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 12px; }
+    .box .h { display: flex; align-items: center; gap: 8px; }
+    .box .h b { font-size: 13px; font-weight: 900; letter-spacing: .02em; }
+    .box .h .n { font-size: 12px; color: var(--muted); }
+    .box .h .note { margin-left: auto; font-size: 11.5px; color: var(--faint); }
+    .bk { display: flex; flex-direction: column; gap: 6px; padding: 10px 0; border-top: 1px solid var(--soft); }
+    .bk .t { display: flex; align-items: flex-start; gap: 8px; }
+    .bk .t a { font-size: 13.5px; font-weight: 700; line-height: 1.4; letter-spacing: -.01em; }
+    .bk code.l { display: block; font-size: 11.5px; line-height: 1.5; color: var(--text); background: var(--bg); border-radius: 6px; padding: 6px 8px; white-space: pre; overflow-x: auto; }
+    .bk .rm { align-self: flex-start; border: 0; background: transparent; color: var(--faint); font-size: 12px; padding: 0; }
+    .box p.empty { font-size: 13px; color: var(--muted); line-height: 1.6; padding: 6px 0; }
+
+    .nomatch { text-align: center; color: var(--faint); padding: 40px 0; font-size: 14px; }
+    footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--faint); text-align: center; line-height: 1.8; }
+    footer a { border-bottom: 1px dotted var(--faint); }
+
+    @media (max-width: 900px) {
+      header.top { position: static; backdrop-filter: none; }
+      .top-in { height: auto; padding-top: 12px; padding-bottom: 12px; gap: 10px; }
+      .top .sub { display: none; }
+      .top .right { gap: 8px; }
+      .search { flex: 1; }
+      .top-in, .wrap { padding-left: 16px; padding-right: 16px; }
+      .brief { grid-template-columns: 1fr; }
+      .hl-box, .radar { grid-column: auto; }
+      .hl-box h2 a { font-size: 20px; }
+      .rail, aside.basket { position: static; max-width: none; width: 100%; }
+      .rail-list { flex-direction: row; flex-wrap: wrap; }
+      .rail-btn { width: auto; height: 34px; gap: 8px; }
+      .rail .hint { display: none; }
+      .search { min-width: 0; width: 100%; }
+      .top .right { width: 100%; }
+      .card { padding: 16px; }
+      .card h3 { font-size: 17px; }
     }
   </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>AI <span>트렌드</span> 데일리</h1>
-    <div class="sub">최근 30일 {{총건수}}건 · {{섹션요약}}<br />{{갱신일}} 03:00 갱신</div>
-  </header>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#">AI <span>트렌드</span> 데일리</a>
+    <span class="sub">{{갱신일}} 03:00 갱신 · 최근 30일 {{총건수}}건</span>
+    <div class="right">
+      <label class="search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="제목, 제공자, 명령어 검색" aria-label="검색" />
+      </label>
+      <button type="button" class="icon-btn" id="density" aria-label="밀도 전환">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>훑어보기</span>
+      </button>
+    </div>
+  </div>
+</header>
 
-  <div class="controls" id="controls">
-    <button class="chip on" data-k="sec" data-v="">전체</button>
-    <button class="chip" data-k="sec" data-v="모델·API">모델·API</button>
-    <button class="chip" data-k="sec" data-v="도구·에이전트">도구·에이전트</button>
-    <button class="chip" data-k="sec" data-v="스킬·MCP">스킬·MCP</button>
-    <button class="chip" data-k="sec" data-v="기법·연구">기법·연구</button>
-    <span class="sep"></span>
-    <button class="chip" data-k="tag" data-v="신규출시">신규출시</button>
-    <button class="chip" data-k="tag" data-v="업데이트">업데이트</button>
-    <button class="chip" data-k="tag" data-v="오픈소스">오픈소스</button>
-    <button class="chip" data-k="tag" data-v="실전팁">실전팁</button>
-    <label class="search">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="제목, 제공자, 키워드 검색" />
-    </label>
+<div class="wrap">
+  <!--BRIEF-->
+
+  <div class="cols">
+    <nav class="rail" aria-label="탐색">
+      <div>
+        <span class="k">날짜</span>
+        <div class="rail-list" id="dates">
+          <!--DATES-->
+        </div>
+      </div>
+      <div>
+        <span class="k">섹션</span>
+        <div class="rail-list" id="secs">
+          <!--SECS-->
+        </div>
+      </div>
+      <div class="hint">읽은 카드는 흐려집니다. <kbd>J</kbd> <kbd>K</kbd> 로 다음·이전 카드.</div>
+    </nav>
+
+    <main class="feed" id="feed">
+      <!--FEED-->
+    </main>
+
+    <aside class="basket" aria-label="써볼 것">
+      <div class="box">
+        <div class="h"><b>써볼 것</b><span class="n" id="bk-n">0개</span><span class="note">이 브라우저에만 저장</span></div>
+        <div id="bk-list"></div>
+        <p class="empty" id="bk-empty">카드의 <b>써볼 것에 담기</b>를 누르면 명령어와 함께 여기에 모입니다. 주말에 한 번에 돌려보기 좋습니다.</p>
+      </div>
+    </aside>
   </div>
 
-  <main id="feed">
-    <!--FEED-->
-  </main>
-
-  <div class="empty" id="nomatch" hidden>조건에 맞는 항목이 없습니다.</div>
+  <div class="nomatch" id="nomatch" hidden>조건에 맞는 항목이 없습니다.</div>
   <footer>
     AI 트렌드 데일리 · 매일 03:00 KST 전날 공개분 자동 수집 · 30일 이전 항목은 아카이브에 보관<br />
     날짜 옆 "출처 N곳 확인"을 누르면 그 날 확인한 출처와 제외 사유를 볼 수 있습니다 · <a href="{{리포URL}}" target="_blank" rel="noreferrer">수집 규칙·데이터</a>
@@ -126,19 +203,83 @@
 
 <script>
 (function () {
-  var state = { sec: '', tag: '', q: '' };
-  var items = Array.prototype.slice.call(document.querySelectorAll('.item'));
+  var LS = { get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+             set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
   var days = Array.prototype.slice.call(document.querySelectorAll('.day'));
-  var chips = document.querySelectorAll('#controls .chip');
-  var input = document.getElementById('q');
+  var state = { sec: '', q: '', date: '' };
 
+  // ---- 마지막 방문 이후 N건 ----
+  var seen = LS.get('atd.seen', []);
+  var seenSet = {}; seen.forEach(function (k) { seenSet[k] = 1; });
+  var fresh = cards.filter(function (c) { return !seenSet[c.dataset.key]; }).length;
+  var since = document.getElementById('since');
+  if (since) {
+    if (seen.length === 0) since.textContent = '처음 오셨네요 — 최근 30일 ' + cards.length + '건';
+    else since.textContent = '마지막 방문 이후 ' + fresh + '건 새로 들어옴';
+  }
+  LS.set('atd.seen', cards.map(function (c) { return c.dataset.key; }).slice(0, 2000));
+
+  // ---- 읽음 ----
+  var read = LS.get('atd.read', {});
+  cards.forEach(function (c) { if (read[c.dataset.key]) c.classList.add('read'); });
+  function toggleRead(c) {
+    var k = c.dataset.key; if (read[k]) delete read[k]; else read[k] = 1;
+    LS.set('atd.read', read); c.classList.toggle('read', !!read[k]);
+    var b = c.querySelector('.b-read'); if (b) { b.classList.toggle('on', !!read[k]); b.querySelector('span').textContent = read[k] ? '읽음' : '읽음 표시'; }
+  }
+
+  // ---- 써볼 것 바구니 ----
+  var books = LS.get('atd.books', []);
+  function renderBooks() {
+    var list = document.getElementById('bk-list'), empty = document.getElementById('bk-empty'), n = document.getElementById('bk-n');
+    list.innerHTML = '';
+    var items = books.map(function (k) { return cards.filter(function (c) { return c.dataset.key === k; })[0]; }).filter(Boolean);
+    n.textContent = items.length + '개'; empty.hidden = items.length > 0;
+    items.forEach(function (c) {
+      var d = document.createElement('div'); d.className = 'bk';
+      var title = c.querySelector('h3 a'); var tryEl = c.querySelector('.try');
+      var first = tryEl ? tryEl.textContent.replace(/복사됨|복사$/, '').split('\n').filter(function (l) { return l.trim() && l.trim().charAt(0) !== '#'; })[0] : '';
+      var t = document.createElement('div'); t.className = 't';
+      var s = document.createElement('span'); s.className = 'sec ' + c.dataset.secclass; s.textContent = c.dataset.secshort; t.appendChild(s);
+      var a = document.createElement('a'); a.href = title.href; a.target = '_blank'; a.rel = 'noreferrer'; a.textContent = title.textContent.split(' — ')[0]; t.appendChild(a);
+      d.appendChild(t);
+      if (first) { var code = document.createElement('code'); code.className = 'l'; code.textContent = first; d.appendChild(code); }
+      var rm = document.createElement('button'); rm.type = 'button'; rm.className = 'rm'; rm.textContent = '빼기';
+      rm.addEventListener('click', function () { toggleBook(c); }); d.appendChild(rm);
+      list.appendChild(d);
+    });
+    cards.forEach(function (c) {
+      var b = c.querySelector('.b-book'); var on = books.indexOf(c.dataset.key) !== -1;
+      if (b) { b.classList.toggle('on', on); b.querySelector('span').textContent = on ? '담김' : '써볼 것에 담기'; }
+    });
+  }
+  function toggleBook(c) {
+    var k = c.dataset.key, i = books.indexOf(k);
+    if (i === -1) books.push(k); else books.splice(i, 1);
+    LS.set('atd.books', books); renderBooks();
+  }
+  renderBooks();
+
+  // ---- 카드 버튼 ----
+  cards.forEach(function (c) {
+    var bb = c.querySelector('.b-book'); if (bb) bb.addEventListener('click', function () { toggleBook(c); });
+    var br = c.querySelector('.b-read'); if (br) br.addEventListener('click', function () { toggleRead(c); });
+    var cp = c.querySelector('.copy'); if (cp) cp.addEventListener('click', function () {
+      var code = c.querySelector('.try code'); if (!code) return;
+      try { navigator.clipboard.writeText(code.textContent); } catch (e) {}
+      cp.textContent = '복사됨'; setTimeout(function () { cp.textContent = '복사'; }, 1500);
+    });
+  });
+
+  // ---- 필터·검색 ----
   function apply() {
     var q = state.q.trim().toLowerCase(), visible = 0;
-    items.forEach(function (el) {
-      var ok = (!state.sec || el.dataset.sec === state.sec)
-        && (!state.tag || el.dataset.tag === state.tag)
-        && (!q || (el.dataset.text || '').indexOf(q) !== -1);
-      el.hidden = !ok; if (ok) visible++;
+    cards.forEach(function (c) {
+      var ok = (!state.sec || c.dataset.sec === state.sec)
+        && (!state.date || c.dataset.date === state.date)
+        && (!q || (c.dataset.text || '').indexOf(q) !== -1);
+      c.hidden = !ok; if (ok) visible++;
     });
     days.forEach(function (d) {
       var any = false, n = d.nextElementSibling;
@@ -147,36 +288,46 @@
     });
     document.getElementById('nomatch').hidden = visible > 0;
   }
-  chips.forEach(function (c) {
-    c.addEventListener('click', function () {
-      var k = c.dataset.k, v = c.dataset.v;
-      state[k] = (k === 'tag' && state.tag === v) ? '' : v;
-      chips.forEach(function (o) { if (o.dataset.k === k) o.classList.toggle('on', o.dataset.v === state[k]); });
+  document.querySelectorAll('#secs .rail-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      state.sec = b.dataset.v;
+      document.querySelectorAll('#secs .rail-btn').forEach(function (o) { o.classList.toggle('on', o === b); });
       apply();
     });
   });
-  input.addEventListener('input', function () { state.q = input.value; apply(); });
-  document.querySelectorAll('img.thumb').forEach(function (img) {
-    img.addEventListener('error', function () {
-      var it = img.closest('.item'); if (it) it.classList.add('no-img'); img.remove();
+  document.querySelectorAll('#dates .rail-btn[data-d]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var d = b.dataset.d;
+      state.date = (state.date === d) ? '' : d;
+      document.querySelectorAll('#dates .rail-btn[data-d]').forEach(function (o) { o.classList.toggle('on', o.dataset.d === state.date); });
+      apply();
+      if (state.date) { var h = document.getElementById('d-' + d); if (h) h.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
+  var more = document.getElementById('dates-more');
+  if (more) more.addEventListener('click', function () {
+    document.querySelectorAll('#dates .rail-btn[data-old]').forEach(function (b) { b.hidden = false; }); more.hidden = true;
+  });
+  document.getElementById('q').addEventListener('input', function (e) { state.q = e.target.value; apply(); });
 
-  // 왜중요가 3줄을 넘으면 "더보기" 버튼을 붙인다
-  function addMore() {
-    document.querySelectorAll('p.why').forEach(function (p) {
-      if (p.dataset.more || p.scrollHeight <= p.clientHeight + 2) return;
-      p.dataset.more = '1';
-      var b = document.createElement('button');
-      b.className = 'more'; b.type = 'button'; b.textContent = '더보기';
-      b.addEventListener('click', function () {
-        var open = p.classList.toggle('open'); b.textContent = open ? '접기' : '더보기';
-      });
-      p.insertAdjacentElement('afterend', b);
-    });
-  }
-  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(addMore); } else { addMore(); }
-  window.addEventListener('load', addMore);
+  // ---- 밀도 ----
+  var dense = LS.get('atd.dense', false);
+  var dbtn = document.getElementById('density');
+  function setDense(v) { dense = v; document.body.classList.toggle('dense', v); dbtn.classList.toggle('on', v); dbtn.querySelector('span').textContent = v ? '자세히' : '훑어보기'; LS.set('atd.dense', v); }
+  setDense(dense);
+  dbtn.addEventListener('click', function () { setDense(!dense); });
+
+  // ---- J / K ----
+  var cur = -1;
+  function visibleCards() { return cards.filter(function (c) { return !c.hidden; }); }
+  document.addEventListener('keydown', function (e) {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    if (e.key !== 'j' && e.key !== 'k') return;
+    var vs = visibleCards(); if (!vs.length) return;
+    cur = e.key === 'j' ? Math.min(cur + 1, vs.length - 1) : Math.max(cur - 1, 0);
+    cards.forEach(function (c) { c.classList.remove('focus'); });
+    vs[cur].classList.add('focus'); vs[cur].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 })();
 </script>
 </body>
