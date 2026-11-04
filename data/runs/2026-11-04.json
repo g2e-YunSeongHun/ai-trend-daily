@@ -1,0 +1,662 @@
+{
+  "target": "2026-11-04",
+  "run_at": "2026-11-05T03:21+09:00",
+  "note": "섹션별 서브에이전트 4개 병렬 수집. GitHub 레포는 익명 git clone·ls-remote와 npm/PyPI로 날짜 확인.",
+  "sources_checked": [
+    {
+      "section": "모델·API",
+      "source": "anthropic.com/news",
+      "latest_seen": "2026-10-27",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "platform.claude.com/docs/en/release-notes/overview",
+      "latest_seen": "2026-11-03",
+      "note": "11-04 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "openai.com/news/rss.xml",
+      "latest_seen": "2026-11-04",
+      "note": "Pierre 인수(비즈니스)·Daybreak Red GovCloud(정부 전용)뿐"
+    },
+    {
+      "section": "모델·API",
+      "source": "developers.openai.com/api/docs/changelog",
+      "latest_seen": "2026-10-30",
+      "note": "11월 섹션 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "blog.google/innovation-and-ai/technology/ai/rss",
+      "latest_seen": "2026-11-02",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "deepmind.google/blog/rss.xml",
+      "latest_seen": "2026-11-03",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "ai.google.dev/gemini-api/docs/changelog",
+      "latest_seen": "2026-11-04",
+      "note": "Gemini 3.8 TTS 보이스 리믹싱"
+    },
+    {
+      "section": "모델·API",
+      "source": "ai.meta.com/blog",
+      "latest_seen": "2026-07-27",
+      "note": "최근 글 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "mistral.ai/news",
+      "latest_seen": "2026-10-29",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "huggingface.co/blog/feed.xml",
+      "latest_seen": "2026-11-04",
+      "note": "Dharma Field Extractor뿐(제외)"
+    },
+    {
+      "section": "모델·API",
+      "source": "HF API (moonshotai·Qwen·deepseek-ai·zai-org·meta-llama·mistralai·nvidia 등 19개 조직) + trending",
+      "latest_seen": "2026-11-02",
+      "note": "Kimi-K3.1-Pro 가중치 11-04 공개 확인"
+    },
+    {
+      "section": "모델·API",
+      "source": "docs.x.ai/developers/release-notes",
+      "latest_seen": "2026-11-02",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "api-docs.deepseek.com",
+      "latest_seen": "2026-10-17",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "www.kimi.ai/blog/kimi-k3-1-pro",
+      "latest_seen": "2026-10-24",
+      "note": "'Nov 4까지 가중치 공개' 명시"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "npm @anthropic-ai/claude-code + anthropics/claude-code CHANGELOG.md(git clone)",
+      "latest_seen": "2026-11-04",
+      "note": "2.1.318"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "code.claude.com/docs/en/changelog",
+      "latest_seen": "2026-11-04",
+      "note": "2.1.318 November 4, 2026"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "npm @openai/codex + rust-v* 태그 + developers.openai.com/codex/changelog",
+      "latest_seen": "2026-11-04",
+      "note": "0.168.0-alpha.1(프리릴리스)만"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "cursor.com/changelog",
+      "latest_seen": "2026-10-20",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "npm @google/gemini-cli",
+      "latest_seen": "2026-11-04",
+      "note": "나이틀리만"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "github.blog/changelog/feed/",
+      "latest_seen": "2026-11-04(UTC 00:32)",
+      "note": "BYOK usage API·Dependabot APM(둘 다 US 11-03 게시)"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "git 태그 cline/cline, RooCodeInc/Roo-Code, Aider-AI/aider, zed-industries/zed + zed.dev/releases/stable",
+      "latest_seen": "2026-11-04",
+      "note": "Zed 1.27.0(제외), 나머지 TARGET 없음"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "code.visualstudio.com/updates",
+      "latest_seen": "2026-11-04",
+      "note": "1.145"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "PyPI claude-agent-sdk / npm @anthropic-ai/claude-agent-sdk",
+      "latest_seen": "2026-11-04",
+      "note": "2.1.318 동반 릴리스"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "PyPI openai-agents, langgraph, google-adk, pydantic-ai, crewai, langchain, aider-chat, deepagents",
+      "latest_seen": "2026-11-04",
+      "note": "pydantic-ai 2.66.0·langchain 1.4.9(제외)"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "langchain.com/blog, docs.langchain.com 체인지로그",
+      "latest_seen": "2026-10-22",
+      "note": "TARGET 릴리스 글 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "anthropics/skills (git clone)",
+      "latest_seen": "2026-10-28",
+      "note": "TARGET 커밋 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "modelcontextprotocol/servers (git clone)",
+      "latest_seen": "2026-10-28",
+      "note": "TARGET 커밋 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "modelcontextprotocol/modelcontextprotocol (git clone)",
+      "latest_seen": "2026-11-02",
+      "note": "11-04 커밋 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "blog.modelcontextprotocol.io",
+      "latest_seen": "2026-10-30",
+      "note": "TARGET 글 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "registry.modelcontextprotocol.io/v0.1/servers?updated_since=2026-11-04",
+      "latest_seen": "2026-11-04",
+      "note": "1,900건 확인, 첫 등재 511건 — 대부분 소규모 상용·토이"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "npm @modelcontextprotocol/sdk, PyPI mcp",
+      "latest_seen": "2026-10-23",
+      "note": "TARGET 릴리스 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "blog.cloudflare.com/rss",
+      "latest_seen": "2026-11-04",
+      "note": "MCP 무관"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "punkpeye/awesome-mcp-servers (git clone)",
+      "latest_seen": "2026-11-01",
+      "note": "11-02 이후 커밋 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "Reddit r/mcp, r/ClaudeAI, r/ClaudeCode top.rss?t=day",
+      "latest_seen": "2026-11-04",
+      "note": "429 후 재시도 성공"
+    },
+    {
+      "section": "기법·연구",
+      "source": "anthropic.com/engineering",
+      "latest_seen": "2026-10-13",
+      "note": "TARGET 글 없음"
+    },
+    {
+      "section": "기법·연구",
+      "source": "developers.googleblog.com",
+      "latest_seen": "2026-11-03",
+      "note": "TARGET 글 없음"
+    },
+    {
+      "section": "기법·연구",
+      "source": "simonwillison.net/atom/everything",
+      "latest_seen": "2026-11-03",
+      "note": "TARGET 글 없음"
+    },
+    {
+      "section": "기법·연구",
+      "source": "latent.space/feed",
+      "latest_seen": "2026-11-03",
+      "note": "TARGET 글 없음"
+    },
+    {
+      "section": "기법·연구",
+      "source": "interconnects.ai/feed",
+      "latest_seen": "2026-11-04",
+      "note": "오픈 모델 시장 규모 분석(의견, 제외)"
+    },
+    {
+      "section": "기법·연구",
+      "source": "oneusefulthing.org/feed",
+      "latest_seen": "2026-10-20",
+      "note": "TARGET 없음"
+    },
+    {
+      "section": "기법·연구",
+      "source": "newsletter.pragmaticengineer.com/feed",
+      "latest_seen": "2026-11-03",
+      "note": "TARGET 없음"
+    },
+    {
+      "section": "기법·연구",
+      "source": "HN Algolia (2026-11-04 00:00Z~, points>50)",
+      "latest_seen": "2026-11-04",
+      "note": "32건 (수집 시점 11-04 18시대 UTC)"
+    },
+    {
+      "section": "기법·연구",
+      "source": "Reddit r/LocalLLaMA, r/MachineLearning top.rss?t=day",
+      "latest_seen": "2026-11-04",
+      "note": "r/MachineLearning 429 두 번 후 성공"
+    },
+    {
+      "section": "기법·연구",
+      "source": "GeekNews RSS",
+      "latest_seen": "2026-11-05",
+      "note": "최신 20건"
+    },
+    {
+      "section": "기법·연구",
+      "source": "arXiv cs.CL / cs.AI RSS",
+      "latest_seen": "2026-11-04",
+      "note": "신규 168편 중 실무 즉시 적용 논문 없음"
+    }
+  ],
+  "unavailable": [
+    {
+      "source": "x.ai/news",
+      "reason": "403, docs.x.ai로 대체"
+    },
+    {
+      "source": "openai.com/news·index HTML",
+      "reason": "403, RSS로 대체"
+    },
+    {
+      "source": "github.com/*/releases 페이지·API (pydantic-ai, langchain, openai-agents 릴리스 노트, GitHub 스타 수)",
+      "reason": "클라우드 GitHub 제한. 익명 git clone·ls-remote와 npm/PyPI로 날짜만 확정"
+    },
+    {
+      "source": "gh search repos (당일 생성 레포)",
+      "reason": "클라우드 GitHub 제한. MCP 레지스트리·Reddit 시드로 대체"
+    },
+    {
+      "source": "news.hada.io topic 페이지 HTML",
+      "reason": "403, RSS 요약만 확인"
+    },
+    {
+      "source": "smithery.ai, glama.ai/mcp/servers, mcp.so",
+      "reason": "이번 회차 미확인"
+    },
+    {
+      "source": "HN·Reddit의 미국 현지 TARGET 하루 후반부",
+      "reason": "수집 시점(2026-11-04 18시대 UTC)에 아직 끝나지 않음"
+    }
+  ],
+  "candidates": [
+    {
+      "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro",
+      "title": "Kimi K3.1 Pro 가중치 공개",
+      "section": "모델·API",
+      "decision": "포함",
+      "date_basis": "공개일 2026-11-04",
+      "reason": "블로그에 'Nov 4까지 공개' 명시, HN 'weights are out' 11-04(144pt), GeekNews '예정대로 공개'. HF 리포 initial commit은 11-02(비공개 업로드 추정). 하이라이트"
+    },
+    {
+      "url": "https://www.kimi.ai/blog/kimi-k3-1-pro",
+      "title": "Kimi K3.1 Pro Tech Blog",
+      "section": "모델·API",
+      "decision": "제외",
+      "date_basis": "발행일 2026-10-24",
+      "reason": "날짜 범위 밖, 관련링크로 붙임"
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/voice-remixing",
+      "title": "Gemini 3.8 TTS 보이스 리믹싱",
+      "section": "모델·API",
+      "decision": "포함",
+      "date_basis": "릴리스일 2026-11-04 (Gemini API 체인지로그)",
+      "reason": "extract.py 11-03은 문서 수정일"
+    },
+    {
+      "url": "https://openai.com/index/daybreak-red-aws-govcloud",
+      "title": "Daybreak Red AWS GovCloud",
+      "section": "모델·API",
+      "decision": "제외",
+      "date_basis": "발표일 2026-11-04",
+      "reason": "정부 전용 제공 확대, 일반 개발자 사용 불가"
+    },
+    {
+      "url": "https://openai.com/index/openai-to-acquire-pierre",
+      "title": "OpenAI to acquire Pierre Computer Company",
+      "section": "모델·API",
+      "decision": "제외",
+      "date_basis": "발표일 2026-11-04",
+      "reason": "인수 비즈니스 뉴스"
+    },
+    {
+      "url": "https://huggingface.co/blog/Dharma-AI/dharma-field-extractor",
+      "title": "Dharma Field Extractor",
+      "section": "모델·API",
+      "decision": "제외",
+      "date_basis": "발행일 2026-11-04",
+      "reason": "가중치 미등재, 신호 약함(업보트 7)"
+    },
+    {
+      "url": "https://hy.tencent.ai/research/hy4?langVersion=en",
+      "title": "Introducing Hy4 (open weights soon)",
+      "section": "모델·API",
+      "decision": "제외",
+      "date_basis": "Reddit 2026-11-04",
+      "reason": "기법 담당이 시드로 발견했으나 모델 담당 HF 조회에서 가중치 미공개 — 'open weights soon' 발표만"
+    },
+    {
+      "url": "https://code.visualstudio.com/updates/v1_145",
+      "title": "Visual Studio Code 1.145",
+      "section": "도구·에이전트",
+      "decision": "포함",
+      "date_basis": "릴리스일 2026-11-04",
+      "reason": "'Release date: November 4, 2026'"
+    },
+    {
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.318",
+      "title": "Claude Code 2.1.318",
+      "section": "도구·에이전트",
+      "decision": "포함",
+      "date_basis": "릴리스일 2026-11-04 (code.claude.com 체인지로그, npm 11-03T21:55Z)",
+      "reason": "신기능 있음"
+    },
+    {
+      "url": "https://github.blog/changelog/2026-11-03-dependabot-version-updates-support-agent-package-manager",
+      "title": "Dependabot version updates support Agent Package Manager",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "발표일 2026-11-03 (US, 20:24 UTC)",
+      "reason": "현지 날짜 11-03으로 범위 밖(지난 회차 수집 이후 게시)"
+    },
+    {
+      "url": "https://github.blog/changelog/2026-11-03-byok-and-enterprise-custom-models-in-the-copilot-usage-api",
+      "title": "BYOK and enterprise custom models in the Copilot usage API",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "발표일 2026-11-03",
+      "reason": "범위 밖·관리자 리포트 필드 추가"
+    },
+    {
+      "url": "https://zed.dev/releases/stable/1.27.0",
+      "title": "Zed 1.27.0",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "릴리스일 2026-11-04",
+      "reason": "AI 변경 미미, 버그 수정 위주"
+    },
+    {
+      "url": "https://pypi.org/project/pydantic-ai/2.66.0/",
+      "title": "pydantic-ai 2.66.0",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "릴리스일 2026-11-04 (PyPI)",
+      "reason": "릴리스 노트 확인 불가(클라우드 GitHub 제한)"
+    },
+    {
+      "url": "https://pypi.org/project/langchain/1.4.9/",
+      "title": "langchain 1.4.9 / langchain-core 1.7.5",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "릴리스일 2026-11-04 (PyPI)",
+      "reason": "노트 확인 불가, 소규모 패치"
+    },
+    {
+      "url": "https://pypi.org/project/claude-agent-sdk/0.2.178/",
+      "title": "claude-agent-sdk 0.2.178 / TS 0.3.318",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "릴리스일 2026-11-04",
+      "reason": "번들 CLI 갱신만 — Claude Code 2.1.318 동반"
+    },
+    {
+      "url": "https://www.npmjs.com/package/@openai/codex/v/0.168.0-alpha.1",
+      "title": "Codex 0.168.0-alpha.1",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "릴리스일 2026-11-04",
+      "reason": "프리릴리스"
+    },
+    {
+      "url": "https://www.npmjs.com/package/@google/gemini-cli/v/0.67.0-nightly.20261104.g89e9d25d6",
+      "title": "Gemini CLI 0.67.0 nightly",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "릴리스일 2026-11-04",
+      "reason": "나이틀리"
+    },
+    {
+      "url": "https://docs.crewai.com/en/changelog",
+      "title": "crewAI 1.15.35",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "릴리스일 2026-11-03",
+      "reason": "날짜 범위 밖·문서 변경만"
+    },
+    {
+      "url": "https://news.hada.io/topic?id=36575",
+      "title": "Show GN: Nico - Mac용 개인 에이전트",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "게재일 2026-11-04",
+      "reason": "자가 홍보, 원본·설치 안내 미확인"
+    },
+    {
+      "url": "https://github.com/TinySuiteHQ/TinyWebUI",
+      "title": "TinyWebUI",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "Reddit 2026-11-04",
+      "reason": "도구 담당 기준 미달(주목 신호·날짜 미확정)"
+    },
+    {
+      "url": "https://github.com/calasdan-sketch/monomem",
+      "title": "Monomem",
+      "section": "스킬·MCP",
+      "decision": "포함",
+      "date_basis": "주목일 2026-11-04 (첫 커밋 10-24, npm 1.0.0 11-02)",
+      "reason": "r/mcp 일간 상위 + npm 등재, README 설치 안내"
+    },
+    {
+      "url": "https://github.com/RazinAI/deputy",
+      "title": "Deputy for AI coding agents",
+      "section": "스킬·MCP",
+      "decision": "포함",
+      "date_basis": "주목일 2026-11-04 (r/mcp 게시 KST 11-04; 레포 10-22)",
+      "reason": "r/mcp 일간 3위 + npm 등재. 측정 수치는 zraisan/deputy docs/measurements.md와 대조"
+    },
+    {
+      "url": "https://github.com/cdutsov/overpass-mcp",
+      "title": "overpass.ch MCP server",
+      "section": "스킬·MCP",
+      "decision": "포함",
+      "date_basis": "공개일 2026-11-04 (첫 커밋·레지스트리 첫 등재 11-04)",
+      "reason": "MCP 레지스트리 첫 등재 + r/mcp 상위"
+    },
+    {
+      "url": "https://github.com/Ahany1440/mcp-auditor",
+      "title": "mcp-audit",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "공개일 2026-11-04",
+      "reason": "신호 부족(r/mcp 단독, 레지스트리 미등재)"
+    },
+    {
+      "url": "https://github.com/mcptunnel/mcptunnel",
+      "title": "mcptunnel",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "공개 2026-04-03",
+      "reason": "날짜 범위 밖"
+    },
+    {
+      "url": "https://github.com/gasrescue/gasrescue-mcp",
+      "title": "gasrescue-mcp",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "레지스트리 첫 등재 2026-11-03",
+      "reason": "날짜 범위 밖"
+    },
+    {
+      "url": "https://github.com/ddkbs/sketchy",
+      "title": "Sketchy v0.1.8",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "공개 2026-10-08",
+      "reason": "4주 초과 레포 소규모 패치"
+    },
+    {
+      "url": "https://github.com/simplymanas/mcp-master-tester",
+      "title": "mcp-master-tester",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "공개 2026-10-03",
+      "reason": "날짜 범위 밖"
+    },
+    {
+      "url": "https://github.com/Inebrio/Routerly",
+      "title": "Routerly 0.6.0",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "레포 2026-02-27",
+      "reason": "LLM 게이트웨이, r/mcp 단독 신호"
+    },
+    {
+      "url": "https://github.com/0xS4N4TG/kinetograph",
+      "title": "kinetograph",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "공개 2026-10-14",
+      "reason": "신호 약함, 영상 제작 특화"
+    },
+    {
+      "url": "https://tolby.app/blog/frankensteining-gemmas-experts",
+      "title": "Frankensteining Gemma's Experts",
+      "section": "기법·연구",
+      "decision": "포함",
+      "date_basis": "주목일 2026-11-04 (발행일 2026-10-22)",
+      "reason": "r/LocalLLaMA 일간 상위 첫 진입, MIT 도구·절차·수치 공개"
+    },
+    {
+      "url": "https://dinara-dl.github.io/posts/looped-transformer/",
+      "title": "Repeated Reads: Looped Transformers on B200",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "발행일 2026-11-04",
+      "reason": "연구 노트, 실무 적용 어려움"
+    },
+    {
+      "url": "https://www.interconnects.ai/p/how-well-can-we-measure-open-model",
+      "title": "How big is the open model economy today?",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "발행일 2026-11-04",
+      "reason": "의견 글"
+    },
+    {
+      "url": "https://www.linum.ai/field-notes/pjit-21k",
+      "title": "Training a Text-to-Image Model for $21K",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "발행일 2026-11-04",
+      "reason": "주목 신호 없음"
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.04814",
+      "title": "Think Less, Locally",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "arXiv 11-04 목록",
+      "reason": "직접 학습 필요, 즉시 적용 어려움"
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.02501",
+      "title": "SpecPilot",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "제출일 2026-11-02",
+      "reason": "날짜 범위 밖"
+    },
+    {
+      "url": "https://ben.stolovitz.com/posts/how-use-ai-oct-2026/",
+      "title": "How I use AI (Oct 2026)",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "주목일 2026-11-03",
+      "reason": "범위 밖"
+    },
+    {
+      "url": "https://www.mindstudio.ai/blog/linux-nvidia-rtx-spark-laptop",
+      "title": "Linux on the Nvidia RTX Spark Laptop",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "발행일 2026-11-01",
+      "reason": "재배포 요약 글, 범위 밖"
+    },
+    {
+      "url": "https://spectrum.ieee.org/ai-in-cybersecurity-php2shell-vulnerability",
+      "title": "PHP2Shell and AI Put Half the Internet on Edge",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "발행일 2026-11-02",
+      "reason": "범위 밖, 보안 사건 기사"
+    },
+    {
+      "url": "https://blog.cosmos-institute.org/p/verification-is-not-knowledge",
+      "title": "Verification Is Not Knowledge",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "발행일 2026-10-30",
+      "reason": "의견 에세이"
+    },
+    {
+      "url": "https://wasp.sh/blog/2026/11/03/mcp-vs-api-vs-cli-connect-ai-agents-to-your-app",
+      "title": "MCP vs API vs CLI",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "발행일 2026-11-03",
+      "reason": "날짜 범위 밖"
+    },
+    {
+      "url": "https://arcturus-labs.com/blog/2026/11/03/ai-can-read-neural-network-weights-i-wasnt-ready-for-that/",
+      "title": "AI can read neural network weights",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "발행일 2026-11-03",
+      "reason": "범위 밖, 기존 수록 주제"
+    },
+    {
+      "url": "https://github.com/mattvideoproductions/Minecraft3D",
+      "title": "Minecraft 3DS 3D mod",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "공개 2026-10-29",
+      "reason": "따라 할 절차 없음"
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=50366117",
+      "title": "Ask HN: What's your current AI agentic setup?",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "게시 2026-11-04",
+      "reason": "원본 없는 의견 스레드"
+    }
+  ],
+  "verification": "포함 8건: extract.py로 원문 확보(GitHub 레포·CHANGELOG는 익명 git clone·npm·PyPI·공식 체인지로그로 날짜 확정). 요약의 수치·명령은 원문·README 텍스트와 문자열 대조(Kimi 벤치마크, Deputy 토큰 수, Shears 명령, Monomem·overpass 설치 명령 등)."
+}
