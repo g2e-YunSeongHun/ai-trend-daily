@@ -88,6 +88,8 @@
 
 당일 공개 레포 찾기: `gh search repos "mcp server" --created {TARGET} --sort stars --limit 15`, `gh search repos "SKILL.md" --created {TARGET}`, `gh search repos "claude code plugin" --created {TARGET}`. 최근 4주 생성 레포 중 어제 주목받은 것은 HN·Reddit·GeekNews 시드에서 찾는다. 결과는 반드시 README를 열어 판단한다.
 
+같은 작성자·조직의 레포는 **하루 1건**만 싣는다(나머지는 `상한 초과 — 동일 작성자`로 기록). Reddit 신호는 서브 규모를 본다: r/ClaudeAI·r/LocalLLaMA 일간 상위는 단독 신호로 인정하되, r/mcp처럼 작은 서브의 일간 상위는 ★ 또는 레지스트리·npm·PyPI 등재가 함께 있을 때만 인정한다.
+
 이 섹션은 후보가 가장 많이 나온다. **하루 3건까지만** 싣는다. 넘치면 **영향 범위**(여러 에이전트·클라이언트에서 쓸 수 있음 > 한 도구 전용 > 특정 프레임워크·지역 전용)와 **일반 개발자에게 쓸모**(코딩·컨텍스트·관측 > 특정 콘텐츠 제작) 순으로 고르고, 탈락한 것은 수집 기록에 `상한 초과`로 남긴다. 레포 소유자 아바타는 `이미지`로 쓰지 않는다(빌드가 GitHub 미리보기 이미지를 자동으로 쓴다).
 
 ### 4. 기법·연구

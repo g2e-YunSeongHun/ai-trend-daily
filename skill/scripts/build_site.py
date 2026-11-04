@@ -9,7 +9,7 @@ Usage:
 - 날짜별 수집 기록 `<items_json 폴더>/runs/<날짜>.json`이 있으면 구분선에 "출처 N곳 · 후보 M건 → k건"과 링크를 붙인다.
 - 항목 필드: 섹션, 태그, 제목, 제공자, 출처, 날짜, 날짜근거(선택), 신호(선택), 하이라이트(선택), 링크,
   관련링크(선택), 이미지(선택), 한줄정리, 왜중요, 써보기(선택), 세부(화면에는 표시하지 않음), 수집일
-- 이미지가 없고 링크가 GitHub 레포면 opengraph.githubassets.com 미리보기를 썸네일로 쓴다.
+- 썸네일은 항목의 `이미지`가 있을 때만 표시한다.
 - 제목·한줄정리·왜중요 안의 `백틱`은 <code>로 바꾼다.
 """
 
@@ -32,7 +32,6 @@ SEC_SLUG = {"모델·API": "model", "도구·에이전트": "tool", "스킬·MCP
 SEC_ORDER = {s: i for i, s in enumerate(SECTIONS)}
 TAGS = {"신규출시", "업데이트", "오픈소스", "실전팁"}
 DEFAULT_REPO_URL = "https://github.com/g2e-YunSeongHun/ai-trend-daily"
-_GH_REPO = re.compile(r"^https?://github\.com/([^/]+)/([^/#?]+)")
 _TICK = re.compile(r"`([^`\n]+)`")
 
 
@@ -73,13 +72,8 @@ def search_text(a: dict) -> str:
 
 
 def thumb_url(a: dict) -> str:
-    img = str(a.get("이미지", "")).strip()
-    if img:
-        return img
-    m = _GH_REPO.match(str(a.get("링크", "")).strip())
-    if m:
-        return f"https://opengraph.githubassets.com/1/{m.group(1)}/{m.group(2)}"
-    return ""
+    # GitHub opengraph 미리보기는 429가 잦고 168px로 잘리면 글자만 남아 쓰지 않는다. 명시된 이미지만 쓴다.
+    return str(a.get("이미지", "")).strip()
 
 
 def links_html(raw) -> str:

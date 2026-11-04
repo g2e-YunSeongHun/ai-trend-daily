@@ -74,7 +74,7 @@
       }
     ],
     "한줄정리": "브라우저 페이지와 터미널을 탭으로 띄우는 네이티브 창으로, Claude Code·Codex 등 어떤 에이전트든 셸에서 호출해 작업하고 사람은 옆에서 지켜본다.",
-    "왜중요": "페이지는 시스템 WebView(macOS WKWebView, Linux WebKitGTK) 위에서 열리고 에이전트는 개요로 읽고 ref로 클릭·입력하며 스크린샷을 찍는다. 터미널은 PTY라 사람과 에이전트가 함께 입력하고, 사람이 요소에 남긴 코멘트가 에이전트에 전달된다. `goal` 액션은 반복 클릭을 OpenRouter의 작은 모델에 넘기며, 스킬·슬래시 명령·훅이 든 Claude Code 플러그인으로도 설치할 수 있다. 11/1 수집 때는 신호가 없어 보류했던 레포다.",
+    "왜중요": "페이지는 시스템 WebView(macOS WKWebView, Linux WebKitGTK) 위에서 열리고 에이전트는 개요로 읽고 ref로 클릭·입력하며 스크린샷을 찍는다. 터미널은 PTY라 사람과 에이전트가 함께 입력하고, 사람이 요소에 남긴 코멘트가 에이전트에 전달된다. `goal` 액션은 반복 클릭을 OpenRouter의 작은 모델에 넘기며, 스킬·슬래시 명령·훅이 든 Claude Code 플러그인으로도 설치할 수 있다.",
     "써보기": "curl -fsSL https://raw.githubusercontent.com/rsaryev/llx-desk/main/install.sh | sh",
     "세부": {
       "핵심 변경점": "에이전트용 브라우저·터미널 창, 요소 코멘트, goal 위임",
