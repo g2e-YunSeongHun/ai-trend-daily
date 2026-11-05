@@ -2,6 +2,261 @@
   {
     "섹션": "모델·API",
     "태그": "업데이트",
+    "제목": "Claude Console IP allowlist — 유출 API 키 사용처 제한 (베타)",
+    "제공자": "Anthropic",
+    "출처": "Claude Platform 릴리스 노트",
+    "날짜": "2026-11-05",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 노트",
+    "하이라이트": false,
+    "링크": "https://platform.claude.com/docs/en/manage-claude/ip-allowlist",
+    "관련링크": [
+      {
+        "라벨": "릴리스 노트",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview"
+      }
+    ],
+    "이미지": "https://platform.claude.com/web-api/og/docs/en/manage-claude/ip-allowlist?design-rev=4",
+    "한줄정리": "Claude Console에서 조직 단위 IP allowlist를 설정해, 목록 밖 주소에서 오는 Claude API·Console 요청을 거부할 수 있게 됐다(베타).",
+    "왜중요": "API 키가 유출돼도 허용된 네트워크 밖에서는 쓸 수 없게 막아 데이터 유출과 악용 과금을 줄인다. IPv4·IPv6 주소나 CIDR 범위를 조직당 최대 1,000개 등록하며, 거부된 요청은 403 `permission_error`를 받는다. Messages·Batches·Files·Skills·Managed Agents·Admin API 등에 적용되지만 Bedrock·Google Cloud·Microsoft Foundry 경유 요청에는 적용되지 않는다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "Console Identity and access 페이지에서 IP allowlist 토글 → 범위 추가·저장. 적용 대상: Console UI, Messages·Message Batches·Token Counting·Models·Files·Skills, Managed Agents(Agents·Sessions·Environments·Vaults·Memory stores), Admin·Compliance API",
+      "제약·가격": "베타(설정·동작 변경 가능). 조직당 최대 1,000개. Managed Agents 런타임 내부 네트워킹, Claude in Amazon Bedrock·Claude Platform on AWS·Claude Models on Google Cloud·Claude in Microsoft Foundry는 미적용. 잠금 방지용 '관리자는 어디서나 설정 페이지 접근' 옵션 권장",
+      "호환·요구사항": "조직 admin·owner 권한. 문서는 짧은 키 만료나 Workload Identity Federation 병행을 권장. 같은 날 Admin API `POST /v1/organizations/users/{user_id}/sign_out`(Claude Enterprise 멤버 전체 로그아웃, `admin-user-sign-out-2026-10-08` 베타 헤더)도 추가"
+    },
+    "수집일": "2026-11-06"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "ERNIE-5.5-Flash-Base — 280B-A14B MoE 베이스 모델 가중치 공개",
+    "제공자": "Baidu",
+    "출처": "ERNIE 블로그 · Hugging Face baidu",
+    "날짜": "2026-11-05",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · HN 142pt",
+    "하이라이트": false,
+    "링크": "https://ernie.baidu.com/release/ernie-5-5-flash-base/",
+    "관련링크": [
+      {
+        "라벨": "HF (FP8)",
+        "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Base"
+      },
+      {
+        "라벨": "HF (BF16)",
+        "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Base-BF16"
+      }
+    ],
+    "한줄정리": "Baidu가 총 280B·토큰당 14B 활성 파라미터의 MoE 언어 모델 ERNIE-5.5-Flash-Base를 사전학습 직후 체크포인트(미드·포스트 트레이닝 전)로 공개했다.",
+    "왜중요": "33.5T 토큰으로 처음부터 학습했고 학습 컨텍스트는 128K, 파인튜닝·추론은 1M 토큰을 지원한다. 지시 튜닝 전 베이스라 도메인 적응·RL 연구의 출발점으로 쓰기 좋고, 공식 평가에서 비슷한 크기의 DeepSeek-V4-Flash-Base·Hy3-preview-Base·MiMo-V2.5-Base보다 대부분 벤치마크에서 앞선다(예: MMLU-Pro 78.4 vs 69.2·66.9·65.7). 라이선스는 자체 ERNIE 5.5 Flash Base Model License v1.0이며, 포스트 트레이닝된 ERNIE 5.5 Flash는 추후 공개 예정이다.",
+    "써보기": "from transformers import AutoModelForCausalLM, AutoTokenizer\nimport torch\nmodel_name = \"baidu/ERNIE-5.5-Flash-Base-BF16\"\ntokenizer = AutoTokenizer.from_pretrained(model_name)\nmodel = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.bfloat16, device_map=\"auto\")",
+    "세부": {
+      "핵심 변경점": "43층, 37개 HCA(128토큰당 1개 캐시) + 6개 MLA·DSA 하이브리드 어텐션, 512 라우티드 전문가(top-10)+공유 1개의 Multi-Router Latent MoE, mHC, MultiMax 출력 헤드, MTP 대신 ECHO(투기적 디코딩 드래프트 겸용), 약 200K BPE 토크나이저(숫자 오른쪽→왼쪽 3자리 묶음)",
+      "제약·가격": "ERNIE 5.5 Flash Base Model License Agreement v1.0(독자 라이선스). 베이스 모델이라 대화·지시 수행용 튜닝 없음",
+      "호환·요구사항": "HF·ModelScope에 FP8·BF16 safetensors. 입력 앞에 BOS 토큰 필요(`add_special_tokens=True` 유지). SGLang·vLLM은 `completions` API로 서빙"
+    },
+    "수집일": "2026-11-06"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "업데이트",
+    "제목": "Gemini API 함수 응답 확장 — 툴이 오디오·영상·Office 파일 반환",
+    "제공자": "Google",
+    "출처": "Gemini API 체인지로그",
+    "날짜": "2026-11-05",
+    "날짜근거": "릴리스일",
+    "신호": "공식 체인지로그",
+    "하이라이트": false,
+    "링크": "https://ai.google.dev/gemini-api/docs/function-calling#multimodal",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      },
+      {
+        "라벨": "Office·OpenDocument 처리",
+        "url": "https://ai.google.dev/gemini-api/docs/document-processing#office-documents"
+      }
+    ],
+    "한줄정리": "Gemini API의 함수 응답에 이미지·PDF·텍스트 외에 오디오·영상·Office/OpenDocument 파일을 실을 수 있게 됐고, 인라인 바이트 대신 Files API URI로 돌려줄 수도 있다.",
+    "왜중요": "툴이 스프레드시트나 녹화 영상을 만들어도 모델에 다시 보여주려면 텍스트로 풀어야 했던 단계가 사라진다. 큰 파일은 Files API에 올린 뒤 `uri`만 반환해 요청 크기 한도를 피할 수 있다. 같은 날 입력 쪽도 PPT·ODP·ODS를 새로 받고 DOC는 페이지 이미지로 처리하도록 확대됐다(XLSX·XLS·ODS는 첫 시트만 읽음).",
+    "써보기": "sheet = client.files.upload(\n    file=\"q3_sales.xlsx\",\n    config={\"mime_type\": \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\"},\n)\nclip = client.files.upload(file=\"store_walkthrough.mp4\")",
+    "세부": {
+      "핵심 변경점": "GenerateContent: 함수 응답 파트가 오디오·영상·Office/ODF 파일과 `fileData`(Files API URI)를 받음, `inlineData`·`fileData`에 `displayName`, 영상 파트 `mediaProcessing`(`STATIC`/`AGENTIC`). Interactions API: `function_result`가 `document`·`audio`·`video` 블록(인라인 `data` 또는 `uri`) 수용",
+      "제약·가격": "영상 블록은 `v1beta`·`v1alpha`에서만. 지원하지 않는 MIME 타입은 `400 INVALID_ARGUMENT`. 기존 파일 크기·페이지 한도 동일 적용",
+      "호환·요구사항": "Gemini 3 계열 모델. 입력 확대: PPT·ODP·ODS 신규, DOC·PPT·ODP는 페이지 이미지로 렌더링, ODS는 첫 시트의 데이터와 수식 전달. DOCX·DOTX·ODT·PPTX·XLSX·XLS 처리는 변경 없음"
+    },
+    "수집일": "2026-11-06"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "신규출시",
+    "제목": "Gemini Omni 1.2 Flash — 15초 영상 생성·대화형 편집 GA",
+    "제공자": "Google",
+    "출처": "Google 블로그 · Gemini API 체인지로그",
+    "날짜": "2026-11-05",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · Gemini API GA",
+    "하이라이트": true,
+    "링크": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
+    "관련링크": [
+      {
+        "라벨": "Omni 가이드",
+        "url": "https://ai.google.dev/gemini-api/docs/omni"
+      },
+      {
+        "라벨": "가격",
+        "url": "https://ai.google.dev/gemini-api/docs/pricing#gemini-omni-1.2-flash"
+      },
+      {
+        "라벨": "체인지로그",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      }
+    ],
+    "이미지": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini-omni-1.2_FZLql41.width-1300.png",
+    "한줄정리": "Google이 오디오 포함 영상을 최대 15초까지 생성·편집하는 `gemini-omni-1.2-flash`를 Gemini API에서 정식(GA) 출시했다.",
+    "왜중요": "Omni 1.1의 10초 한도가 15초로 늘었고(3~15초를 1초 단위로 지정), Interactions API로 같은 클립을 턴마다 고쳐 나가는 대화형 편집과 최대 6장의 참조 이미지로 인물·제품 일관성을 유지한다. 가격은 1.1 대비 30% 내려 720p 기준 초당 약 $0.07(영상 출력 1M 토큰당 $12.00)이고 유료 등급 레이트 리밋은 2배다. 무료 등급에서는 쓸 수 없고, 2026-12-03부터 `gemini-omni-1.1-flash` 요청은 1.2 Flash로 자동 라우팅된다.",
+    "써보기": "import base64\nfrom google import genai\n\nclient = genai.Client()\n\ninteraction = client.interactions.create(\n    model=\"gemini-omni-1.2-flash\",\n    input=\"A marble rolling fast on a chain reaction style track, continuous smooth shot.\"\n)\nwith open(\"marble.mp4\", \"wb\") as f:\n    f.write(base64.b64decode(interaction.output_video.data))",
+    "세부": {
+      "핵심 변경점": "네이티브 15초 생성·편집(1.1은 10초), 첫·끝 프레임 보간 3~10초, 턴당 3~10초 연장으로 총 30초까지, 참조 이미지 최대 6장, 다중 화자 립싱크 개선, 360p/720p 초안 후 1080p·4K 업스케일",
+      "제약·가격": "유료 등급 전용. 입력 $1.50, 출력 $9.00(텍스트)·$12.00(영상) / 1M 토큰. 720p 초당 5,792토큰 ≈ $0.07/s(10초 ~$0.70, 15초 ~$1.04), 360p $0.023/s, 1080p $0.104/s, 4K $0.209/s. 출력에 SynthID 워터마크",
+      "호환·요구사항": "Interactions API(`client.interactions.create`), REST `v1beta/interactions`. `gemini-omni-1.1-flash`는 4주 전환 기간 후 2026-12-03부터 1.2 Flash로 자동 라우팅·1.2 요금 적용"
+    },
+    "수집일": "2026-11-06"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Mistral Studio — 매니지드 에이전트·앱과 Mistral MCP 서버 추가",
+    "제공자": "Mistral AI",
+    "출처": "Mistral AI 블로그",
+    "날짜": "2026-11-05",
+    "날짜근거": "발표일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://mistral.ai/news/build-with-studio/",
+    "관련링크": [
+      {
+        "라벨": "Managed Agents 문서",
+        "url": "https://docs.mistral.ai/studio/agents/overview"
+      },
+      {
+        "라벨": "Workflows 문서",
+        "url": "https://docs.mistral.ai/studio/workflows/overview"
+      },
+      {
+        "라벨": "릴리스 노트",
+        "url": "https://docs.mistral.ai/resources/release-notes"
+      }
+    ],
+    "이미지": "https://mistral.ai/cms-media/api/media/file/Studio%20V2%20-%20smal%20thumbnail.png",
+    "한줄정리": "Mistral의 엔터프라이즈 AI 플랫폼 Studio에 매니지드 에이전트·앱, 워크플로 이벤트 트리거, 에이전트 관측·평가 기능이 추가됐다.",
+    "왜중요": "매니지드 에이전트에는 팀 절차를 담은 스킬, 코드 실행 샌드박스, 서브에이전트, 실행 중간에 로직을 끼우는 훅을 붙일 수 있고 런타임은 Studio가 맡는다. 새 Mistral MCP 서버를 쓰면 Mistral Vibe나 기존 코딩 에이전트에서 만들고 로컬에서 테스트한 뒤 명령 하나로 Studio 환경에 배포할 수 있다. 클라우드·VPC·온프레미스 배포를 고를 수 있는 엔터프라이즈 플랫폼이다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "매니지드 에이전트(스킬·샌드박스·서브에이전트·훅), 매니지드 앱(호스팅·인증·접근 제어), 워크플로 이벤트 트리거와 시각 그래프, 중단된 실행 재개, OpenTelemetry 트레이스, 자체 데이터셋 평가, Mistral MCP 서버",
+      "제약·가격": "엔터프라이즈 플랫폼. 가격은 원문에 없음",
+      "호환·요구사항": "Mistral Vibe 또는 기존 코딩 에이전트에서 MCP 서버로 연동, 클라우드·VPC·온프레미스 배포"
+    },
+    "수집일": "2026-11-06"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "Supabase MCP 0.16.0 — 노트북을 만들고 실행·삭제하는 도구 추가",
+    "제공자": "Supabase",
+    "출처": "GitHub supabase/mcp",
+    "날짜": "2026-11-05",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm·MCP 레지스트리 11-05 등재)",
+    "하이라이트": false,
+    "링크": "https://github.com/supabase/mcp/releases/tag/mcp-server-supabase-v0.16.0",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/supabase/mcp"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@supabase/mcp-server-supabase"
+      },
+      {
+        "라벨": "문서",
+        "url": "https://supabase.com/mcp"
+      }
+    ],
+    "한줄정리": "Supabase 공식 MCP 서버 `@supabase/mcp-server-supabase` 0.16.0이 `notebooks` 기능 그룹에 `create_notebook`·`run_notebook`·`delete_notebook` 도구를 공개했다.",
+    "왜중요": "에이전트가 SQL·로그 쿼리 셀로 된 Supabase 노트북을 직접 만들고, `execute_sql`을 셀마다 부르는 대신 `run_notebook` 한 번으로 최대 50개 쿼리 셀을 순서대로 돌려 셀별 결과·오류를 받을 수 있다. `cells`로 고친 셀만 다시 돌릴 수 있고, 한 번 실행의 결과는 약 1MB 예산을 넘으면 이후 셀을 건너뛴다. 확인 모드에서는 단순 읽기 셀만 프롬프트 없이 읽기 전용으로 실행되고, 그 외 문장과 `delete_notebook`은 폼 확인(elicitation)을 거친다.",
+    "써보기": "{\n  \"mcpServers\": {\n    \"supabase\": {\n      \"type\": \"http\",\n      \"url\": \"https://mcp.supabase.com/mcp\"\n    }\n  }\n}",
+    "세부": {
+      "핵심 변경점": "create_notebook·run_notebook 기본 등록(내부 옵션 제거), delete_notebook 추가(elicitation 확인, skip_elicitations=delete_notebook로 생략 가능), run_notebook 50셀 상한·약 1MB 결과 예산·cells 부분 실행. 버그 수정: 계획 전용 EXPLAIN은 파괴적 확인 생략, list_tables에 partition_of 추가 등",
+      "제약·가격": "notebooks 그룹은 서버 기본 기능 목록에 없어 features로 지정해야 한다. 폼 elicitation을 지원하지 않는 클라이언트는 확인이 필요한 셀·삭제를 실행할 수 없다. 호스팅 엔드포인트의 결과 예산 적용은 플랫폼 측 반영 이후",
+      "호환·요구사항": "Supabase 프로젝트와 OAuth 로그인. Cursor·Claude·Windsurf 등 mcpServers HTTP 설정을 받는 클라이언트. 로컬 CLI·셀프호스팅 환경은 도구 일부만 제공"
+    },
+    "수집일": "2026-11-06"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "컨텍스트 압축 요약이 없는 승인 규칙을 지어낸다 — 프롬프트 한 줄 처방",
+    "제공자": "커뮤니티(Chuw1/handoff-audit)",
+    "출처": "arXiv cs.CL",
+    "날짜": "2026-11-05",
+    "날짜근거": "발행일",
+    "신호": "arXiv 2611.06545 · 코드·데이터 공개(MIT/CC BY 4.0)",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.06545",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/Chuw1/handoff-audit"
+      }
+    ],
+    "한줄정리": "장기 실행 에이전트가 컨텍스트를 압축할 때 쓰는 인계 요약(handoff summary)이 기록에 없는 권한·제약을 만들어 내는지, 그 문장이 다음 인스턴스의 행동을 바꾸는지 측정하고 진단 도구를 공개한 논문.",
+    "왜중요": "두 오픈 웨이트 모델에서 근거 없는 제약은 요약의 1.2%·2.4%, 근거 없는 승인은 0.1%·1.3%였고, 거짓 승인 문장을 중립화하자 무단 행동이 120회 중 24회에서 7회로 줄었다(사후 분석). 실무에 바로 쓸 결론은 시스템 프롬프트의 \"Some actions need approval.\"을 \"Only actions that the rules or the user's request say need approval require it.\"로 바꾸자 근거 없는 제약이 개발 세트 5.0% → 1.8%, 홀드아웃 1.8% → 0.3%로 줄고 필요한 승인 요청은 거의 그대로였다는 점이다. 단, 실험은 Qwen3-8B·gpt-oss-20b 등 소형 모델과 합성 툴 사용 과제 기준이다.",
+    "써보기": "pip install -r requirements.txt\nbash diagnose/selftest.sh\nexport SID_API_KEY=...\nbash diagnose.sh \"api:<model-id>@<base-url>\" \"api:<reader-model-id>@<base-url>\" out_mymodel",
+    "세부": {
+      "핵심 변경점": "60개 합성 툴 사용 과제에 권한 원장(ledger)을 두고, 같은 스냅샷에서 요약 문장만 중립 문장으로 바꿔 후속 인스턴스를 재실행(replay)해 영향 측정. 개발 세트 제약 64건 중 46건은 에이전트가 앞서 '승인이 필요할 수도' 하고 추측한 데서 시작",
+      "제약·가격": "재실행 효과 중 일부는 사후 분석이거나 유의성이 약함(사전 지정 제약 재실행 검정 p=0.58). 판독에 두 번째 모델(reader) 필요",
+      "호환·요구사항": "Python 3.11+, tool calling 지원 OpenAI 호환 chat-completions 엔드포인트(OpenAI·Gemini·OpenRouter·vLLM/SGLang)"
+    },
+    "수집일": "2026-11-06"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Qwen3.8 Flash-Next를 RTX 5080 16GB 한 장에서 — Basalt 설정 가이드",
+    "제공자": "커뮤니티(xyehya)",
+    "출처": "GitHub xyehya/basalt (flashnext-5080-setup 브랜치), r/LocalLLaMA",
+    "날짜": "2026-11-05",
+    "날짜근거": "발행일",
+    "신호": "r/LocalLLaMA 일간 상위 · 설정 스크립트·측정표 공개",
+    "하이라이트": false,
+    "링크": "https://github.com/xyehya/basalt/tree/flashnext-5080-setup",
+    "관련링크": [
+      {
+        "라벨": "Basalt 업스트림",
+        "url": "https://github.com/jesdga95/basalt"
+      },
+      {
+        "라벨": "Unsloth GGUF",
+        "url": "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF"
+      }
+    ],
+    "한줄정리": "MoE 전문가를 VRAM과 RAM에 나눠 싣는 Basalt 엔진에 Unsloth UD-IQ3_XXS 가중치와 Lamina MTP 드래프터를 붙여, RTX 5080 16GB + 64GB RAM에서 Qwen3.8-Flash-Next를 돌리는 재현 가능한 설정과 측정 결과.",
+    "왜중요": "같은 UD-IQ3_XXS 파일 기준 디코드가 1K/4K/40K/150K 컨텍스트에서 Basalt+Lamina 213/219/217/165 tok/s, llama.cpp(드래프터 없음) 40/42/38/31 tok/s로, 16GB 카드에서도 큰 MoE를 에이전트 코딩용으로 쓸 수 있는 속도가 나온다. opencode 실사용 세션(151요청, 최대 202K 컨텍스트)에서 평균 195.6 tok/s, 프롬프트 읽기 약 5,500 tok/s를 기록했고, UD-IQ3_XXS는 wikitext 퍼플렉시티 3.247로 GSQ-RCO IQ3_S(3.382)보다 BF16(3.273)에 가깝다. 단, 브랜치는 업스트림 v0.2.1에 아직 병합 안 된 PR을 얹은 개인 빌드이고, Blackwell GPU·CUDA 13·약 180GB 디스크가 필요하다.",
+    "써보기": "git clone -b flashnext-5080-setup https://github.com/xyehya/basalt && cd basalt\nsetup/flashnext-ud-lamina/setup.sh\nbin/basalt serve --config basalt_config-flashnext.json --python .venv/bin/python --alias qwen3.8-flash-next",
+    "세부": {
+      "핵심 변경점": "Lamina MTP 드래프터로 드래프트 수락률 83.1% → 85.8%(Reddit 글). 업스트림 대비 host K/V prefault(#117), spin-then-yield(#246), --adapt-margin(#231), 대화 디스크 캐시(#149) 등 PR 포함. setup.sh가 약 90GB를 받아 SHA-256 검증 후 ~82GB .basalt 파일로 변환",
+      "제약·가격": "가중치는 Qwen Community License 1.0, Basalt는 MIT. 측정 환경은 RTX 5080 360W·Core Ultra 9 285K·DDR5-7200 64GB·Fedora",
+      "호환·요구사항": "Linux, NVIDIA Blackwell(RTX 50xx, CC 12.x) 16GB, CUDA 13, GCC 13+, CMake 3.24+, Python 3.10+, AVX2, RAM 64GB, 디스크 ~180GB"
+    },
+    "수집일": "2026-11-06"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "업데이트",
     "제목": "Gemini 3.8 TTS 보이스 리믹싱 — 기존 목소리를 자연어로 고쳐 새 보이스로",
     "제공자": "Google",
     "출처": "Gemini API 체인지로그",
