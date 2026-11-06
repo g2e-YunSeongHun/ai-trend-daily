@@ -2,6 +2,243 @@
   {
     "섹션": "모델·API",
     "태그": "업데이트",
+    "제목": "Gemini Embedding 2 Preview 종료 — 11/6부터 정식판으로 자동 전환",
+    "제공자": "Google",
+    "출처": "Gemini API 릴리스 노트",
+    "날짜": "2026-11-06",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 노트·deprecations 표 등재",
+    "하이라이트": false,
+    "링크": "https://ai.google.dev/gemini-api/docs/changelog",
+    "관련링크": [
+      {
+        "라벨": "지원 종료 표",
+        "url": "https://ai.google.dev/gemini-api/docs/deprecations"
+      },
+      {
+        "라벨": "임베딩 문서",
+        "url": "https://ai.google.dev/gemini-api/docs/embeddings"
+      }
+    ],
+    "한줄정리": "2026년 11월 6일부터 `gemini-embedding-2-preview`로 보낸 요청이 정식 모델 `gemini-embedding-2`로 라우팅되고 Gemini Embedding 2 요금이 적용된다.",
+    "왜중요": "3월에 나온 멀티모달 임베딩 프리뷰 모델이 지원 종료돼, 프리뷰 모델명을 쓰던 코드는 이제 정식판으로 처리된다. `gemini-embedding-2`는 API 스키마·가격·임베딩 공간이 같아 모델 문자열만 바꾸면 되고 벡터를 다시 인덱싱할 필요가 없다. 자동 라우팅은 되지만 공식 안내는 모델 문자열을 `gemini-embedding-2`로 고치라는 것이다.",
+    "써보기": "from google import genai\n\nclient = genai.Client()\n\nresult = client.models.embed_content(\n        model=\"gemini-embedding-2\",\n        contents=\"What is the meaning of life?\"\n)\n\nprint(result.embeddings)",
+    "세부": {
+      "핵심 변경점": "`gemini-embedding-2-preview` 지원 종료(deprecated). 2026-11-06부터 해당 모델로 온 API 요청은 `gemini-embedding-2`로 라우팅",
+      "제약·가격": "라우팅된 요청은 Gemini Embedding 2 요금으로 과금. 프리뷰와 가격 동일",
+      "호환·요구사항": "같은 API 스키마·가격·임베딩 공간 — 모델 문자열 외 코드 변경·벡터 재인덱싱 불필요. 프리뷰 출시일 2026-03-10, 정식판 GA 2026-04-22"
+    },
+    "수집일": "2026-11-07"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Amp 피드백 위젯 — 웹사이트 요소를 짚어 Amp에 수정 요청",
+    "제공자": "Amp",
+    "출처": "Amp 뉴스",
+    "날짜": "2026-11-06",
+    "날짜근거": "발표일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://ampcode.com/news/close-the-loop",
+    "관련링크": [
+      {
+        "라벨": "문서",
+        "url": "https://ampcode.com/docs/feedback-widget"
+      }
+    ],
+    "이미지": "https://ampcode.com/og?_template=news&_version=7&title=Close+the+Loop&date=November+6%2C+2026&tagline=Point+at+anything+on+your+website+and+have+Amp+change+it.&screenshot=https%3A%2F%2Fstatic.ampcode.com%2Fnews%2Fclose-the-loop-comments.avif&sig=2e11f4e024fb53c6691eabc5b5af137d149774626d09ca4a6a983bb4a9800df8",
+    "한줄정리": "사이트에 스크립트 태그 하나를 넣고 주소 끝에 `?amp`를 붙여 열면, 페이지 요소를 클릭해 코멘트를 달아 Amp에 보내고 Amp가 프로젝트 스레드에서 변경을 만드는 피드백 위젯이다.",
+    "왜중요": "팀원이 실제 화면에서 고칠 곳을 짚으면 Amp가 코멘트를 담은 새 스레드를 열어 orb에서 변경을 만들고, 다른 변경처럼 스레드에서 배포한다. 서버 코드나 자체 로그인 없이 스크립트만 있으면 되지만, 프로젝트 설정 권한과 Allowed Origins 등록(https 필수, localhost 예외)이 필요하고 CSP를 쓰면 script-src·frame-src에 https://ampcode.com을 허용해야 한다. 위젯을 켜면 워크스페이스가 Sign in with Amp 조직이 된다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "프로젝트 설정 Feedback Widget 탭에서 Enable → 스크립트 태그 복사·삽입 → Allowed Origins 추가. 위젯에서 요소 선택·코멘트(여러 페이지 가능) → Send → 첫 사용 시 Continue with Amp 로그인 → Start in Orb로 새 스레드 시작",
+      "제약·가격": "기본은 보이지 않고 ?amp로 열거나 한 번 사용한 뒤에만 표시. 목록에 없는 origin에서는 패널이 열리지 않고 코멘트도 거부",
+      "호환·요구사항": "스크립트 태그의 /w/ 뒤는 프로젝트 앱의 client ID(예시의 client_01J…는 자리표시). origin은 https:// 필수, http://localhost·127.0.0.1·[::1]은 허용"
+    },
+    "수집일": "2026-11-07"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Claude Code 2.1.319 — MCP 작업 백그라운드 실행·프롬프트 대신 거부 설정",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/claude-code",
+    "날짜": "2026-11-06",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (태그·CHANGELOG 커밋 2026-11-06 17:03 UTC · npm 2026-11-06 00:58 UTC)",
+    "하이라이트": true,
+    "링크": "https://github.com/anthropics/claude-code/releases/tag/v2.1.319",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://code.claude.com/docs/en/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.319"
+      }
+    ],
+    "한줄정리": "MCP 서버가 작업(task)으로 실행하는 도구 호출을 곧바로 백그라운드로 넘기고, 권한 프롬프트를 기다릴 호출을 거부한 채 턴을 이어가는 `permissions.denyInsteadOfPrompting` 설정을 더한 Claude Code 릴리스다.",
+    "왜중요": "오래 걸리는 MCP 작업이 터미널을 막지 않고 끝나면 결과가 Claude에게 전달되며, `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND`로 기존처럼 도구 호출 안에서 기다리게 할 수 있다. `denyInsteadOfPrompting`은 터미널 세션·서브에이전트·팀메이트에서 프롬프트에 멈추지 않게 해 무인 실행에 쓸 만하다. 텔레메트리·기능 플래그가 꺼졌거나 LLM 게이트웨이 뒤의 auto mode는 서버가 확인하지 못하는 호출을 묻거나 거부하도록 바뀌어 내장 분류기로 폴백하지 않으니(`CLAUDE_CODE_AUTO_MODE_SERVER=0`으로 유지 가능, Bedrock·Vertex·Foundry는 변경 없음) 게이트웨이 사용자는 확인이 필요하다.",
+    "써보기": "/claude-api latency-optimize\n/tasks\n/usage",
+    "세부": {
+      "핵심 변경점": "터미널의 MCP tasks 지원(즉시 백그라운드, 완료 시 결과 전달), permissions.denyInsteadOfPrompting, /claude-api latency-optimize(Claude API 코드의 대기 지점 탐색·eval로 빠른 설정 시험), CLAUDE_CODE_DISABLE_FEATURE_FLAGS, /tasks의 'Earlier in this session' 행(끝난 서브에이전트 재오픈·메시지), 지출 한도 없는 Claude apps gateway 사용자의 /usage 오늘·이번 주·이번 달 지출, 게이트웨이 pooled_conflict_rule·pooled_priority_order·login_notice·CLAUDE_GATEWAY_LOG_FORMAT=json, claude -p가 auto mode 안전 확인 불가로 거부되면 exit 1",
+      "제약·가격": "auto mode 변경은 텔레메트리·기능 플래그 off 또는 LLM 게이트웨이 뒤 환경에 해당. 게이트웨이에서 CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS를 관리 설정으로 켰다면 CLAUDE_CODE_AUTO_MODE_SERVER=1도 함께 설정해야 서버 측 확인이 켜짐",
+      "호환·요구사항": "동반 릴리스: Agent SDK TS 0.3.319(SDK 세션의 MCP task 지원 — CLAUDE_AUTO_BACKGROUND_TASKS=1과 스트리밍 입력 필요, task_type \"mcp_task\", Bedrock·Vertex·Foundry 제외), Python 0.2.179(번들 CLI 2.1.319)"
+    },
+    "수집일": "2026-11-07"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Codex CLI 0.167.0 — `codex agents` 커맨드 센터·Vertex AI 설정 마법사",
+    "제공자": "OpenAI",
+    "출처": "GitHub openai/codex",
+    "날짜": "2026-11-06",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (Codex 체인지로그 2026-11-06 표기 · npm 2026-11-06 01:48 UTC)",
+    "하이라이트": false,
+    "링크": "https://github.com/openai/codex/releases/tag/rust-v0.167.0",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://developers.openai.com/codex/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@openai/codex/v/0.167.0"
+      }
+    ],
+    "한줄정리": "`codex agents --no-daemon`으로 여는 에이전트 커맨드 센터와 안 읽은 결과 표시, 터미널 세션 선택기의 백엔드 전환, Google Cloud Vertex AI 설정 마법사를 더한 Codex CLI 릴리스다.",
+    "왜중요": "여러 에이전트 세션의 결과를 커맨드 센터·세션 선택기에서 안 읽음 표시로 챙기고, 연결된 백엔드를 초안을 유지한 채 바꿀 수 있다. 'Sign in another way'에서 API 키·클라우드 제공자 옵션을 고르고, `gcp_setup_wizard`를 켜면 Application Default Credentials나 자격 증명 파일로 Vertex AI를 설정한다. 지원 터미널의 로컬 이미지 첨부 미리보기, `/experimental`의 macOS·Windows 시스템 프록시 옵트인, 승인 프롬프트 중 패치 상세 펼치기도 추가됐다.",
+    "써보기": "npm install -g @openai/codex@0.167.0\ncodex agents --no-daemon",
+    "세부": {
+      "핵심 변경점": "에이전트 커맨드 센터(codex agents --no-daemon)·안 읽은 결과 표시, 세션 선택기 백엔드 전환(초안 유지), 로컬 이미지 첨부 미리보기·트랜스크립트 경로 클릭으로 이미지 열기, Vertex AI 설정(gcp_setup_wizard), /experimental 시스템 프록시, 승인 중 패치 상세 펼치기. 수정: 모델 제공자 전환 후 저장된 채팅 유지(재개 불가 시 트랜스크립트 읽기·이어갈 프롬프트 준비), Ctrl+L은 화면만 지우고 Ctrl+T로 이전 메시지 열람, 자동 컨텍스트 압축이 실패 응답의 출력까지 계산",
+      "제약·가격": "Vertex AI 설정은 gcp_setup_wizard 활성화 필요, 시스템 프록시는 /experimental 옵트인",
+      "호환·요구사항": "@openai/codex-sdk 0.167.0 동시 배포(npm 2026-11-06 01:46 UTC)"
+    },
+    "수집일": "2026-11-07"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "Smarter Compact — 잘라낸 컨텍스트를 다시 검색하는 코딩 에이전트용 MCP",
+    "제공자": "커뮤니티(bcmyguest)",
+    "출처": "GitHub bcmyguest/smarter-compact",
+    "날짜": "2026-11-06",
+    "날짜근거": "릴리스일",
+    "신호": "r/mcp 일간 상위 · npm 등재(smarter-compact 0.4.0)",
+    "하이라이트": false,
+    "링크": "https://github.com/bcmyguest/smarter-compact",
+    "관련링크": [
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/smarter-compact"
+      },
+      {
+        "라벨": "문서",
+        "url": "https://bcmyguest.github.io/smarter-compact/context-management/"
+      }
+    ],
+    "이미지": "https://opengraph.githubassets.com/e3e8dc088f25fcca870b1c680764bc9c25e820f52351403c8b0cbd3d59c5e0dd/bcmyguest/smarter-compact",
+    "한줄정리": "긴 코딩 에이전트 세션의 모든 메시지를 로컬 SQLite에 저장하고, 토큰 한도에 닿으면 오래된 턴을 프롬프트에서 빼되 에이전트가 MCP 도구로 다시 찾아 읽게 하는 로컬 프록시+MCP 서버다.",
+    "왜중요": "요약 호출 없이 오래된 턴을 잘라내고 잘린 지점을 고정해 프롬프트 캐시가 계속 맞도록 한다. 에이전트는 `smart_compact_search`·`smart_compact_sql`·`smart_compact_get`으로 잘린 내용을 되찾는다. README의 Haiku 5.5 ContextBench 비교에서 전부 유지 대비 평균 72% 비용 절감을 보고했지만, 작성자도 합성 과제·적은 반복 횟수 기반이라고 밝힌다. Claude Code·Codex·OpenCode·Pi에서 자동 트림이 되고, Cursor·Copilot CLI는 검색 도구만 쓸 수 있다.",
+    "써보기": "npm install -g smarter-compact\nsmarter-compact plugins add claude\nsmarter-compact enable claude",
+    "세부": {
+      "핵심 변경점": "0.4.0(11-06): 도구 결과를 먼저 가리는 `CONTEXT_CLEAR_KEEP_RESULTS` 옵션(실험적) 추가, 프록시의 observation masking 기본 활성화",
+      "제약·가격": "Apache-2.0, 로컬 전용(호스팅 서비스·별도 API 키 없음). 프록시 기본 포트 4101",
+      "호환·요구사항": "Node 24 이상(`node:sqlite`), 프록시 방식 에이전트는 LiteLLM 개발 빌드 `v1.109.0-dev.1`을 `litellm`으로 PATH에 둬야 함. Claude Code 2.1.275 이상은 `/plugin install smarter-compact --marketplace bcmyguest/smarter-compact`로도 설치"
+    },
+    "수집일": "2026-11-07"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "noracu 0.2 — Mac 앱·브라우저를 element_index로 조작하는 로컬 MCP",
+    "제공자": "커뮤니티(sgInnora)",
+    "출처": "GitHub sgInnora/noracu",
+    "날짜": "2026-11-06",
+    "날짜근거": "릴리스일",
+    "신호": "r/mcp 일간 상위 · npm·MCP 레지스트리 등재",
+    "하이라이트": false,
+    "링크": "https://github.com/sgInnora/noracu",
+    "관련링크": [
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/noracu"
+      }
+    ],
+    "이미지": "https://opengraph.githubassets.com/4033af0ac686a14d9fbebeddf059c51d0e6a47aa3e5e8a28aa00f051f8989aad/sgInnora/noracu",
+    "한줄정리": "macOS 앱의 접근성 트리와 Playwright 브라우저의 ARIA 트리를 번호 붙은 목록으로 넘기고, 에이전트가 픽셀 대신 `element_index`로 클릭·입력하게 하는 로컬 stdio MCP 서버다.",
+    "왜중요": "인덱스는 30초 동안만 유효하고 매 동작 전에 요소를 다시 식별해, 바뀌거나 사라진 요소면 엉뚱한 곳을 누르는 대신 `element_no_longer_valid`를 돌려준다. 모든 입력 결과에 실제 전달 여부(`delivered_verified` 등)와 재시도 안전 여부가 붙는다. Claude Desktop·Claude Code·Cursor 등 MCP 클라이언트에서 쓰며, 서버 자체는 API 키·텔레메트리 없이 로컬에서만 돈다. Mac·iPhone 계층은 macOS 전용이고 iPhone Mirroring 계층은 실험 단계다.",
+    "써보기": "npm install noracu\nbrew install cliclick\nclaude mcp add noracu -- /ABSOLUTE/PATH/TO/node /ABSOLUTE/PATH/TO/noracu/src/server.mjs",
+    "세부": {
+      "핵심 변경점": "0.2.0~0.2.3(11-06): Mac 계층이 접근성 C API를 JXA 스크립트로 호출, 물리 클릭 전 히트 테스트로 가려진 지점이면 `occluded` 반환, 클릭 직전 창 재확인 등",
+      "제약·가격": "MIT. 브라우저는 단일 탭만 지원. iPhone Mirroring은 EU에서 쓸 수 없음",
+      "호환·요구사항": "Node 20 이상, 물리 입력에는 cliclick 필요. 접근성·화면 기록 권한은 node가 아니라 호스트 앱에 부여. 처음엔 `NORACU_READ_ONLY=1`로 관찰 전용 실행 권장"
+    },
+    "수집일": "2026-11-07"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Agent Distraction — 낡은 TODO 주석이 코딩 에이전트를 샛길로 이끈다",
+    "제공자": "Google",
+    "출처": "Google Developers Blog",
+    "날짜": "2026-11-06",
+    "날짜근거": "발행일",
+    "신호": "공식 엔지니어링 블로그 (사내 수백만 세션 트레이스 분석)",
+    "하이라이트": false,
+    "링크": "https://developers.googleblog.com/agent-distraction/",
+    "관련링크": [],
+    "이미지": "https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Agent_Distraction_Cover_1600x900_.2e16d0ba.fill-1200x600.png",
+    "한줄정리": "Google이 사내 코딩 에이전트 세션 트레이스로 코드 속 TODO(bug/...) 주석이 에이전트를 요청받지 않은 작업으로 끌어들이는 비율과 비용을 측정했다.",
+    "왜중요": "파일을 읽는 세션의 13%가 TODO(bug/...)·FIXME(bug/...)에 노출됐고, 그중 6%에서 에이전트가 해당 버그를 추적했으며 그 83%는 개발자가 요청하지 않은 행동이었다. 요청받지 않은 샛길은 세션당 스텝 70%, 토큰 77%, 대기 시간 105%를 늘렸다. 이미 닫힌 버그를 가리키는 TODO를 정리하는 것이 곧 에이전트 비용 절감이라는 근거가 된다.",
+    "세부": {
+      "핵심 변경점": "요청받지 않은 샛길의 41%는 이미 닫힌 티켓(수정·검증 완료 32%, 폐기·won't-fix 9%)을 쫓았고, 57%는 열린 버그로 작업 범위를 넓혔다(조회만 61%, 코드 수정 39%). 개발자·코드베이스 복잡도·작업 유형·모델 등급 등을 통제한 고정효과 회귀로 추정(p<0.0001).",
+      "제약·가격": "수치는 Google 사내 코드베이스·에이전트 기준이다. 정리 도구는 공개되지 않았다.",
+      "호환·요구사항": "대응책: 버그 이력·파일 이력까지 확인해 TODO가 정말 낡았을 때만 삭제 변경을 올리는 정리 에이전트를 6개월간 운영, 수천 건 삭제·리뷰어 승인율 95% 초과. 프리서브밋 분석기·전체 코퍼스 스캐너도 대안으로 제시."
+    },
+    "수집일": "2026-11-07"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Terminal-Bench 2.1 — 2.0 과제 약 30% 결함을 고친 감사판 공개",
+    "제공자": "커뮤니티(harbor-framework / Terminal-Bench)",
+    "출처": "arXiv 2611.08417",
+    "날짜": "2026-11-06",
+    "날짜근거": "발행일",
+    "신호": "arXiv 공개 + 데이터셋 공개(github.com/harbor-framework/terminal-bench-2-1)",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.08417",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/harbor-framework/terminal-bench-2-1"
+      },
+      {
+        "라벨": "수정 내역 PR",
+        "url": "https://github.com/harbor-framework/terminal-bench-2/pull/53"
+      },
+      {
+        "라벨": "과제 검토 자동화 문서",
+        "url": "https://github.com/harbor-framework/terminal-bench/blob/main/docs/TASK_REVIEW_AUTOMATION.md"
+      }
+    ],
+    "한줄정리": "코딩 에이전트 벤치마크 Terminal-Bench 2.0을 에이전트 기반 지속 검증 워크플로로 감사해 결함을 고친 Terminal-Bench 2.1과 그 방법을 공개한 논문이다.",
+    "왜중요": "감사로 89개 과제 중 28개(약 30%)에서 결함이 나왔고, 2.1로 고치자 정확도가 10%p 넘게 오르고 순위가 최대 3계단 바뀌었다(전체 순위 상관 Spearman ρ=0.958). 실패 시행의 50% 이상이 시간 초과였고(claude-code 68%, gemini-cli 18%), 시간 제한을 늘리면 GPT 5.4의 하네스 간 20%p 격차가 사라져 시간·토큰 예산도 측정 조건으로 함께 고정해야 함을 보여 준다. 사내 에이전트 평가에 Terminal-Bench 점수를 쓰는 팀은 버전과 자원 예산을 같이 기록해야 한다.",
+    "세부": {
+      "핵심 변경점": "커뮤니티 리포트·과제 산출물·에이전트 트레이스·자동 오라클 검사·사람 승인 수정을 묶은 지속 검증 워크플로. Claude Code(Opus 4.6)와 Codex(GPT-5.4) 감사자가 89개 과제 전체에서 주 결함 분류에 κ=0.80으로 일치.",
+      "제약·가격": "워크플로는 독립적 결함 발견보다 유지보수자 검토 전 분류(트리아지) 도구로 보는 것이 맞다고 저자가 밝힘. 2.1은 최종판이 아닌 체크포인트.",
+      "호환·요구사항": "19개 에이전트로 2.0→2.1 비교. 워크플로는 Terminal-Bench의 과제 검토 절차에 이미 편입됨."
+    },
+    "수집일": "2026-11-07"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "업데이트",
     "제목": "Claude Console IP allowlist — 유출 API 키 사용처 제한 (베타)",
     "제공자": "Anthropic",
     "출처": "Claude Platform 릴리스 노트",
