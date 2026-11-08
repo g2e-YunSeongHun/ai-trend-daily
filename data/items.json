@@ -1,5 +1,160 @@
 [
   {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Qwen Code 0.27.0 — FileChanged 훅·다중 자식 질문·레포 필터",
+    "제공자": "Alibaba Qwen",
+    "출처": "GitHub QwenLM/qwen-code",
+    "날짜": "2026-11-08",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm latest 0.27.0)",
+    "하이라이트": true,
+    "링크": "https://github.com/QwenLM/qwen-code/releases/tag/v0.27.0",
+    "관련링크": [
+      {
+        "라벨": "CHANGELOG",
+        "url": "https://github.com/QwenLM/qwen-code/blob/main/CHANGELOG.md"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@qwen-code/qwen-code"
+      }
+    ],
+    "한줄정리": "Qwen의 오픈소스 터미널 코딩 에이전트 Qwen Code가 0.27.0에서 파일 변경 훅, 매니지드 에이전트의 다중 질문 처리, GitHub 채널 레포 필터를 추가했다.",
+    "왜중요": "로컬 세션에서 감시 중인 파일·디렉터리의 추가·변경·삭제를 `FileChanged` 훅으로 받을 수 있어, 파일 변화에 반응하는 자동화를 훅 하나로 붙일 수 있다. 매니지드 에이전트 세션은 여러 자식 에이전트의 질문을 동시에 들고 순서와 상관없이 답할 수 있게 됐고, GitHub 채널 편집기에는 레포 허용·차단 목록이 생겼다. 비대화형·ACP·채널 실행에서 프롬프트에 스킬이 다섯 개 넘게 쌓이면 경고하고, 알려진 호환성 깨짐은 없다고 밝혔다. GitHub 릴리스는 UTC 11-07 20:45, 한국·중국 시각으로는 11-08 새벽에 나왔다.",
+    "써보기": "npm install -g @qwen-code/qwen-code@latest",
+    "세부": {
+      "핵심 변경점": "FileChanged 훅(로컬 비매니지드 세션, add/change/unlink), 매니지드 에이전트 다중 자식 질문, Web Shell 작업 Q&A 히트맵·Ask for details, GitHub 채널 Repository Filter, sed 치환의 CRLF·유니코드 처리, serve의 유휴 채널 세션 회수, PR 단건 상태 조회",
+      "제약·가격": "unifiedAgentLoop 관련 변경은 experimental.unifiedAgentLoop를 켰을 때만 적용",
+      "호환·요구사항": "No known breaking changes (릴리스 노트)"
+    },
+    "수집일": "2026-11-09"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "LLM Game Automation MCP — 에이전트가 PC 게임을 백그라운드로 조작",
+    "제공자": "커뮤니티(CorruptedAng3l)",
+    "출처": "GitHub CorruptedAng3l/llm-game-automation-mcp",
+    "날짜": "2026-11-08",
+    "날짜근거": "주목일",
+    "신호": "r/ClaudeAI 일간 상위",
+    "하이라이트": false,
+    "링크": "https://github.com/CorruptedAng3l/llm-game-automation-mcp",
+    "관련링크": [
+      {
+        "라벨": "MCP 문서",
+        "url": "https://github.com/CorruptedAng3l/llm-game-automation-mcp/blob/main/mcp/README.md"
+      },
+      {
+        "라벨": "면책 고지",
+        "url": "https://github.com/CorruptedAng3l/llm-game-automation-mcp/blob/main/DISCLAIMER.md"
+      }
+    ],
+    "한줄정리": "게임 프로세스마다 전용 키보드·마우스·게임패드 입력과 화면 캡처를 붙여, LLM 에이전트가 포커스를 뺏지 않고 Windows 게임을 조작하게 하는 MCP 서버다.",
+    "왜중요": "입력을 SendInput 대신 게임 프로세스에 주입한 DLL로 넣기 때문에 사용자는 PC를 계속 쓸 수 있고, 여러 게임을 동시에 돌릴 수 있다. 화면은 게임 자체 스왑체인(D3D9/11/12·OpenGL·Vulkan)에서 캡처한다. MCP 도구 108개와 게임별 내비게이션 프로필 15개가 들어 있다. Windows 전용이고 DLL 주입 방식이라 싱글플레이·오프라인 게임에만 쓰라고 경고하며, 서명 없는 바이너리라 백신이 탐지할 수 있다.",
+    "써보기": "claude mcp add game-automation -- node C:\\Tools\\llm-game-automation-mcp\\mcp\\build\\index.js",
+    "세부": {
+      "핵심 변경점": "vinput DLL·CLI, MCP 도구 108개(launch, capture, click_text, key, pad, nav_go, aim_shoot 등), 내장 프로필 15개(0.4.8). 11-08에 v0.4.4~v0.4.8 태그",
+      "제약·가격": "온라인·멀티플레이·안티치트 게임에서 쓰면 계정이 정지될 수 있다고 경고",
+      "호환·요구사항": "Windows, Node.js 20 이상. 릴리스 zip을 받아 압축 해제 후 등록. Codex는 ~/.codex/config.toml에 등록"
+    },
+    "수집일": "2026-11-09"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "Boxdawn guard — 위험한 셸 명령을 막는 Claude Code 플러그인",
+    "제공자": "커뮤니티(boxdawn)",
+    "출처": "GitHub boxdawn/guard",
+    "날짜": "2026-11-08",
+    "날짜근거": "주목일",
+    "신호": "GeekNews 게재 (Show GN, 11-08)",
+    "하이라이트": false,
+    "링크": "https://github.com/boxdawn/guard",
+    "관련링크": [
+      {
+        "라벨": "GeekNews",
+        "url": "https://news.hada.io/topic?id=36811"
+      },
+      {
+        "라벨": "Copilot CLI판",
+        "url": "https://github.com/boxdawn/guard-copilot"
+      }
+    ],
+    "한줄정리": "Claude Code가 Bash·PowerShell 명령을 실행하기 전에 판정해, 프로젝트 밖 삭제·force push·DB drop·클라우드 리소스 파괴 같은 명령을 거부하거나 승인을 요구하는 플러그인이다.",
+    "왜중요": "가드는 거부(deny)나 확인(ask)만 하고 허용은 하지 않는다. 나머지 명령은 Claude Code 자체 권한 설정으로 그대로 넘어간다. Bash는 tree-sitter 구문 트리로 해석해 따옴표·변수·`bash -c`로 감싼 명령도 잡는다. 무인 모드에서는 ask가 deny로 바뀌고, 가드가 실행되지 못하면 명령도 막힌다. `.env`·SSH 키·`~/.aws/credentials` 같은 비밀 파일은 읽으려 하면 확인을 받고 외부로 보내려 하면 거부한다. 11-08 v0.4.6에서 GitHub Copilot CLI 지원이 추가됐다. API 키 없이 쓰면 네트워크 연결을 하지 않으며, 라이선스는 FSL-1.1-ALv2다.",
+    "써보기": "claude plugin marketplace add boxdawn/guard\nclaude plugin install boxdawn-guard@boxdawn",
+    "세부": {
+      "핵심 변경점": "rm·find -delete·dd, git force push·reset --hard·clean, DROP·TRUNCATE·WHERE 없는 DELETE, terraform destroy·kubectl delete·aws s3 rm 등 판정. v0.4.6에서 Copilot CLI 지원",
+      "제약·가격": "무료로 동작. 유료 키를 넣으면 서명된 규칙 업데이트를 받음. FSL-1.1-ALv2(버전별 2년 뒤 Apache 2.0)",
+      "호환·요구사항": "Windows x64, macOS, Linux x64·ARM64. 설치 후 새 Claude Code 세션을 시작해야 적용"
+    },
+    "수집일": "2026-11-09"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Dale 사례 — Qwen3.5 0.8B~9B를 자연어→bash로 파인튜닝",
+    "제공자": "커뮤니티(Manuel GS)",
+    "출처": "manuelgs.com",
+    "날짜": "2026-11-08",
+    "날짜근거": "주목일",
+    "신호": "r/LocalLLaMA 일간 상위",
+    "하이라이트": false,
+    "링크": "https://manuelgs.com/en/blog/dale-case-study/",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/manuelgscom/dale"
+      },
+      {
+        "라벨": "모델",
+        "url": "https://huggingface.co/collections/manuelgscom/dale"
+      }
+    ],
+    "한줄정리": "자연어 요청을 Linux 명령으로 바꾸는 소형 모델 4종을 직접 학습해, 471건 테스트에서 89.2%(9B)를 낸 과정과 막혔던 지점을 정리한 사례 글이다(10-23 발행).",
+    "왜중요": "튜닝 전 가장 좋은 모델이 62.8%였던 과제에서, 0.8B 모델도 CPU에서 529MB로 79.4%를 냈다. LoRA가 아닌 전체 파인튜닝이었고 버린 실험까지 포함한 GPU 임대비는 약 39 USD다. 0.8B가 74%에서 멈췄을 때 DPO·증류·학습률 탐색은 효과가 없었다. 원인은 학습 요청이 짧고 깔끔한 반면 테스트 요청은 길고 조건이 겹쳐 있다는 점이었고, 테스트 통계에 맞춘 요청을 약 9천 건 추가하자 348→375건(p = 0.001)으로 올랐다. 비교 대상인 튜닝 안 한 모델에는 예시 8개를 넣은 프롬프트를 주고 Dale은 예시 없이 답하게 했으며, 채점은 규칙 검사와 판정 모델 둘의 토론으로 했다.",
+    "써보기": "curl -LO https://github.com/manuelgscom/dale/releases/latest/download/dale-linux-x86_64\ncurl -LO https://github.com/manuelgscom/dale/releases/latest/download/SHA256SUMS\nsha256sum -c --ignore-missing SHA256SUMS",
+    "세부": {
+      "핵심 변경점": "전체 파인튜닝 2에폭(3에폭은 효과 없음), Unsloth Docker, 결정적 C++ 검증기로 safe/caution/danger 판정, Gated DeltaNet 커널로 생성 2.2–2.6배·학습 1.8–1.9배 가속",
+      "제약·가격": "GPU 임대비 약 39 USD. 판정 모델 채점",
+      "호환·요구사항": "Linux x86_64·AVX2·glibc 2.29 이상. 코드 MIT, 모델 Apache-2.0 GGUF"
+    },
+    "수집일": "2026-11-09"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "오픈소스",
+    "제목": "Llama-modchip — 284B DeepSeek를 GPU 없이 64GB RAM에서 실행",
+    "제공자": "커뮤니티(synchopate)",
+    "출처": "GitHub synchopate/llama-modchip",
+    "날짜": "2026-11-08",
+    "날짜근거": "주목일",
+    "신호": "HN 228pt · GeekNews 게재",
+    "하이라이트": false,
+    "링크": "https://github.com/synchopate/llama-modchip",
+    "관련링크": [
+      {
+        "라벨": "HN",
+        "url": "https://news.ycombinator.com/item?id=50411961"
+      },
+      {
+        "라벨": "릴리스 v2.4.0",
+        "url": "https://github.com/synchopate/llama-modchip/releases/tag/v2.4.0"
+      }
+    ],
+    "한줄정리": "llama.cpp 포크로, 2비트급 양자화와 캐시 계층별 타일링·MoE 가지치기를 묶어 MoE 모델을 CPU RAM만으로 돌리는 프로젝트다.",
+    "왜중요": "README에 따르면 DeepSeek-V4-Flash를 76.87 GiB에서 디스크 56.56 GiB로 줄여 64GB 리눅스 머신에서 256K 컨텍스트로 돌리고, 순수 CPU 디코드 9.06–10.74 tok/s를 냈다. 30B급 MoE(Nemotron-3.5-30B-A3B)는 14.35 GiB에 들어간다. 수치는 모두 프로젝트 자체 측정(AMD Ryzen 9 9955HX, GPU 0개)이고, `Fractal-64`(`Q2_0`, 3.75 bpw) 형식이라 품질을 의심하는 HN 댓글이 많다. 전용 텐서 형식이라 패치되지 않은 llama.cpp·Ollama·LM Studio에서는 열리지 않는다.",
+    "써보기": "git clone https://github.com/synchopate/llama-modchip.git\ncd llama-modchip\n./modchip chat",
+    "세부": {
+      "핵심 변경점": "SwiGLU-H2 2차 헤시안 압축, Fractal-64(Q2_0) MLA 트랜스코딩, 레지스터~L3 전체 모델 타일링, MoE 가지치기. `./modchip claude`로 Claude Code 연동",
+      "제약·가격": "품질은 독립 검증 없음. 'unknown tensor type 40' 오류로 일반 llama.cpp 계열과 호환 안 됨",
+      "호환·요구사항": "Linux/macOS(./modchip), Windows는 windows/AVVIA_MODCHIP.bat. 첫 커밋 10-31, v2.4.0 11-04"
+    },
+    "수집일": "2026-11-09"
+  },
+  {
     "섹션": "모델·API",
     "태그": "오픈소스",
     "제목": "Obsessive-1.7B — 출처를 인용하는 1.1GB 웹 검색 서브에이전트 모델",

@@ -1,0 +1,571 @@
+{
+  "target": "2026-11-08",
+  "run_at": "2026-11-09T03:40+09:00",
+  "sources_checked": [
+    {
+      "section": "모델·API",
+      "source": "openai.com/news/rss.xml",
+      "latest_seen": "2026-11-06",
+      "note": "11-07·11-08 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "developers.openai.com/api/docs/changelog",
+      "latest_seen": "2026-11-05",
+      "note": "새 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "platform.claude.com/docs/en/release-notes/overview",
+      "latest_seen": "2026-11-05",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "anthropic.com/news",
+      "latest_seen": "2026-11-06",
+      "note": "TARGET 글 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "blog.google/innovation-and-ai/technology/ai/rss",
+      "latest_seen": "2026-11-05",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "deepmind.google/blog/rss.xml",
+      "latest_seen": "2026-11-05",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "ai.google.dev/gemini-api/docs/changelog",
+      "latest_seen": "2026-11-06",
+      "note": "11-06 이후 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "mistral.ai/news",
+      "latest_seen": "2026-11-05",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "huggingface.co/blog/feed.xml, huggingface.co/changelog",
+      "latest_seen": "2026-11-06",
+      "note": "TARGET 글 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "HF API 조직별 createdAt (36개 조직) + trending 60 + 최신 생성 1000건",
+      "latest_seen": "2026-11-08",
+      "note": "주요 조직의 11-08 신규 모델 없음. 트렌딩 60 중 11-08 생성 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "docs.x.ai/developers/release-notes",
+      "latest_seen": "2026-11-02",
+      "note": "새 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "api-docs.deepseek.com/updates",
+      "latest_seen": "2026-10-17",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "ai.meta.com/blog",
+      "latest_seen": "2026-07-27",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "docs.z.ai/release-notes/new-released",
+      "latest_seen": "2026-10-10",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "HN Algolia (11-08 00:00Z~11-09 12:00Z, points>50)",
+      "latest_seen": "2026-11-08",
+      "note": "15건 중 모델·API 원본 없음"
+    },
+    {
+      "section": "모델·API",
+      "source": "Reddit r/LocalLLaMA·r/singularity·r/OpenAI·r/ClaudeAI·r/Bard top.rss?t=day",
+      "latest_seen": "2026-11-08",
+      "note": "모델 시드 6건 검토, 원본 날짜가 모두 TARGET 아님"
+    },
+    {
+      "section": "모델·API",
+      "source": "GeekNews RSS",
+      "latest_seen": "2026-11-09 02:12 KST",
+      "note": "모델·API 원본 없음"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "npm @anthropic-ai/claude-code + git ls-remote anthropics/claude-code",
+      "latest_seen": "2026-11-06",
+      "note": "latest 2.1.319(이미 실림)"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "code.claude.com/docs/en/changelog",
+      "latest_seen": "2026-11-06",
+      "note": "TARGET 항목 없음"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "npm @openai/codex + rust-v* 태그 + developers.openai.com/codex/changelog",
+      "latest_seen": "2026-11-06",
+      "note": "latest 0.167.0(이미 실림). 0.169.0-alpha.3은 프리릴리스"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "npm @google/gemini-cli + gemini-cli 태그",
+      "latest_seen": "2026-11-04",
+      "note": "latest 0.67.0, 이후 preview·nightly만"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "cursor.com/changelog",
+      "latest_seen": "2026-11-06",
+      "note": "TARGET 없음"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "github.blog/changelog/feed/",
+      "latest_seen": "2026-11-06",
+      "note": "TARGET 없음"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "npm @github/copilot + git ls-remote github/copilot-cli",
+      "latest_seen": "2026-11-06",
+      "note": "1.0.108-x 프리릴리스만"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "ampcode.com/news + npm @sourcegraph/amp",
+      "latest_seen": "2026-11-06",
+      "note": "TARGET 뉴스 없음, npm은 자동 스냅샷"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "docs.devin.ai/desktop/changelog (Windsurf)",
+      "latest_seen": "2026-11-07",
+      "note": "v3.12.28(미국 11-07), TARGET 아님"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "zed.dev/releases/stable, code.visualstudio.com/updates, kiro.dev/changelog, docs.factory.ai/changelog",
+      "latest_seen": "2026-11-07",
+      "note": "TARGET 없음"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "npm @qwen-code/qwen-code + QwenLM/qwen-code clone",
+      "latest_seen": "2026-11-08",
+      "note": "0.27.0 npm 2026-11-07T20:55Z(KST·중국 11-08 새벽) → 포함"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "npm 에이전트 SDK·CLI 14종(@anthropic-ai/claude-agent-sdk, @openai/agents, @google/adk, @langchain/langgraph, @mastra/core, opencode-ai, cline, @kilocode/cli, ai 등)",
+      "latest_seen": "2026-11-07",
+      "note": "TARGET 정식 릴리스 없음"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "PyPI 18종(crewai, aider-chat, claude-agent-sdk, openai-agents, langgraph, google-adk, pydantic-ai, smolagents, llm 등)",
+      "latest_seen": "2026-11-07",
+      "note": "TARGET 정식 업로드 없음(crewai dev 빌드만)"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "git ls-remote cline, Roo-Code, zed, aider, openai-agents-python, pydantic-ai, goose, opencode, claude-agent-sdk-python, crewAI, langgraph",
+      "latest_seen": "2026-11-04",
+      "note": "새 정식 태그 없음"
+    },
+    {
+      "section": "도구·에이전트",
+      "source": "HN Algolia / Reddit r/ClaudeAI·r/ClaudeCode·r/ChatGPTCoding·r/cursor·r/codex / GeekNews",
+      "latest_seen": "2026-11-08",
+      "note": "도구 공식 릴리스 원본 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "anthropics/skills (git clone)",
+      "latest_seen": "2026-11-06",
+      "note": "TARGET 커밋 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "modelcontextprotocol/servers (git clone, tags)",
+      "latest_seen": "2026-11-04",
+      "note": "v2.3.0 이후 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "modelcontextprotocol/modelcontextprotocol (git clone)",
+      "latest_seen": "2026-11-07",
+      "note": "미국 11-07 문서 변경뿐, 사양 태그 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "blog.modelcontextprotocol.io/index.xml",
+      "latest_seen": "2026-10-30",
+      "note": "TARGET 글 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "npm @modelcontextprotocol/sdk, PyPI mcp",
+      "latest_seen": "2026-10-23",
+      "note": "TARGET 릴리스 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "registry.modelcontextprotocol.io/v0.1/servers?updated_since=2026-11-08 (25페이지)",
+      "latest_seen": "2026-11-08",
+      "note": "TARGET 게시 2050개, 주요 벤더 공식 서버 신규 등재 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "anthropics/claude-plugins-official, punkpeye/awesome-mcp-servers (git clone)",
+      "latest_seen": "2026-11-06",
+      "note": "TARGET 추가 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "github.blog/changelog/feed/, blog.cloudflare.com/rss",
+      "latest_seen": "2026-11-07",
+      "note": "공식 MCP·스킬 발표 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "HN Algolia (points>50 + Show HN)",
+      "latest_seen": "2026-11-08",
+      "note": "스킬·MCP 50pt 이상 없음"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "Reddit r/ClaudeAI·r/mcp·r/ClaudeCode·r/LocalLLaMA top.rss?t=day",
+      "latest_seen": "2026-11-08",
+      "note": "llm-game-automation-mcp(r/ClaudeAI 일간 상위)"
+    },
+    {
+      "section": "스킬·MCP",
+      "source": "GeekNews RSS",
+      "latest_seen": "2026-11-09 02:12 KST",
+      "note": "Boxdawn guard(Show GN)"
+    },
+    {
+      "section": "기법·연구",
+      "source": "anthropic.com/engineering",
+      "latest_seen": "2026-11-06",
+      "note": "TARGET 글 없음"
+    },
+    {
+      "section": "기법·연구",
+      "source": "developers.googleblog.com 피드",
+      "latest_seen": "2026-11-06",
+      "note": "새 글 없음"
+    },
+    {
+      "section": "기법·연구",
+      "source": "simonwillison.net/atom/everything/",
+      "latest_seen": "2026-11-07",
+      "note": "11-08 글 없음"
+    },
+    {
+      "section": "기법·연구",
+      "source": "latent.space, interconnects.ai, oneusefulthing.org, newsletter.pragmaticengineer.com 피드",
+      "latest_seen": "2026-11-07",
+      "note": "TARGET 글 없음"
+    },
+    {
+      "section": "기법·연구",
+      "source": "HN Algolia (11-08 00:00Z~11-09 12:00Z, points>50)",
+      "latest_seen": "2026-11-08",
+      "note": "Llama-modchip 228pt"
+    },
+    {
+      "section": "기법·연구",
+      "source": "Reddit r/ClaudeAI·r/LocalLLaMA·r/MachineLearning top.rss?t=day",
+      "latest_seen": "2026-11-08",
+      "note": "r/LocalLLaMA 429 후 재시도 성공. Dale 사례 글"
+    },
+    {
+      "section": "기법·연구",
+      "source": "GeekNews RSS",
+      "latest_seen": "2026-11-09 02:12 KST",
+      "note": "free-router 후기 등 검토"
+    }
+  ],
+  "unavailable": [
+    {
+      "source": "x.ai/news",
+      "reason": "403, docs.x.ai 릴리스 노트로 대체"
+    },
+    {
+      "source": "openai.com/news HTML",
+      "reason": "403, RSS·개발자 체인지로그로 대체"
+    },
+    {
+      "source": "qwen.ai/research, platform.moonshot.ai/blog",
+      "reason": "클라이언트 렌더링으로 날짜 추출 불가, HF 조직 API로 대체"
+    },
+    {
+      "source": "github.com/*/releases, api.github.com, gh search repos (claude-code, codex, gemini-cli, Qwen·Kimi·GLM·DeepSeek 등)",
+      "reason": "클라우드 GitHub 제한 — git ls-remote·얕은 clone·npm/PyPI로 대체. ★ 수 미확인이라 신호로 쓰지 않음"
+    },
+    {
+      "source": "glama.ai, smithery.ai, mcp.so",
+      "reason": "이번 회차 미확인. 공식 레지스트리로 대체"
+    },
+    {
+      "source": "arXiv cs.CL/cs.AI 신규 목록",
+      "reason": "일요일 TARGET이라 규칙에 따라 건너뜀"
+    },
+    {
+      "source": "GeekNews 2026-11-08 00:00~15:32 KST 게재분",
+      "reason": "RSS가 최신 20건만 제공하고 HTML은 403"
+    },
+    {
+      "source": "Reddit 게시물 점수",
+      "reason": "RSS에 점수 없음. 일간 top 25 진입만 확인"
+    },
+    {
+      "source": "x.com 트윗(DeepSWE 변형 벤치마크, r/LocalLLaMA 인용)",
+      "reason": "X 접근 불가, 원본 URL 미확인"
+    },
+    {
+      "source": "apiiro.com 블로그(Claude Code settings.local.json 비밀 저장)",
+      "reason": "HTML 403. HN 등재 11-07(미국)이라 범위 밖으로 판단"
+    },
+    {
+      "source": "미국 현지 TARGET 하루 후반부",
+      "reason": "수집 시점(2026-11-08 18시대 UTC = 미국 서부 일요일 오전)에 하루가 끝나지 않음"
+    }
+  ],
+  "candidates": [
+    {
+      "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16",
+      "title": "DSpine for Qwen3.8-27B (Tencent)",
+      "section": "모델·API",
+      "decision": "제외",
+      "date_basis": "공개일 2026-11-07",
+      "reason": "날짜 범위 밖"
+    },
+    {
+      "url": "https://huggingface.co/microsoft/Mage-VL-Cowork",
+      "title": "Mage-VL-Cowork (llama.cpp 지원·GGUF)",
+      "section": "모델·API",
+      "decision": "제외",
+      "date_basis": "공개일 2026-10-30",
+      "reason": "날짜 범위 밖"
+    },
+    {
+      "url": "https://huggingface.co/nace-ai/drex-max-v1",
+      "title": "Drex Max 다중모달 의사결정 모델",
+      "section": "모델·API",
+      "decision": "제외",
+      "date_basis": "공개일 2026-10-13",
+      "reason": "날짜 범위 밖"
+    },
+    {
+      "url": "https://huggingface.co/Apexintelligence-AI/Apex-35B-V1.0",
+      "title": "Apex 35B / Axion 1.0 35B",
+      "section": "모델·API",
+      "decision": "제외",
+      "date_basis": "공개일 2026-10-28",
+      "reason": "날짜 범위 밖, Reddit 글은 질문"
+    },
+    {
+      "url": "https://huggingface.co/ZeroWw/Qwen3.6-35B-A3B-Uncensored-LoRA-GGUF",
+      "title": "Uncensoring LoRA",
+      "section": "모델·API",
+      "decision": "제외",
+      "date_basis": "공개일 2026-11-08",
+      "reason": "검열 제거 모델은 범위 밖, 신호 약함"
+    },
+    {
+      "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.27.0",
+      "title": "Qwen Code 0.27.0",
+      "section": "도구·에이전트",
+      "decision": "포함",
+      "date_basis": "릴리스일 2026-11-08 (KST·중국 현지; UTC 11-07 20:45, npm 20:55Z)",
+      "reason": "전날 회차 수집 이후 공개"
+    },
+    {
+      "url": "https://docs.devin.ai/desktop/changelog",
+      "title": "Windsurf v3.12.28",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "릴리스일 2026-11-07",
+      "reason": "날짜 범위 밖"
+    },
+    {
+      "url": "https://caleb.software/posts/claude-to-pi.html",
+      "title": "Goodbye Claude, Hello Pi",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "발행일 2026-09-21",
+      "reason": "의견 글, 날짜 범위 밖(HN 571pt)"
+    },
+    {
+      "url": "https://www.npmjs.com/package/@openai/codex/v/0.169.0-alpha.3",
+      "title": "Codex 0.169.0-alpha.3",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "업로드 2026-11-07",
+      "reason": "프리릴리스"
+    },
+    {
+      "url": "https://www.npmjs.com/package/@github/copilot/v/1.0.108-1",
+      "title": "Copilot CLI 1.0.108-1",
+      "section": "도구·에이전트",
+      "decision": "제외",
+      "date_basis": "업로드 2026-11-07",
+      "reason": "프리릴리스"
+    },
+    {
+      "url": "https://github.com/boxdawn/guard",
+      "title": "Boxdawn guard",
+      "section": "스킬·MCP",
+      "decision": "포함",
+      "date_basis": "주목일 2026-11-08 (GeekNews 게재, 첫 커밋 10-30, v0.4.6 11-08)",
+      "reason": ""
+    },
+    {
+      "url": "https://github.com/CorruptedAng3l/llm-game-automation-mcp",
+      "title": "LLM Game Automation MCP",
+      "section": "스킬·MCP",
+      "decision": "포함",
+      "date_basis": "주목일 2026-11-08 (r/ClaudeAI 일간 상위, 첫 커밋 11-02, v0.4.4~0.4.8 11-08)",
+      "reason": ""
+    },
+    {
+      "url": "https://github.com/yusuflkq/apiarius",
+      "title": "apiarius",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "첫 커밋 2026-10-08",
+      "reason": "공개 4주 초과, TARGET 릴리스 없음"
+    },
+    {
+      "url": "https://github.com/enciyo/AgentOfficeHQ",
+      "title": "Agent Office",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "커밋 2026-11-05",
+      "reason": "신호 부족(r/mcp 단독)"
+    },
+    {
+      "url": "https://github.com/RiccardoSottini/AffrescoUI",
+      "title": "AffrescoUI 양방향 MCP",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "첫 커밋 2017-12-03",
+      "reason": "공개 4주 초과, r/mcp 단독"
+    },
+    {
+      "url": "https://github.com/jiludkumar-therealone/ail-context-compressor",
+      "title": "AILv1 컨텍스트 핸드오버 MCP",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "첫 커밋 2026-11-01",
+      "reason": "신호 부족"
+    },
+    {
+      "url": "https://github.com/wiroai/Wiro-MCP",
+      "title": "Wiro MCP",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "첫 커밋 2026-03-22",
+      "reason": "공개 4주 초과, 홍보성 글"
+    },
+    {
+      "url": "https://github.com/sshah03/recalc",
+      "title": "Recalc",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "Show HN 2026-11-08",
+      "reason": "신호 부족(HN 2pt)"
+    },
+    {
+      "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3466",
+      "title": "Skills 확장 사양 링크 beta 이동",
+      "section": "스킬·MCP",
+      "decision": "제외",
+      "date_basis": "커밋 2026-11-07 PT",
+      "reason": "날짜 범위 밖, 문서 링크 변경"
+    },
+    {
+      "url": "https://github.com/synchopate/llama-modchip",
+      "title": "Llama-modchip",
+      "section": "기법·연구",
+      "decision": "포함",
+      "date_basis": "주목일 2026-11-08 (HN 첫 등재 228pt, 첫 커밋 10-31, v2.4.0 11-04)",
+      "reason": "추론 런타임이라 모델 섹션 대신 기법·연구로 분류. 수치는 자체 측정"
+    },
+    {
+      "url": "https://manuelgs.com/en/blog/dale-case-study/",
+      "title": "Dale 파인튜닝 사례",
+      "section": "기법·연구",
+      "decision": "포함",
+      "date_basis": "주목일 2026-11-08 (발행 10-23, r/LocalLLaMA 일간 상위 11-08)",
+      "reason": ""
+    },
+    {
+      "url": "https://www.lorekit.io/blog/open-agent-memory-format",
+      "title": "Agent memory needs its OpenTelemetry moment",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "발행일 2026-11-07",
+      "reason": "제안·의견 글, 날짜 범위 밖"
+    },
+    {
+      "url": "https://apiiro.com/blog/coding-agents-leaking-secrets-github-dont-ask-again",
+      "title": "Claude Code 'Don't ask again' 비밀 저장 문제",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "HN 등재 2026-11-07 (미국)",
+      "reason": "날짜 범위 밖(11-07 회차 누락 가능성)"
+    },
+    {
+      "url": "https://github.com/suayptalha/qwen3_5-assembly",
+      "title": "Qwen3.5-0.8B x86-64 어셈블리 구현",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "공개일 2026-11-08",
+      "reason": "실무 적용성 낮은 데모"
+    },
+    {
+      "url": "https://news.hada.io/topic?id=36803",
+      "title": "free-router 실사용 후기",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "GeekNews 2026-11-08",
+      "reason": "절차 부족, 원본 날짜 미확인"
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xqmr2i/saw_this_benchmark_where_small_changes_to_coding/",
+      "title": "코딩 과제 변형 벤치마크 인용",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "Reddit 2026-11-08",
+      "reason": "원본 확인 불가(X)"
+    },
+    {
+      "url": "https://www.polso.info/why-i-will-not-be-using-llms-coding",
+      "title": "Why I will not be using LLMs in my coding",
+      "section": "기법·연구",
+      "decision": "제외",
+      "date_basis": "HN 2026-11-08 92pt",
+      "reason": "의견 글"
+    }
+  ],
+  "verification": "포함 5건: Qwen Code는 npm time·CHANGELOG(git clone), 커뮤니티 레포 3건은 git clone 커밋·태그 시각과 README, Dale은 블로그 datePublished로 날짜 확인. extract.py는 Dale 블로그에서 추출 실패해 trafilatura로 직접 본문 확인. 요약의 수치·명령은 원문·README 문자열과 대조"
+}
