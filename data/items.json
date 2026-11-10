@@ -1,6 +1,490 @@
 [
   {
     "섹션": "모델·API",
+    "태그": "신규출시",
+    "제목": "Claude Fable 5.2·Mythos 5.2 — 가격 낮춘 최상위 모델",
+    "제공자": "Anthropic",
+    "출처": "Anthropic 블로그",
+    "날짜": "2026-11-10",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · HN 983pt",
+    "하이라이트": true,
+    "링크": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+    "관련링크": [
+      {
+        "라벨": "What's new in Fable 5.2",
+        "url": "https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2"
+      },
+      {
+        "라벨": "릴리스 노트",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview"
+      },
+      {
+        "라벨": "프롬프팅 가이드",
+        "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2"
+      }
+    ],
+    "한줄정리": "Anthropic이 `claude-fable-5-2`(전체 공개)와 검증 기관 전용 `claude-mythos-5-2`를 내놨다. 1M 컨텍스트·최대 128k 출력, 입력 $8·출력 $40/MTok로 5.1보다 싸다.",
+    "왜중요": "5.1($10/$50) 대비 가격이 내려가고 출력 속도는 최대 30% 빨라졌으며, 발표 벤치마크 대부분에서 Opus 5.5를 앞선다. 옮기기 전에 깨지는 지점을 확인해야 한다: 적응형 사고가 항상 켜져 있어 `budget_tokens`·`disabled`는 400 오류, 강제 툴 사용(`tool_choice` any/tool) 미지원, 컴퓨터 사용은 `computer_toolset_20260801`만 받고, 시스템 프롬프트·툴·이전 메시지를 고친 뒤 사고 블록을 되돌려 보내면 400(prefix check)이다. 30일 데이터 보존이 필요해 ZDR에서는 쓸 수 없다.",
+    "써보기": "model = \"claude-fable-5-1\"  # Before\nmodel = \"claude-fable-5-2\"  # After",
+    "세부": {
+      "핵심 변경점": "Fable 5.2·Mythos 5.2는 같은 기반 모델이며 Mythos는 Cyber·Life Sciences Verification Program 승인 조직 전용. 코딩·추론·비전 개선, 출력 최대 30% 빠름. effort 5단계(low~max, 기본 high). fast mode(`speed: \"fast\"`, 베타 헤더 불필요)로 최대 2.5배 빠른 출력. advisor 툴에서 Fable 5.2 executor는 Fable/Mythos 5.2 advisor만 허용.",
+      "제약·가격": "입력 $8·출력 $40/MTok, fast mode 입력 $16·출력 $80/MTok. 30일 데이터 보존 필수(ZDR 불가, 별도 승인 제외). 사고 블록은 생성한 계정(또는 연결 계정)에서만 유효. CMEK 조직에서는 structured outputs 불가.",
+      "호환·요구사항": "Claude API, Claude Platform on AWS, Amazon Bedrock(`anthropic.claude-fable-5-2`), Google Cloud(Anthropic·Google 관리), Microsoft Foundry. Bedrock만 이전 `computer_20251124` 툴 허용."
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "업데이트",
+    "제목": "Gemini 4 Carbon GA — `gemini-4-carbon` 유료 API 공개",
+    "제공자": "Google",
+    "출처": "Google 블로그",
+    "날짜": "2026-11-10",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 · HN 215pt",
+    "하이라이트": false,
+    "링크": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/",
+    "관련링크": [
+      {
+        "라벨": "What's new in Gemini 4 Carbon",
+        "url": "https://ai.google.dev/gemini-api/docs/whats-new-gemini-4-carbon"
+      },
+      {
+        "라벨": "개발자 공지",
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-4-carbon-developers/"
+      }
+    ],
+    "한줄정리": "Google의 최상위 추론 모델 Gemini 4 Carbon이 Gemini API 유료 티어·AI Studio에서 정식(GA) 제공된다. 11/30까지 입력 $2·출력 $10/1M 토큰 도입가다.",
+    "왜중요": "Argon과 같은 1M 통합 컨텍스트·툴·토큰 단가를 쓰되 턴마다 사고 토큰을 더 써서 깊이 검증하는 모델로, 복잡한 디버깅·설계·보안 감사·과학 추론용이다. 응답 하나가 64K를 넘어 최대 1M 토큰까지 나오는 long decode(`background=True`)를 지원한다. 무료 티어에는 없고 12/1부터 입력 $4·출력 $20으로 오른다.",
+    "써보기": "from google import genai\n\nclient = genai.Client()\n\ninteraction = client.interactions.create(\n    model=\"gemini-4-carbon\",\n    input=\"Write a three.js script that renders a realistic 3D black hole with gravitational lensing.\"\n)\nprint(interaction.output_text)",
+    "세부": {
+      "핵심 변경점": "thinking_level low/medium(기본)/high. 입력·사고·출력이 1,048,576 토큰 창 하나를 공유. 동기 응답은 65,536 토큰에서 멈추며 background 실행 시 64K 단위로 이어서 생성. Gemini Managed Agents의 Antigravity agent가 `gemini-4-carbon` 지원.",
+      "제약·가격": "11/30까지 입력 $2·출력(사고 포함) $10/1M, 캐시 입력 $0.10. 12/1부터 $4·$20, 캐시 $0.20. Free tier 미제공. Google AI Ultra 구독자는 Antigravity·Gemini 앱·AI Mode에서 순차 제공.",
+      "호환·요구사항": "Gemini API 유료 티어(Interactions API), Google AI Studio, Android Studio, Gemini for business."
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "신규출시",
+    "제목": "Meta Muse Ember — 서브에이전트용 초저가 소형 모델",
+    "제공자": "Meta",
+    "출처": "Meta AI Research 블로그",
+    "날짜": "2026-11-10",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · r/singularity 일간 상위",
+    "하이라이트": false,
+    "링크": "https://research.meta.ai/blog/muse-ember",
+    "한줄정리": "Meta가 툴 호출·코딩 하위 작업·라우팅·추출처럼 에이전트가 반복하는 일에 맞춘 소형 모델 `muse-ember-1.0`을 Meta Model API와 Muse Code에 공개했다.",
+    "왜중요": "입력 $0.10·출력 $0.50/1M 토큰(캐시 입력 $0.004)에 1M 컨텍스트·최대 512K 출력, 텍스트·이미지·오디오·영상 입력과 Responses API를 지원한다. Meta는 Claude Haiku 5.5의 최고 점수를 약 3분의 1 비용으로 맞춘다고 주장해, 서브에이전트·대량 처리 단가를 낮출 후보가 된다. 가중치는 공개되지 않은 API 전용 모델이다.",
+    "세부": {
+      "핵심 변경점": "Muse Wonder Full로 학습한 첫 특화 모델. Muse Wonder(계획)와 짝지어 대량 작업을 맡기는 구성을 권장. 컴퓨터 사용(스크린샷 기반) 지원.",
+      "제약·가격": "200K 토큰 이하 프롬프트: 입력 $0.10, 캐시 입력 $0.004, 출력 $0.50/1M. 200K 초과: $0.30·$0.012·$1.50. 비용 비교 수치는 Meta가 인용한 Artificial Analysis 결과 기준.",
+      "호환·요구사항": "Meta Model API, Muse Code. Responses API 지원."
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "MiniMax-H3-Image — 16MP 이미지 생성·편집 오픈 웨이트",
+    "제공자": "MiniMax",
+    "출처": "Hugging Face MiniMaxAI",
+    "날짜": "2026-11-10",
+    "날짜근거": "공개일",
+    "신호": "HF ♥239 · r/LocalLLaMA 일간 상위",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/MiniMaxAI/MiniMax-H3-Image",
+    "관련링크": [
+      {
+        "라벨": "프롬프트 확장 모델",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-H3-Image-PE"
+      },
+      {
+        "라벨": "API 문서",
+        "url": "https://platform.minimax.io/docs/guides/image-generation"
+      }
+    ],
+    "한줄정리": "MiniMax가 텍스트→이미지 생성과 다중 참조 이미지 편집을 한 체크포인트로 처리하는 33.1B DiT 모델 MiniMax-H3-Image 가중치를 공개했다.",
+    "왜중요": "업스케일러 없이 약 16MP(4096×4096~6272×2688) 이미지를 6스텝·CFG 없이 생성하고, 참조 이미지를 최대 16장 받는다. vLLM-Omni·SGLang·diffusers·ComfyUI로 바로 서빙할 수 있지만 DiT 66GB에 MiniMax-H3 텍스트 인코더 66.7GB를 따로 받아야 해 대형 GPU가 필요하다. 라이선스는 MiniMax-H3-Image 커뮤니티 라이선스다.",
+    "써보기": "hf download MiniMaxAI/MiniMax-H3-Image\nhf download MiniMaxAI/MiniMax-H3 --include \"text_encoder/*\"\nvllm serve MiniMaxAI/MiniMax-H3-Image --omni --host 0.0.0.0 --port 8000",
+    "세부": {
+      "핵심 변경점": "H3 아키텍처에서 오디오 분기를 뺀 50층 단일 스트림 DiT(33.1B, BF16). 텍스트 인코더는 MiniMax-H3의 Qwen3-VL 인코더 그대로. 선택형 프롬프트 확장 모델 MiniMax-H3-Image-PE(NVFP4, 17.9GB) 함께 공개.",
+      "제약·가격": "MiniMax-H3-Image community license(license: other). DiT 66.28GB + VAE 2.34GB + 텍스트 인코더 66.7GB.",
+      "호환·요구사항": "vLLM-Omni(NVIDIA H200·RTX PRO 6000 Blackwell·AMD MI350X 등), SGLang, diffusers, ComfyUI. API는 platform.minimax.io."
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "업데이트",
+    "제목": "OpenAI `gpt-image-2` 종료 예고 — 2027/2/10 API 제거",
+    "제공자": "OpenAI",
+    "출처": "OpenAI API Deprecations",
+    "날짜": "2026-11-10",
+    "날짜근거": "발표일",
+    "신호": "공식 문서",
+    "하이라이트": false,
+    "링크": "https://developers.openai.com/api/docs/deprecations",
+    "한줄정리": "OpenAI가 `gpt-image-2`와 스냅샷 `gpt-image-2-2026-04-21`을 deprecated로 지정하고 2027년 2월 10일 API에서 제거한다고 공지했다.",
+    "왜중요": "이 모델로 이미지를 생성하는 서비스는 약 3개월 안에 `gpt-image-2.6-sunburst` 또는 `gpt-image-2.6-flare`로 옮겨야 한다. 종료일 이후에는 호출할 수 없다.",
+    "세부": {
+      "핵심 변경점": "2026-11-10 공지. 대상: gpt-image-2, gpt-image-2-2026-04-21.",
+      "제약·가격": "종료일 2027-02-10.",
+      "호환·요구사항": "권장 대체: gpt-image-2.6-sunburst 또는 gpt-image-2.6-flare."
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Claude Code 2.1.322 — Vertex에서 fast mode 지원",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/claude-code",
+    "날짜": "2026-11-10",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/anthropics/claude-code/releases/tag/v2.1.322",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://code.claude.com/docs/en/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@anthropic-ai/claude-code"
+      }
+    ],
+    "한줄정리": "Claude Code 2.1.322는 Vertex AI의 global·us·eu 리전에서 fast mode를 쓸 수 있게 했고, Vertex가 거부하면 표준 속도로 돌아간다.",
+    "왜중요": "Vertex AI를 통해 Claude Code를 쓰는 조직도 이제 fast mode를 켤 수 있다. 직전 2.1.321(11-09)에서는 Claude Fable 5.2(`claude-fable-5-2`)가 기본 Fable 모델이 됐고 `claude remote-control --settings <file>`가 추가됐다. fast mode가 제한되거나 실패할 때 같은 모델의 표준 속도로 먼저 재시도하도록 바뀐 것도 2.1.321부터다.",
+    "써보기": "npm install -g @anthropic-ai/claude-code\nclaude --version",
+    "세부": {
+      "핵심 변경점": "2.1.322: Vertex global·us·eu 리전 fast mode, 거부 시 표준 속도 폴백. 2.1.321: Claude Fable 5.2 추가·기본 Fable 모델(1M 컨텍스트, $8/$40 per Mtok, 캐시 읽기 $0.20/Mtok), remote-control --settings, MCP OAuth 리다이렉트 시 토큰 유출 수정, 샌드박스·권한 검사 수정 다수",
+      "제약·가격": "Fable 5.2 가격 $8/$40 per Mtok(2.1.321 체인지로그 기준)",
+      "호환·요구사항": "Vertex AI 사용 시 global·us·eu 리전"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Copilot CLI 1.0.109 — 샌드박스 CIDR 규칙·Fable 5.2 모델 선택",
+    "제공자": "GitHub",
+    "출처": "GitHub github/copilot-cli",
+    "날짜": "2026-11-10",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/github/copilot-cli/releases/tag/v1.0.109",
+    "관련링크": [
+      {
+        "라벨": "changelog.md",
+        "url": "https://github.com/github/copilot-cli/blob/main/changelog.md"
+      },
+      {
+        "라벨": "C++ 언어 서버 MSBuild 자동 구성",
+        "url": "https://github.blog/changelog/2026-11-10-c-language-server-now-auto-configures-msbuild-builds"
+      }
+    ],
+    "한줄정리": "GitHub Copilot CLI 1.0.109는 설정의 샌드박스 호스트 허용·거부 규칙에 IPv4/IPv6 CIDR을 쓸 수 있게 했고, 모델 선택기에 Claude Fable 5.2를 넣었다.",
+    "왜중요": "이제 샌드박스 네트워크 규칙을 호스트 이름 하나씩이 아니라 CIDR 대역으로 지정할 수 있다. `/init` 뒤에 적은 텍스트가 생성될 지침 파일에 대한 추가 지시로 모델에 전달되고, 텍스트 MIME 타입의 base64 `blob`으로 오는 MCP 도구 결과도 이제 빈 결과로 버려지지 않고 모델에 닿는다. 같은 날 Copilot CLI용 Microsoft C++ 언어 서버는 MSBuild compile commands 추출기를 내장해 별도 스킬 없이 컴파일 데이터베이스를 만든다.",
+    "써보기": "npm install -g @github/copilot",
+    "세부": {
+      "핵심 변경점": "샌드박스 allow/deny 규칙 IPv4/IPv6 CIDR, Claude Fable 5.2 모델 선택, /init 추가 지시문 반영, ACP 모드에서 preToolUse 훅 ask를 클라이언트에 질의, --output-format json 조기 실패 시에도 최종 결과 레코드, 병렬 파일 작업 '다시 묻지 않기' 일괄 승인",
+      "제약·가격": "Copilot 구독 필요",
+      "호환·요구사항": "C++ 언어 서버 자동 구성은 MSBuild 기반 프로젝트 대상"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "신규출시",
+    "제목": "Antigravity `/swarm` — 병렬 워커·검증자 에이전트 팀 오케스트레이션",
+    "제공자": "Google",
+    "출처": "Google Antigravity 블로그",
+    "날짜": "2026-11-10",
+    "날짜근거": "발표일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://antigravity.google/blog/gemini-4-carbon-in-google-antigravity",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://antigravity.google/docs/changelog"
+      }
+    ],
+    "한줄정리": "Google Antigravity의 `/swarm`(프리뷰)은 프롬프트 하나를 받아, 코디네이터와 격리된 git worktree에서 일하는 병렬 워커, 테스트를 돌리고 diff를 검증하는 검증자 에이전트로 이뤄진 팀을 꾸린다.",
+    "왜중요": "하위 에이전트 하나가 맥락을 모두 중계하던 방식과 달리, 에이전트들이 공유 append-only 메시지 보드에서 직접 협업하고 쉬는 동안에는 토큰을 쓰지 않는다. 역할마다 다른 모델을 지정할 수 있어 코디네이터·검증 역할에는 Gemini 4 Carbon을, 파일 편집에는 가벼운 모델을 쓸 수 있다. 오늘부터 Antigravity App과 CLI에 프리뷰로 배포되며, 병렬 멀티에이전트는 일반 채팅보다 할당량을 훨씬 빨리 소모한다는 경고가 붙어 있다.",
+    "써보기": "/swarm\n/swarm board",
+    "세부": {
+      "핵심 변경점": "코디네이터 + worktree 격리 병렬 워커 + 적대적 검증자, 사이드 패널 Swarm UI(Board·Roster·Graph 재생), CLI 전체화면 보드(/swarm board 또는 Alt+S)",
+      "제약·가격": "프리뷰. Gemini 4 Carbon은 Google AI Ultra 구독자 대상으로 Antigravity에 제공. 할당량 소모가 큼",
+      "호환·요구사항": "Antigravity App·CLI에 순차 배포(App은 v2.31.0, 11-09 릴리스에 /swarm 포함)"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Kiro IDE 1.4.154 — 모델이 대신 승인하는 Approve for me 모드",
+    "제공자": "Kiro (AWS)",
+    "출처": "Kiro 체인지로그",
+    "날짜": "2026-11-10",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://kiro.dev/changelog/ide/1-4-154/",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://kiro.dev/changelog"
+      }
+    ],
+    "한줄정리": "Kiro IDE 1.4.154는 채팅에 Approve for me를 추가했다. 모델이 일상적인 에이전트 작업은 승인하고 위험한 작업은 막으며, 확신이 없을 때만 사용자에게 묻는다.",
+    "왜중요": "Approve for me를 쓸 수 있는 채팅에서는 Autopilot 토글이 Supervised, Accept file changes(기존 Autopilot), Approve for me 세 가지 권한 모드 메뉴로 바뀐다. 사용자가 정한 deny·ask·allow 규칙이 먼저 적용되고, 규칙에 없는 작업만 모델이 판단한다. 11-06 Kiro Web에 먼저 들어온 기능이 IDE로 확장된 것이며, 조직 관리 설정과 Memory 보기 정렬·필터도 함께 추가됐다.",
+    "세부": {
+      "핵심 변경점": "채팅 권한 모드 메뉴(Supervised / Accept file changes / Approve for me), 조직 관리 설정, Memory 보기 정렬·필터, 워크플로 실행 개선",
+      "제약·가격": "Approve for me를 쓸 수 있는 채팅에서만 메뉴가 바뀜",
+      "호환·요구사항": "새 채팅의 기본값은 What's new의 Use Approve for me by default 또는 명령 팔레트 'Kiro: Enable Approve For Me (User)'로 켬"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Mistral Vibe 3.1.2 — 플러그인 켜기·끄기 설정과 `/skills` 관리 화면",
+    "제공자": "Mistral AI",
+    "출처": "GitHub mistralai/mistral-vibe",
+    "날짜": "2026-11-10",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (PyPI 3.1.2)",
+    "하이라이트": false,
+    "링크": "https://github.com/mistralai/mistral-vibe/blob/main/CHANGELOG.md",
+    "관련링크": [
+      {
+        "라벨": "PyPI",
+        "url": "https://pypi.org/project/mistral-vibe/3.1.2/"
+      }
+    ],
+    "한줄정리": "Mistral의 코딩 에이전트 CLI Vibe 3.1.2는 설치된 플러그인을 `disabled_plugins` 설정으로 끌 수 있게 했고, `/skills`에서 설치된 스킬을 검색하고 하나씩 켜고 끌 수 있게 했다.",
+    "왜중요": "플러그인을 지우지 않고도 세션에서 뺄 수 있고, 플러그인 쪽에서 `defaultEnabled: false`로 기본 꺼짐을 지정한 뒤 `enabled_plugins`로 켤 수도 있다. 레지스트리 스킬을 켜면 `/skills`의 Shared 탭에서 공유 스킬을 추가하고 범위별로 버전을 고정할 수 있으며, 같은 이름이면 프로젝트 스킬이 전역 스킬보다 우선한다. 헤드리스 실행의 `--max-tokens`·`--max-price` 한도가 다음 완료 요청이 시작되기 전에 멈추도록 고쳐졌다.",
+    "써보기": "curl -LsSf https://mistral.ai/vibe/install.sh | bash",
+    "세부": {
+      "핵심 변경점": "disabled_plugins·enabled_plugins 설정, /skills 목록(검색·Space 토글·본문 미리보기), 레지스트리 스킬 Shared 탭·버전 고정, 30일 미사용 캐시 스킬 삭제, 모델 카탈로그 디스크 캐시",
+      "제약·가격": "",
+      "호환·요구사항": "레지스트리 스킬 기능은 registry skills를 켠 경우"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "DSPy 3.5 — XML 기본 어댑터·ReActV2, LiteLLM은 선택 의존성",
+    "제공자": "Stanford NLP",
+    "출처": "GitHub stanfordnlp/dspy",
+    "날짜": "2026-11-10",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (PyPI 3.5.0)",
+    "하이라이트": false,
+    "링크": "https://github.com/stanfordnlp/dspy/blob/main/docs/docs/community/upgrading-to-3-5.md",
+    "관련링크": [
+      {
+        "라벨": "PyPI",
+        "url": "https://pypi.org/project/dspy/3.5.0/"
+      },
+      {
+        "라벨": "LM 마이그레이션",
+        "url": "https://github.com/stanfordnlp/dspy/blob/main/docs/docs/community/normalized-lm-api-migration.md"
+      }
+    ],
+    "한줄정리": "DSPy 3.5는 기본 어댑터를 `XMLAdapter(use_native_function_calling=True)`로 바꾸고 `dspy.ReAct`를 구조화된 History 기반으로 다시 만들었다. 옛 LM 통합 인터페이스는 제거하고 LiteLLM을 선택 의존성으로 돌렸다.",
+    "왜중요": "Signature를 그대로 둬도 프롬프트, 기본값, 파싱이 바뀌므로 공식 가이드는 최적화된 프로그램을 다시 평가하라고 권한다. LM 계층은 DSPy에 번들된 lm15 엔진을 쓰고, OpenAI 계열은 `model_type`이 기본 `auto`라 Responses API로 라우팅된다. `lm(messages=...)`, `CodeAct`, `ProgramOfThought`는 제거됐고 LiteLLM 호환 경로가 필요하면 `dspy[litellm]`을 설치해야 한다.",
+    "써보기": "pip install dspy\npip install \"dspy[litellm]\"\ncot = dspy.ChainOfThought(\"question -> answer\", rationale_field_type=str)",
+    "세부": {
+      "핵심 변경점": "XMLAdapter 기본화, CoT reasoning이 dspy.Reasoning 또는 None, ReActV2(result.history·termination_reason), RLM History, model_type 기본 auto, Tool.format_as_litellm_function_call → Tool.as_function_tool, 커밋 로그상 dspy.RLM·dspy.Flex 실험 기능 졸업",
+      "제약·가격": "호환성 깨짐: 옛 ReAct·최적화 프로그램은 다시 컴파일해야 함. 호스팅 Embedder는 dspy[numpy,openai] 필요",
+      "호환·요구사항": "Chat 전용 엔드포인트는 model_type=\"chat\"으로 고정"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "Modern Web Guidance 1.0 — 코딩 에이전트에 최신 웹 API 가이드 주입",
+    "제공자": "Google Chrome (Edge·Firefox·MDN 공동 관리)",
+    "출처": "GitHub GoogleChrome/modern-web-guidance",
+    "날짜": "2026-11-10",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm 1.0.0)",
+    "하이라이트": false,
+    "링크": "https://github.com/GoogleChrome/modern-web-guidance",
+    "관련링크": [
+      {
+        "라벨": "문서",
+        "url": "https://developer.chrome.com/docs/modern-web-guidance"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/modern-web-guidance"
+      }
+    ],
+    "한줄정리": "코딩 에이전트가 레거시 패턴 대신 최신 웹 플랫폼 API를 쓰도록 전문가가 정리한 가이드를 컨텍스트에 넣어 주는 스킬·CLI가 프리뷰를 벗고 1.0이 됐다.",
+    "왜중요": "README의 프리뷰 안내가 빠졌고, 관리 주체가 Chrome·Edge에서 Chrome·Edge·Firefox·MDN 팀으로 넓어졌다. 다루는 웹 기능이 232개에서 250개로, 사용 사례가 188개에서 203개로 늘었고 아코디언·탭·내비게이션 바·드래그 앤 드롭 같은 UI 컴포넌트 가이드가 추가됐다. 검색은 오프라인 임베딩 모델과 BM25로 로컬에서 돌며(네트워크·API 키 불필요), Claude Code·Codex·Copilot CLI·Antigravity 등에서 플러그인으로 설치할 수 있다.",
+    "써보기": "npx modern-web-guidance@latest install\nnpx modern-web-guidance@latest search \"animate a dialog modal backdrop\"\nnpx modern-web-guidance@latest legacy-scan .",
+    "세부": {
+      "핵심 변경점": "v1.0.0: 프리뷰 표기 제거, Firefox·MDN 공동 관리, 기능 250개·사용 사례 203개, Origin Trial·volatile(단일 엔진·출시 3개월 이내) 기능 가이드는 retrieve 단계에서 opt-in 게이트, 프로젝트 설정 파일 .mwgrc(set-allow-origin-trials, set-allow-volatile-features)",
+      "제약·가격": "Apache-2.0. 실험적 API 가이드는 .mwgrc로 명시적으로 허용해야 받음",
+      "호환·요구사항": "npx skills, gh skill, Claude Code 플러그인(/plugin marketplace add GoogleChrome/modern-web-guidance), Codex·Copilot CLI·Antigravity·Grok Build·Kimi Code 플러그인 설치 지원"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "Grafana MCP 2.3.0 — Elasticsearch 패널 실행·Prometheus 셀렉터 가드",
+    "제공자": "Grafana Labs",
+    "출처": "GitHub grafana/mcp-grafana",
+    "날짜": "2026-11-10",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/grafana/mcp-grafana/blob/main/CHANGELOG.md",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/grafana/mcp-grafana"
+      }
+    ],
+    "한줄정리": "Grafana 대시보드·데이터소스를 에이전트에 열어 주는 공식 MCP 서버가 Elasticsearch 패널 실행, 응답을 줄이는 compact 로그 포맷, IRM 인시던트 리소스를 더한 2.3.0을 냈다.",
+    "왜중요": "`run_panel_query`가 Elasticsearch 패널을 돌리고 `query_elasticsearch`에 `format: \"compact\"`가 생겨 로그 응답이 크게 줄어든다. `--prometheus-guardrail-require-selective-labels`로 `up`처럼 범위 없는 쿼리를 막을 수 있고, 최근 30일 IRM 인시던트가 `grafana://irm/incidents/{id}` 리소스로 노출된다. `alerting_rules_write`·`alerting_silences_write`가 생성·수정·삭제만 받는 호환성 깨짐 변경과, v2.2.0에서 `--loki-enforced-matchers`를 우회할 수 있던 보안 수정이 함께 들어 있다.",
+    "써보기": "docker run --rm -i -e GRAFANA_URL=http://localhost:3000 -e GRAFANA_SERVICE_ACCOUNT_TOKEN=<your service account token> grafana/mcp-grafana -t stdio",
+    "세부": {
+      "핵심 변경점": "추가: Elasticsearch 패널 실행(ES|QL 제외), compact 로그 포맷·fields 선택, Prometheus 선택 라벨 가드레일(opt-in), IRM 인시던트 MCP 리소스, render_grafana_app 메모 최대 5개, 포트 0 자동 바인딩. 수정: $__interval 반올림을 Grafana와 일치, Grafana 12 대시보드 읽기, Loki·Tempo·Pyroscope 라벨 도구 기본 시간 범위 등",
+      "제약·가격": "Breaking: alerting_rules_write·alerting_silences_write는 create·update·delete만 받고 list·get은 read 도구로 이동",
+      "호환·요구사항": "Grafana 서비스 계정 토큰 필요. uvx mcp-grafana 또는 Docker 이미지 grafana/mcp-grafana로 실행"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "vulnerable.now MCP — 8개 출처를 합친 CVE·패키지 취약점 조회",
+    "제공자": "커뮤니티(vulnerable.now)",
+    "출처": "vulnerable.now",
+    "날짜": "2026-11-10",
+    "날짜근거": "공개일",
+    "신호": "r/mcp 일간 상위 · MCP 레지스트리 등재",
+    "하이라이트": false,
+    "링크": "https://vulnerable.now/agents",
+    "관련링크": [
+      {
+        "라벨": "서비스",
+        "url": "https://vulnerable.now"
+      }
+    ],
+    "한줄정리": "CVE List·NVD·GitHub Advisory·OSV·EUVD·CISA KEV·EPSS·Exploit-DB 정보를 취약점당 한 레코드로 합쳐, 계정·API 키 없이 쓰는 원격 MCP 서버로 제공하는 무료 취약점 피드다.",
+    "왜중요": "에이전트가 NVD·GHSA·KEV를 따로 뒤지지 않고 한 번 호출로 CVSS·EPSS·악용 여부·공개 익스플로잇·수정 버전을 받는다. `check_stack`에 lockfile·CycloneDX/SPDX SBOM을 넘기면 알려진 취약점과 우선 패치 순서를, `get_package`에 버전을 주면 영향을 주는 권고와 최소 업그레이드 버전을 돌려준다. 읽기 전용 도구 7개와 프롬프트 2개(triage_dependencies, explain_vulnerability)가 있고, 작성자는 핵심 기능은 무료로 유지하되 유료 고급 기능을 나중에 붙일 계획이라고 밝혔다.",
+    "써보기": "claude mcp add --transport http vulnerable-now https://vulnerable.now/mcp",
+    "세부": {
+      "핵심 변경점": "도구: search, get_vulnerability(최대 20개 ID), get_package, get_product, list_feed(modified_since), top_priority, check_stack. JSON API(/api/v1)와 RSS·Atom·JSON Feed도 제공",
+      "제약·가격": "무료, 계정·키 불필요. 향후 유료 고급 기능 예정(작성자 공지)",
+      "호환·요구사항": "Streamable HTTP 원격 서버(https://vulnerable.now/mcp). Claude Code·Cursor·Codex·VS Code 설정 예시 제공"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Hugging Face Decision Models — 텍스트 대신 선택지 확률을 돌려주는 인터페이스",
+    "제공자": "Hugging Face",
+    "출처": "Hugging Face 블로그",
+    "날짜": "2026-11-10",
+    "날짜근거": "발행일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/blog/decision",
+    "관련링크": [
+      {
+        "라벨": "사례(Strands Decider)",
+        "url": "https://strandsagents.com/blog/amazon-saves-millions-replacing-sonnet-with-strands-decider/"
+      }
+    ],
+    "한줄정리": "상태(state)와 질문·허용 답안을 주면 텍스트 생성 없이 답안별 확률과 confidence를 돌려주는 'decision model' 공통 인터페이스를 Transformers·llama.cpp·Hub에 들인 소개 글이다.",
+    "왜중요": "분류·라우팅을 LLM에 JSON으로 시키면 스키마 이탈과 생성 비용이 생기는데, decision model은 choice·score·noul(예/아니오 확률) 세 primitive로 답을 확률 분포로 받는다. Transformers에 DecisionPipeline·AutoModelForDecision과 `/v1/systemone` 엔드포인트가 추가됐고 llama.cpp도 같은 API를 지원하며, 호환되는 일반 자기회귀 LLM으로도 이 인터페이스를 실험할 수 있다. TRL 학습 지원은 아직 PR 단계다.",
+    "써보기": "pip install \"transformers[serving]\"\ntransformers serve\nllama serve -hf ggml-org/Kev-4B-GGUF",
+    "세부": {
+      "핵심 변경점": "pipeline(\"decision\")·AutoModelForDecision·DecisionConfig, /v1/systemone API(Transformers·llama.cpp 공통), Hub decision-model 태그, Trainer API로 미세조정 예시(JEV-9B)",
+      "제약·가격": "TRL 정식 지원은 huggingface/trl#8040 PR 진행 중",
+      "호환·요구사항": "호환되는 Transformers 버전 필요. 예시 모델 autotrust/GEV-26B-Decide, ggml-org/Kev-4B-GGUF"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "오픈소스",
+    "제목": "Longtail-SWE — 비주류 13개 언어 실제 이슈로 코딩 에이전트 평가",
+    "제공자": "Nebius (SWE-rebench)",
+    "출처": "GitHub SWE-rebench/LongTail-SWE",
+    "날짜": "2026-11-10",
+    "날짜근거": "공개일",
+    "신호": "r/LocalLLaMA 일간 상위 · arXiv 2611.10304",
+    "하이라이트": false,
+    "링크": "https://github.com/SWE-rebench/LongTail-SWE",
+    "관련링크": [
+      {
+        "라벨": "리더보드",
+        "url": "https://longtail-swe.com/"
+      },
+      {
+        "라벨": "논문",
+        "url": "https://arxiv.org/abs/2611.10304"
+      },
+      {
+        "라벨": "HF 데이터셋",
+        "url": "https://huggingface.co/datasets/nebius/Longtail-SWE"
+      }
+    ],
+    "한줄정리": "Clojure·Elixir·Haskell·OCaml·Swift 등 기존 벤치마크에 드문 13개 언어의 실제 GitHub 이슈 202개(hard)와 269개(easy)로 코딩 에이전트를 평가하는 벤치마크와 도구 일체가 공개됐다.",
+    "왜중요": "같은 SWE-agent 계열 스캐폴드에서 Opus 5.5(high) 81.5%, GPT 6.1 Sol(high) 78.4%, Qwen 3.8 27B 42.7%, Qwen 3.6 27B 16.7%(Pass@1, 3회 평균)로 언어별 편차까지 보여 준다. 솔버–심사–수리 파이프라인으로 잘못된 테스트·설명을 고쳤고 실행 환경·평가 도구·에이전트 궤적을 함께 공개해 자기 모델·에이전트로 재현할 수 있다. Qwen 3.8 27B가 난이도 선별에 쓰여 그 점수는 다소 낮게 나올 수 있다고 밝힌다.",
+    "써보기": "harbor run -d longtail-swe/longtail-swe@latest -a oracle -i '*askonomm__dompa-16'   # reference solution\nharbor run -d longtail-swe/longtail-swe@latest -a <agent> -m <model> -n 8          # full hard split",
+    "세부": {
+      "핵심 변경점": "hard 202개·easy 269개, 과제별 Docker 이미지, Harbor 데이터셋, 로컬 평가기 scripts/eval.py",
+      "제약·가격": "코드 MIT, 데이터 기여분 CC BY 4.0, 이슈·패치·원본 테스트는 원 레포 라이선스",
+      "호환·요구사항": "Harbor 없이 로컬 실행 시 Docker 필요(build_base_images.py → build_instance_images.py → eval.py)"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "MCP 레지스트리 전수 조사 — 원격 호스트 62%가 무인증으로 도구 노출",
+    "제공자": "Spellwarden",
+    "출처": "Spellwarden 리서치",
+    "날짜": "2026-11-10",
+    "날짜근거": "발행일",
+    "신호": "r/mcp 일간 상위 · 보고서 CC BY 4.0",
+    "하이라이트": false,
+    "링크": "https://spellwarden.ai/research/mcp-server-security-2026-11",
+    "관련링크": [
+      {
+        "라벨": "스캐너 레포",
+        "url": "https://github.com/spellwarden-ai/spellwarden"
+      }
+    ],
+    "한줄정리": "공식 MCP Registry의 활성 항목 59,944개 뒤 30,402개 호스트에 인증 없이 요청 하나씩 보내 도구 목록 노출·프로토콜 버전·도구 설명 속 지시문을 측정한 11월 10일 조사 보고서다.",
+    "왜중요": "응답한 26,548개 호스트 중 16,470개(62%)가 로그인 없이 도구 목록을 내줬고, 그중 9,691개에는 읽기 전용을 선언하지 않은 도구가 있었으며 destructive 선언 도구 최소 15,064개가 익명 클라이언트에 노출됐다. 2026-07-28 프로토콜 개정을 쓰는 호스트는 5.2%(769개)뿐이다. 레지스트리 등재는 게시자 확인일 뿐 보안 검토가 아니므로, 에이전트에 연결하기 전에 서버별 인증 여부·도구 권한·도구 설명을 직접 점검하라고 권한다. 작성사는 유료 대시보드를 운영한다.",
+    "써보기": "pipx run spellwarden scan .          # or: pip install spellwarden, then spellwarden scan .",
+    "세부": {
+      "핵심 변경점": "OAuth 서버 중 CIMD 지원 36%, 도구 설명 속 모델 유도 문구는 공개 목록 100개 중 약 1개. 도구 호출·자격 증명 전송·로그인 우회는 하지 않았고 서버·게시자 이름은 공개하지 않음",
+      "제약·가격": "보고서 PDF 13쪽·수치 JSON 무료(CC BY 4.0). 스캐너 무료, 팀용 호스팅 대시보드는 유료. CI에서 실행 시 가명(pseudonymous) ping 1회 전송(README 명시)",
+      "호환·요구사항": "`--probe`를 주지 않으면 로컬 스캔만 하고 아무것도 보내지 않음. `spellwarden lock`/`scan --locked`로 MCP 서버·플러그인·스킬 변경 감지"
+    },
+    "수집일": "2026-11-11"
+  },
+  {
+    "섹션": "모델·API",
     "태그": "오픈소스",
     "제목": "LongCat-2.5 가중치 공개 — 1.6T MoE 멀티모달 에이전트 모델, MIT",
     "제공자": "Meituan (LongCat)",
