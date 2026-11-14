@@ -2,6 +2,118 @@
   {
     "섹션": "모델·API",
     "태그": "업데이트",
+    "제목": "Unsloth Qwen3.8-27B GGUF — Dynamic V3.1 양자화로 재배포",
+    "제공자": "커뮤니티(Unsloth)",
+    "출처": "Unsloth 문서",
+    "날짜": "2026-11-14",
+    "날짜근거": "주목일",
+    "신호": "HN 226pt",
+    "하이라이트": false,
+    "링크": "https://unsloth.ai/docs/models/qwen3.8",
+    "관련링크": [
+      {
+        "라벨": "모델",
+        "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF"
+      }
+    ],
+    "한줄정리": "Unsloth가 Qwen3.8-27B GGUF를 새 Dynamic V3.1(preview) 양자화 알고리즘으로 다시 만들어 배포했다.",
+    "왜중요": "같은 크기에서 대부분의 벤치마크 정확도가 5~10% 오른다고 밝혔다(Unsloth 자체 측정). 4비트 양자화는 RTX 5080·4090급 16~19GB VRAM이나 24GB RAM Mac에서 돌아가 로컬 코딩·에이전트용으로 쓸 만하다. 업데이트 자체는 11월 11일이고 V3.1은 preview 단계다.",
+    "써보기": "pip install -U \"huggingface_hub[cli]\"\nhf download unsloth/Qwen3.8-27B-GGUF \\\n    --local-dir unsloth/Qwen3.8-27B-GGUF \\\n    --include \"*UD-Q4_K_XL*\"\n./llama.cpp/llama-cli \\\n    --model unsloth/Qwen3.8-27B-GGUF/Qwen3.8-27B-UD-Q4_K_XL.gguf --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0",
+    "세부": {
+      "핵심 변경점": "Dynamic V3.1(preview) 알고리즘 적용, 같은 크기 대비 정확도 5~10% 향상(원문 주장)",
+      "제약·가격": "V3.1은 preview. 수치는 Unsloth 자체 측정",
+      "호환·요구사항": "4비트 기준 16~19GB VRAM 또는 24GB RAM Mac. llama.cpp에서 실행, 256K 컨텍스트"
+    },
+    "수집일": "2026-11-15"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "Anthropic 문서 스킬 업데이트 — pptx 구조화 덱·`slide_text.py` 추가",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/skills",
+    "날짜": "2026-11-14",
+    "날짜근거": "릴리스일",
+    "신호": "공식 레포 병합 (PR #2217)",
+    "하이라이트": true,
+    "링크": "https://github.com/anthropics/skills/pull/2217",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/anthropics/skills"
+      },
+      {
+        "라벨": "pptx SKILL.md",
+        "url": "https://github.com/anthropics/skills/blob/main/skills/pptx/SKILL.md"
+      }
+    ],
+    "한줄정리": "Anthropic이 공개 스킬 저장소의 docx·pptx·xlsx·pdf 스킬을 한 번에 갱신해, pptx에 테마·레이아웃·섹션 기반 '구조화 덱' 절차와 새 스크립트를 넣었다.",
+    "왜중요": "pptx 스킬은 새 덱을 테마·레이아웃(placeholder)·섹션으로 만들게 바뀌어 PowerPoint에서 다시 편집하기 쉬운 파일을 낸다. 텍스트 추출이 markitdown 대신 `slide_text.py`로 바뀌어 표·차트 데이터·발표자 노트까지 읽는다. xlsx의 `recalc.py`는 계산 못 한 수식을 `not_computed`로 따로 보고한다.",
+    "써보기": "/plugin marketplace add anthropics/skills\n/plugin install document-skills@anthropic-agent-skills",
+    "세부": {
+      "핵심 변경점": "pptx 구조화 덱 절차, scripts/slide_text.py·scripts/apply_theme.js 추가. xlsx not_computed 보고·openpyxl 주의점. docx 제목 스타일 규칙. pdf 참조 문서 이름 변경",
+      "제약·가격": "별도 릴리스 노트 없이 PR 병합으로 반영",
+      "호환·요구사항": "pptxgenjs, python-pptx, LibreOffice, Poppler"
+    },
+    "수집일": "2026-11-15"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "STE80 Humanizer — AI 문장을 항공 정비 영어 규칙으로 다듬는 스킬",
+    "제공자": "커뮤니티(Dodaios)",
+    "출처": "GitHub Dodaios/ste80-humanizer",
+    "날짜": "2026-11-14",
+    "날짜근거": "주목일",
+    "신호": "r/ClaudeAI 일간 상위",
+    "하이라이트": false,
+    "링크": "https://github.com/Dodaios/ste80-humanizer",
+    "관련링크": [
+      {
+        "라벨": "SKILL.md",
+        "url": "https://github.com/Dodaios/ste80-humanizer/blob/main/SKILL.md"
+      }
+    ],
+    "한줄정리": "Wikipedia 'Signs of AI writing'의 26가지 AI 말투를 지우고, ASD-STE100을 80%만 적용한 구조 규칙 15개로 문장을 다시 짜는 2단계 글쓰기 Agent Skill이다.",
+    "왜중요": "표현만 지우는 humanizer와 달리 한 문장 한 아이디어·능동태·단어 수 제한 같은 구조 규칙까지 적용한다. 기본·Light·Strict 세 모드가 있고, 의존성 없는 린터 `ste_check.py`로 결과를 점검할 수 있다. STE 단어 목록은 영어 전용이다.",
+    "써보기": "npx skills add Dodaios/ste80-humanizer\n/plugin marketplace add Dodaios/ste80-humanizer\n/plugin install ste80-humanizer@ste80-humanizer\npython scripts/ste_check.py --strict docs/runbook.md",
+    "세부": {
+      "핵심 변경점": "Pass 1: AI 말투 26개 제거, Pass 2: 구조 규칙 15개 적용, 수정 내역을 번호로 보고",
+      "제약·가격": "MIT. STE 준수 인증이 아닌 'STE 스타일'",
+      "호환·요구사항": "skills CLI(Claude Code·Codex·Cursor 등), Claude Code 플러그인, Claude.ai는 ZIP 업로드"
+    },
+    "수집일": "2026-11-15"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "오픈소스",
+    "제목": "wsr — LLM이 가중치만 보고 편집 효과를 예측·작성하는지 재는 도구",
+    "제공자": "커뮤니티(suayptalha)",
+    "출처": "GitHub suayptalha/wsr",
+    "날짜": "2026-11-14",
+    "날짜근거": "주목일",
+    "신호": "r/LocalLLaMA 일간 상위 (레포 공개 2026-11-11)",
+    "하이라이트": false,
+    "링크": "https://github.com/suayptalha/wsr",
+    "관련링크": [
+      {
+        "라벨": "Reddit 글",
+        "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xvxyhj/can_openweight_llms_can_predict_the_effects_of/"
+      }
+    ],
+    "한줄정리": "에이전트가 모델을 실행하지 않고 가중치와 편집 내용만 보고 행동 변화를 예측(`wsr read`)하거나, 목표에 맞는 가중치 편집을 직접 작성(`wsr write`·`wsr program`)하는지 측정하는 오픈 평가 하네스다.",
+    "왜중요": "논문 'Weight-Space Reading'의 실험 4개를 프리셋으로 담았고, 아무 오픈 웨이트 모델을 대상으로 로컬·API 모델 어느 쪽이든 에이전트로 붙일 수 있다. `wsr program`은 학습 없이 데이터셋으로 정한 목표에 맞춰 가중치를 편집하고, 홀드아웃 데이터와 가드 스위트로 검증한 체크포인트를 돌려준다. 편집 효과를 실측하려면 대상 모델을 돌려야 해 GPU를 강하게 권장한다.",
+    "써보기": "git clone https://github.com/suayptalha/wsr && cd wsr\npip install -e \".[hf,report]\"\nwsr init\nwsr doctor",
+    "세부": {
+      "핵심 변경점": "read: CPU 전용 샌드박스에서 가중치를 읽고 행동별 증가·감소·유지 예측, 정답은 편집 모델 실제 실행. write: 목표를 받아 편집 작성. program: 여러 라운드 편집 후 통과한 편집을 새 체크포인트로",
+      "제약·가격": "Apache-2.0. 논문 결과는 레포에 없음, arXiv 심사 대기",
+      "호환·요구사항": "Python 3.10 이상, 샌드박스용 Docker. 선택 의존성 vLLM·anthropic"
+    },
+    "수집일": "2026-11-15"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "업데이트",
     "제목": "DeepSeek API 앱 기능 개방 — 웹 검색·URL 읽기·파일 입력 내장",
     "제공자": "DeepSeek",
     "출처": "DeepSeek API Docs",
@@ -38,6 +150,37 @@
   {
     "섹션": "도구·에이전트",
     "태그": "업데이트",
+    "제목": "Claude Code 2.1.325 — 샌드박스 Bash도 기본 권한 확인, VS Code 프롬프트 제안",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/claude-code",
+    "날짜": "2026-11-13",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://code.claude.com/docs/en/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@anthropic-ai/claude-code"
+      }
+    ],
+    "한줄정리": "샌드박스 안에서 돌던 Bash 명령도 기본적으로 일반 권한 확인을 거치게 하고, VS Code 확장에 다음 프롬프트 제안(Tab으로 수락)을 넣은 권한·보안 정비 릴리스다.",
+    "왜중요": "지금까지 샌드박스 명령은 묻지 않고 실행됐지만 이제는 확인을 거치며, 이전 동작을 원하면 `sandbox.autoAllowBashIfSandboxed: true`를 설정해야 한다. 예약 작업과 `/loop`도 `allowed-tools`나 훅을 선언한 스킬을 실행하기 전에 묻게 됐고(`permissions.allow`에 `Skill(name)`을 넣으면 무인 실행), 신뢰하지 않은 저장소의 읽기 전용 git 명령도 확인을 요구한다. 무인 자동화를 돌리던 팀은 업데이트 후 작업이 확인 대기로 멈출 수 있으니 설정을 점검해야 한다.",
+    "써보기": "npm install -g @anthropic-ai/claude-code",
+    "세부": {
+      "핵심 변경점": "샌드박스 Bash 기본 권한 흐름(sandbox.autoAllowBashIfSandboxed로 복원), 예약 작업·/loop의 스킬 실행 전 확인(Skill(name) 허용 규칙), 신뢰하지 않은 저장소의 읽기 전용 git 명령 확인, VS Code 프롬프트 제안(promptSuggestionEnabled: false로 끄기), 출력 한도에서 잘린 서브에이전트 답 재요청, 클라우드 세션 tool search MCP 도구 설명 한도 4,096→16,384자",
+      "제약·가격": "",
+      "호환·요구사항": "관리형 설정으로 샌드박스를 켜는 조직은 최상위 관리형 소스에 sandbox.autoAllowBashIfSandboxed: true를 둬야 기존처럼 무확인 실행"
+    },
+    "수집일": "2026-11-15"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
     "제목": "Copilot CLI 1.0.111 — 관리형 셸 권한 규칙에 정규식 지원",
     "제공자": "GitHub",
     "출처": "GitHub github/copilot-cli",
@@ -65,6 +208,55 @@
       "호환·요구사항": ""
     },
     "수집일": "2026-11-14"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "GitHub Copilot 모델 6종 12/14 종료 예고 — Fable 5·Haiku 4.5 등",
+    "제공자": "GitHub",
+    "출처": "GitHub Changelog",
+    "날짜": "2026-11-13",
+    "날짜근거": "발표일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december",
+    "관련링크": [],
+    "한줄정리": "GitHub가 2026-12-14에 모든 Copilot 경험에서 Claude Fable 5, Claude Haiku 4.5, Gemini 3.8 Flash, Gemini 4 Argon, Grok 4.6, Kimi K3를 종료한다고 예고했다.",
+    "왜중요": "대체 모델은 각각 Claude Fable 5.2, Claude Haiku 5.5, Gemini 4 Hydrogen, Gemini 4 Carbon, Grok 4.7이고 Kimi K3의 대체는 미정이다. 워크플로·통합에서 이 모델을 지정해 뒀다면 날짜 전에 바꿔야 한다. 전역 기본값을 끈 Copilot Enterprise·Business 조직은 모델 정책에서 대체 모델을 직접 켜야 한다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "Fable 5→Fable 5.2, Haiku 4.5→Haiku 5.5, Gemini 3.8 Flash→Gemini 4 Hydrogen, Gemini 4 Argon→Gemini 4 Carbon, Grok 4.6→Grok 4.7, Kimi K3→미정",
+      "제약·가격": "종료일 2026-12-14. 연간 플랜 개인 구독자는 Claude Haiku 4.5 계속 사용 가능",
+      "호환·요구사항": "전역 기본값을 끈 조직은 모델 정책에서 대체 모델 활성화 필요"
+    },
+    "수집일": "2026-11-15"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Antigravity Dynamic Workflows — 파이썬 스크립트로 병렬 서브에이전트 조율",
+    "제공자": "Google",
+    "출처": "Google Antigravity 문서·체인지로그",
+    "날짜": "2026-11-13",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (App v2.32.0)",
+    "하이라이트": false,
+    "링크": "https://antigravity.google/docs/dynamic-workflows/",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://antigravity.google/docs/changelog"
+      }
+    ],
+    "한줄정리": "Antigravity App v2.32.0과 CLI의 `/run-workflow`는 에이전트가 짧은 파이썬 스크립트를 써서 여러 에이전트를 병렬(`parallel()`)·순차(`pipeline()`) 단계로 돌리고 결과를 모아 요약하게 한다.",
+    "왜중요": "파일별 리뷰·패키지별 감사처럼 독립 조각으로 나뉘는 작업이나 단계형 작업을 긴 대화 하나 대신 스크립트 제어 흐름으로 돌릴 수 있다. 각 에이전트는 JSON Schema에 맞춘 구조화 결과만 돌려줘 메인 대화 컨텍스트가 덜 찬다. Google AI Pro·Ultra 플랜에서 쓸 수 있고, 실행 전 스크립트 승인 프롬프트가 뜬다.",
+    "써보기": "/run-workflow Find every TypeScript file changed on this branch, review each one in parallel for missing error handling, and give me a one-line verdict per file.",
+    "세부": {
+      "핵심 변경점": "/run-workflow(App·CLI), parallel()/pipeline() 단계, 백그라운드 실행·진행 표시, 스크립트 저장·재실행",
+      "제약·가격": "Google AI Pro·Google AI Ultra 플랜",
+      "호환·요구사항": "앱 내장 파이썬 사용. ANTIGRAVITY_PYTHON으로 Python 3.8 이상 인터프리터 지정 가능"
+    },
+    "수집일": "2026-11-15"
   },
   {
     "섹션": "도구·에이전트",
