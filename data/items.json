@@ -1,5 +1,54 @@
 [
   {
+    "섹션": "도구·에이전트",
+    "태그": "오픈소스",
+    "제목": "agent-otel-kit — Claude Code·Codex·Gemini CLI 사용량을 로컬 대시보드로",
+    "제공자": "커뮤니티(s3onghyun)",
+    "출처": "GitHub s3onghyun/agent-otel-kit",
+    "날짜": "2026-11-15",
+    "날짜근거": "공개일",
+    "신호": "GeekNews 게재(Show GN), v0.1.0 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/s3onghyun/agent-otel-kit",
+    "관련링크": [
+      {
+        "라벨": "GeekNews",
+        "url": "https://news.hada.io/topic?id=37198"
+      }
+    ],
+    "한줄정리": "`docker compose up` 한 번으로 Claude Code·Codex·Gemini CLI의 비용·토큰·도구 호출·트레이스를 내 PC에서 모아 보는 OpenTelemetry 스택이다.",
+    "왜중요": "에이전트별 /usage 화면으로는 여러 에이전트를 나란히, 기간별로 비교하기 어렵다. OTel Collector·Prometheus·Loki·Tempo와 Grafana·Perses 대시보드 3개를 묶었고, Go CLI의 `setup`이 각 에이전트 설정을 collector로 돌려 준다(원본 백업, `--undo` 지원). 프롬프트·도구 출력·파일 경로·이메일은 기본으로 저장하지 않고, 비용 지표는 Claude Code만 나온다. 공개 첫날 v0.1.0이라 초기 단계다.",
+    "써보기": "git clone https://github.com/s3onghyun/agent-otel-kit && cd agent-otel-kit\ndocker compose up -d\nbrew install s3onghyun/tap/agent-otel-kit\nagent-otel-kit setup claude                # or codex, gemini, all\nagent-otel-kit doctor",
+    "세부": {
+      "핵심 변경점": "OTel Collector + Prometheus(메트릭)·Loki(이벤트)·Tempo(트레이스), Grafana·Perses 동일 대시보드 3개. setup/doctor CLI, setup --undo·--dry-run·--endpoint",
+      "제약·가격": "오픈소스. 비용 지표는 Claude Code만. 모든 포트는 127.0.0.1 바인딩, 외부 전송 없음",
+      "호환·요구사항": "Docker compose 플러그인, CLI는 Homebrew·릴리스 아카이브·go install(Go 1.24+)"
+    },
+    "수집일": "2026-11-16"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Raschka의 위치 임베딩 해설 — RoPE 구현부터 partial RoPE·NoPE까지",
+    "제공자": "커뮤니티(Sebastian Raschka)",
+    "출처": "Ahead of AI (Sebastian Raschka)",
+    "날짜": "2026-11-15",
+    "날짜근거": "발행일",
+    "신호": "HN 127pt",
+    "하이라이트": false,
+    "링크": "https://magazine.sebastianraschka.com/p/understanding-positional-embeddings",
+    "관련링크": [],
+    "이미지": "https://substackcdn.com/image/fetch/$s_!8RKL!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb461a2cb-11ab-474a-affe-0ee99e5a8782_2850x2777.png",
+    "한줄정리": "GPT-2식 절대 위치 임베딩에서 RoPE까지 작은 PyTorch 구현으로 따라가고, 최근 오픈 웨이트 모델들의 위치 인코딩 선택(partial RoPE, NoPE 레이어 등)을 정리한 해설이다.",
+    "왜중요": "모델 구조를 읽거나 직접 구현·파인튜닝할 때 위치 인코딩 설정을 이해하는 데 바로 쓸 수 있다. 예로 MiniMax-M3는 128차원 헤드 중 64차원만 회전시키며, 1M 컨텍스트에서 BF16 cos/sin 테이블 0.134 GB를 아낀다고 계산한다. 다만 KV 캐시는 줄지 않아 저자는 partial RoPE가 \"hardly worth it\"이라고 본다. 2025→2026년에 partial RoPE와 RoPE·NoPE 혼합 모델이 늘어난 추세도 보여 준다.",
+    "세부": {
+      "핵심 변경점": "RoPE 단계별 구현(split-half vs interleaved), partial RoPE, NoPE 레이어, 학습된 상대 위치 바이어스(Inkling) 비교",
+      "제약·가격": "무료 글",
+      "호환·요구사항": "PyTorch 예제 코드"
+    },
+    "수집일": "2026-11-16"
+  },
+  {
     "섹션": "모델·API",
     "태그": "업데이트",
     "제목": "Unsloth Qwen3.8-27B GGUF — Dynamic V3.1 양자화로 재배포",
