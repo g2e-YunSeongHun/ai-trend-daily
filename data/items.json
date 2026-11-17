@@ -2,6 +2,452 @@
   {
     "섹션": "모델·API",
     "태그": "신규출시",
+    "제목": "Claude API Linked billing — 앱 사용료를 고객 Claude 조직에 청구 (베타)",
+    "제공자": "Anthropic",
+    "출처": "Claude Platform 릴리스 노트",
+    "날짜": "2026-11-17",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (베타)",
+    "하이라이트": false,
+    "링크": "https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections",
+    "관련링크": [
+      {
+        "라벨": "릴리스 노트",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview"
+      }
+    ],
+    "이미지": "https://platform.claude.com/web-api/og/docs/en/manage-claude/oauth-apps/organization-billing-connections?design-rev=5",
+    "한줄정리": "고객이 OAuth로 자기 Claude 조직을 앱에 한 번 연결하면, 앱이 요청마다 `billing_policy`로 비용을 고객과 앱 중 누가 낼지 정할 수 있는 베타 기능이다.",
+    "왜중요": "Claude 기반 SaaS가 사용량 비용을 직접 떠안거나 API 키를 받지 않고도, Claude Platform 고객의 조직 크레딧·인보이스로 청구할 수 있다. `user-profiles-billing-2026-10-01` 베타 헤더가 필요하고 `/v1/messages`·`/v1/chat/completions`에서 쓸 수 있으며, 고객은 Console에서 지출 한도를 걸거나 연결을 끊을 수 있다. Anthropic에 직접 결제하는 조직만 대상이며(클라우드 마켓플레이스·구독 플랜만 있는 조직 제외), 요청은 앱 조직에서 실행돼 고객의 ZDR·BAA·CMEK가 적용되지 않는다.",
+    "세부": {
+      "핵심 변경점": "Console에서 'Bill and link to organizations' 권한의 OAuth 앱 생성 → 고객이 'Link your Claude organization'으로 승인 → 요청에 billing_policy(bill_to: \"user_profile\" 또는 \"self\") 지정. 고객에게 청구할 수 없으면 앱에 청구하지 않고 요청을 거부.",
+      "제약·가격": "베타. Message Batches 미지원, bill_to user_profile 요청은 과금형 코드 실행 기능 불가(400). Max·Ultra·Team 플랜 월간 API 크레딧, 파트너·VC·스타트업 프로그램 크레딧은 결제 불가. 결제 불가 시 402, 대상 아님은 403 user_profile_not_billable.",
+      "호환·요구사항": "베타 헤더 user-profiles-billing-2026-10-01. 레이트 리밋·모델 접근·서비스 티어·데이터 보존은 앱 조직 기준. HIPAA·FERPA·CMEK가 필요한 고객은 연결하지 말 것."
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "신규출시",
+    "제목": "GPT-6.2 Astra·Sol — 고난도·일상 코딩용 OpenAI 새 모델 API 공개",
+    "제공자": "OpenAI",
+    "출처": "OpenAI 블로그 · OpenAI API 체인지로그",
+    "날짜": "2026-11-17",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · HN 195pt",
+    "하이라이트": true,
+    "링크": "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
+    "관련링크": [
+      {
+        "라벨": "마이그레이션 가이드",
+        "url": "https://developers.openai.com/api/docs/guides/latest-model?model=gpt-6.2-astra"
+      },
+      {
+        "라벨": "Astra 모델 문서",
+        "url": "https://developers.openai.com/api/docs/models/gpt-6.2-astra"
+      },
+      {
+        "라벨": "Sol 모델 문서",
+        "url": "https://developers.openai.com/api/docs/models/gpt-6.2-sol"
+      }
+    ],
+    "이미지": "https://developers.openai.com/og/api/docs/guides/latest-model.png?model=gpt-6.2-astra",
+    "한줄정리": "OpenAI가 어려운 추론·코딩용 `gpt-6.2-astra`와 일상 코딩·에이전트용 `gpt-6.2-sol`을 Responses API와 Chat Completions에 공개했다.",
+    "왜중요": "두 모델 모두 1,050,000 토큰 컨텍스트(최대 입력 922K)·128K 출력에 웹 검색·컴퓨터 사용·MCP·skills·hosted shell 등 툴을 지원하며, 가격은 1M 토큰당 Astra 입력 $8/출력 $40, Sol 입력 $2/출력 $10이다. 툴 호출은 Responses API에서만 되고, temperature·top_p 등은 지원하지 않으며 reasoning effort `none`은 거부된다. 대화 중간에 프리픽스를 바꾸면 API가 reasoning 항목을 버리므로, 기존 통합은 마이그레이션 가이드를 따라 프롬프트 캐싱 설정(`prompt_cache_options.ttl`) 등을 점검해야 한다.",
+    "세부": {
+      "핵심 변경점": "Astra는 가장 까다로운 작업용 최상위 모델, Sol은 저비용 범용 모델. 텍스트·이미지 입력, 텍스트 출력. Multi-agent 베타로 서브에이전트 위임 지원. 지식 컷오프 Astra 2026-05-18, Sol 2026-06-01.",
+      "제약·가격": "1M 토큰당 Astra 입력 $8·캐시 입력 $0.4·캐시 쓰기 $10·출력 $40 / Sol 입력 $2·캐시 입력 $0.1·캐시 쓰기 $2.5·출력 $10. 272K 입력 초과 시 입력·캐시 2배, 출력 1.5배. Batch 50%, Fast 2배, Ultrafast 3배(2027-03-01부터 6배).",
+      "호환·요구사항": "Chat Completions에서 temperature·top_p·logprobs·top_logprobs 제거. GPT-5.5 이하에서 옮길 때 prompt_cache_retention 대신 prompt_cache_options.ttl \"30m\". 파인튜닝·predicted outputs 미지원. US·EU 데이터 레지던시(Ultrafast는 US만)."
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "업데이트",
+    "제목": "OpenAI Responses API 할인 완료 창 — 2h·8h 대기 시 30~40% 인하",
+    "제공자": "OpenAI",
+    "출처": "OpenAI API 체인지로그",
+    "날짜": "2026-11-17",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (퍼블릭 베타)",
+    "하이라이트": false,
+    "링크": "https://developers.openai.com/api/docs/guides/background#use-discounted-completion-windows",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://developers.openai.com/api/docs/changelog"
+      }
+    ],
+    "이미지": "https://developers.openai.com/og/api/docs/guides/background.png",
+    "한줄정리": "Responses API 백그라운드 모드에 2시간·8시간 완료 창을 고르면 모델 토큰 요금을 Standard 대비 각각 30%, 40% 깎아 주는 퍼블릭 베타가 열렸다.",
+    "왜중요": "Batch API처럼 미리 묶어 보낼 필요 없이, 툴 호출 후속 요청이 이어지는 에이전트 실행 전체를 할인 요금으로 비동기 처리할 수 있다. `background_options.completion_window`를 `2h`/`8h`로 두고 `continuation_id`를 재사용하면 후속 요청도 할인과 높은 큐 우선순위를 받는다. GPT-6.2 Astra·Sol, GPT-6.1 Terra, GPT-6 Luna에서만 되고, Standard 처리(`service_tier: default`)가 필요하며 스트리밍은 쓸 수 없고 Batch API와 레이트 리밋을 공유한다.",
+    "써보기": "from openai import OpenAI\nclient = OpenAI()\nresp = client.responses.create(\n    model=\"gpt-6.2-astra\",\n    input=\"Write a very long novel about otters in space.\",\n    background=True,\n)\nprint(resp.status)",
+    "세부": {
+      "핵심 변경점": "completion_window: soonest(기본, 할인 없음) / 2h(30% 할인) / 8h(40% 할인). 수락 후 용량 오류는 자동 재시도. 완료는 webhook(response.completed) 또는 폴링으로 받음.",
+      "제약·가격": "퍼블릭 베타. Standard 처리 필수(auto는 Standard가 선택될 때만 적용). stream 미사용. Batch/Background 레이트 리밋 공유, 입력 토큰은 제출 시 계산. 2h·8h 요청 내용은 저장 시 암호화되며 store=false·ZDR이어도 임시 저장됨.",
+      "호환·요구사항": "gpt-6.2-astra, gpt-6.2-sol, gpt-6.1-terra, gpt-6-luna. 후속 요청은 같은 모델·서비스 티어·완료 창·continuation_id·프로젝트를 써야 우선순위 대상."
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "SenseNova-Loop-9B — 레이어를 반복 실행하는 9B 멀티모달 오픈 모델",
+    "제공자": "SenseTime (SenseNova)",
+    "출처": "Hugging Face sensenova/SenseNova-Loop-9B",
+    "날짜": "2026-11-17",
+    "날짜근거": "공개일",
+    "신호": "HF 트렌딩 · 좋아요 113 (공개 당일) · Apache-2.0",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/sensenova/SenseNova-Loop-9B",
+    "관련링크": [],
+    "이미지": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/sensenova/SenseNova-Loop-9B.png",
+    "한줄정리": "가운데 24개 디코더 레이어를 공유 가중치로 두 번 돌려 32개 레이어로 56회 연산하는 약 9B 파라미터 텍스트·이미지 입력 모델의 정식판 가중치가 Apache-2.0으로 공개됐다.",
+    "왜중요": "적은 파라미터로 연산 깊이를 늘린 구조로, 모델 카드 기준 AIDABench 65.31(Qwen3.8-27B 65.01)·AutomationBench 36.67(동률)·NL2Repo 41.36(44.60)으로 27B급과 견준다고 밝힌다. 4비트 가중치와 8비트 KV 캐시로 256K 컨텍스트 멀티모달 추론에 약 15GiB GPU 메모리면 되고, 공개 당일 공식 AWQ 4비트 버전도 나와 단일 소비자 GPU 배포를 노려볼 만하다. 10월 Preview 대비 Terminal-Bench 2.1 40.45→59.55, GAIA 37.86→69.90으로 올랐다.",
+    "써보기": "pip install vllm\nvllm serve \"sensenova/SenseNova-Loop-9B\"",
+    "세부": {
+      "핵심 변경점": "Looped 블록(레이어 4~27을 2회) + 2-stream mHC(manifold-constrained hyper-connections) + 선형:전체 어텐션 3:1 하이브리드. 추론 등가 약 14.6B. 컨텍스트 512K.",
+      "제약·가격": "Apache-2.0. 수치는 제작사 자체 평가.",
+      "호환·요구사항": "Transformers(trust_remote_code=True), vLLM, SGLang, Docker Model Runner 예시 제공. 호환 추론 구현은 루프 범위·패스 수·mHC 라우팅 파라미터를 같은 순서로 실행해야 함."
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Qwen Code 0.28.0 — qwen4-max 지원·웹 셸 관리형 worktree 세션",
+    "제공자": "Alibaba(Qwen)",
+    "출처": "GitHub QwenLM/qwen-code",
+    "날짜": "2026-11-17",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm 2026-11-17T12:10Z)",
+    "하이라이트": false,
+    "링크": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.0",
+    "관련링크": [
+      {
+        "라벨": "CHANGELOG",
+        "url": "https://github.com/QwenLM/qwen-code/blob/main/CHANGELOG.md"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@qwen-code/qwen-code"
+      }
+    ],
+    "한줄정리": "qwen4-max를 effort 단계·캐시 TTL·이미지 detail까지 지원하고, 웹 셸에 Codex식 관리형 worktree 세션을 기본으로 넣은 Qwen Code 릴리스다.",
+    "왜중요": "웹 셸 세션이 기본으로 분리된 worktree에서 돌고 브랜치 생성·핸드오프를 지원해 여러 작업을 병렬로 돌리기 쉬워졌다. 헤드리스 세션·Ink TUI·서브에이전트가 공용 에이전트 루프에서 기본 실행되고, 압축(compaction) 때 마지막 완료 작업을 유지하며, `/effort`는 활성 모델이 지원하는 단계로 좁혀진다. 알려진 호환성 깨짐은 없다고 밝혔다.",
+    "세부": {
+      "핵심 변경점": "qwen4-max 지원(native effort ladder, cache TTL, image detail), 웹 셸 관리형 worktree 세션(기본 켜짐), 서브에이전트·헤드리스·TUI 공용 루프 기본화, create_sub_session으로 다른 워크스페이스에서 하위 세션 실행, 턴별 훅 통계, DingTalk·Aone Code 채널, Grep에서 ripgrep 정규식 문법 허용",
+      "제약·가격": "",
+      "호환·요구사항": "Breaking changes 없음(릴리스 노트)"
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Claude Code 2.1.326 — 에이전트 팀에서도 Code Mode, 도구 규칙 경고",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/claude-code",
+    "날짜": "2026-11-17",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm 2026-11-16T18:43Z)",
+    "하이라이트": false,
+    "링크": "https://github.com/anthropics/claude-code/releases/tag/v2.1.326",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://code.claude.com/docs/en/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@anthropic-ai/claude-code"
+      }
+    ],
+    "한줄정리": "에이전트 팀을 켠 상태에서도 Code Mode를 쓸 수 있게 하고, 잘못 쓴 도구 규칙·꺼진 기능을 알려 주는 안내를 더한 Claude Code 릴리스다.",
+    "왜중요": "이미 Code Mode를 켜 둔 사용자는 에이전트 팀이 켜진 세션도 Code Mode로 시작한다. `--allowedTools`·`--disallowedTools`·`--tools` 값에 완전한 규칙처럼 보이지 않는 항목이 있으면 시작 시 경고하고, `/status`에 제공자나 `DISABLE_TELEMETRY` 같은 환경 변수로 꺼진 기능이 표시돼 설정 실수를 빨리 찾을 수 있다. `OTEL_RESOURCE_INCLUDE_HOST`로 OpenTelemetry 리소스에 `host.name`·`host.id`를 넣을 수 있고(기본 꺼짐), 세션 재개 시 대화 유실·백그라운드 세션의 LLM 게이트웨이 유실 등 다수가 수정됐다.",
+    "써보기": "claude --version\nclaude plugin list\n/status",
+    "세부": {
+      "핵심 변경점": "에이전트 팀+Code Mode 동시 사용, 불완전한 도구 규칙 시작 경고, 관리자가 세션 중 managed-mcp.json을 추가해 MCP 서버 로드가 멈출 때 이유 안내, /status 기능 비활성 사유 행, /plugin·claude plugin list에서 무시된 잘못된 plugin.json 필드 표시, Ctrl+O로 숨은 시작 알림 보기, OTEL_RESOURCE_INCLUDE_HOST, mod Box overflowX=\"scroll\"·Text maxLines/wrap=\"clip\"",
+      "제약·가격": "",
+      "호환·요구사항": "64단계를 넘게 중첩된 설정 값은 경고와 함께 버려진다. claude purge 프롬프트가 stdout 리다이렉트 시에도 터미널에 표시되도록 수정"
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "신규출시",
+    "제목": "Devin Bots — 결과를 맡기면 세션을 계획·실행하며 끝까지 책임",
+    "제공자": "Cognition",
+    "출처": "Devin Docs",
+    "날짜": "2026-11-17",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (Devin Desktop v3.14.30819 체인지로그)",
+    "하이라이트": false,
+    "링크": "https://docs.devin.ai/work-with-devin/bots",
+    "관련링크": [
+      {
+        "라벨": "Devin Desktop 체인지로그",
+        "url": "https://docs.devin.ai/desktop/changelog"
+      },
+      {
+        "라벨": "사용량 한도",
+        "url": "https://docs.devin.ai/work-with-devin/bots/usage-limits"
+      },
+      {
+        "라벨": "템플릿 마켓플레이스",
+        "url": "https://devin.ai/bots/templates"
+      }
+    ],
+    "한줄정리": "할 일 하나가 아니라 '결과'를 맡기면 작업을 계획하고 조각마다 Devin 세션을 띄워 따라가며, 사람이 필요한 결정만 모아 돌려주는 상주형 에이전트다.",
+    "왜중요": "요청 하나가 세션 하나로 끝나던 방식과 달리, Bot은 하나의 채팅에서 여러 자식 세션을 돌리고 일정·이벤트 기반 자동화, 스스로 쓰는 메모리, 별도 연결·시크릿을 가진다. 결정·PR 리뷰·권한 요청은 'Needs you' 목록에 모이고, 웹 앱 외에 Slack·iMessage로도 부를 수 있으며 QA 엔지니어·데이터 분석가 같은 템플릿으로 시작할 수 있다. 사용량은 만든 사람에게 과금되며 Teams는 온디맨드 상한, Enterprise는 ACU·지출 한도를 Bot별로 걸 수 있다.",
+    "써보기": "You own the Android app now. Keep it at feature parity with iOS.\nanything waiting on me?",
+    "세부": {
+      "핵심 변경점": "사이드바 Bots 섹션에서 Create new Bot → 템플릿 또는 Start from scratch. Bot 모드와 자식 세션 기본 모드(Child Capability) 분리, Recycle·Archive·Delete, 세션이 새 Bot을 제안하면 승인 시 생성",
+      "제약·가격": "Max는 본인 쿼터·온디맨드 크레딧 사용(별도 한도 없음). Teams는 생성자 쿼터 후 팀 온디맨드, Bot별 On-demand cap. Enterprise는 생성자 한도에 합산, ACU·지출 한도 설정 가능(예산·사용자 한도 기능이 켜진 경우에만 적용)",
+      "호환·요구사항": "Enterprise 커스텀 역할에 Use Bots·Manage Bots·Manage Bots across the enterprise 권한 추가. 같은 릴리스에서 DetectProxy 정책·devin.network.detectProxy 설정 추가"
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "GitHub Copilot, 커스터마이즈를 플러그인·관리 설정으로만 제한",
+    "제공자": "GitHub",
+    "출처": "GitHub Changelog",
+    "날짜": "2026-11-17",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 (2026-11-16T19:48Z, US 현지 11-16)",
+    "하이라이트": false,
+    "링크": "https://github.blog/changelog/2026-11-16-control-where-github-copilot-customizations-come-from",
+    "한줄정리": "엔터프라이즈 관리자가 Copilot의 스킬·커스텀 에이전트·훅·MCP 서버·실행형 확장을 사용자·프로젝트 설정이 아니라 플러그인이나 관리 설정에서만 오게 강제할 수 있는 정책이다.",
+    "왜중요": "기능을 통째로 끄지 않고, 승인된 MCP 도구와 캔버스를 공유 플러그인 라이브러리로 배포하는 방식으로 통제할 수 있다. 다섯 범주 전체 또는 일부(예: MCP 서버·확장만)에만 적용할 수 있고, `strictKnownMarketplaces`와 함께 써야 허용 마켓플레이스 출처까지 묶인다. GitHub Enterprise Cloud에서 기업 발급 Copilot Business·Enterprise 라이선스 사용자에게만 적용된다.",
+    "세부": {
+      "핵심 변경점": "managed setting strictPluginOnlyCustomization: 사용자·프로젝트 출처의 독립 커스터마이즈 차단, 대상 범주 선택(skills, custom agents, hooks, MCP servers, executable Copilot extensions)",
+      "제약·가격": "plugin-only는 기업 관리 플러그인 전용이나 마켓플레이스 허용 목록이 아님. 여기서 확장은 실행형 캔버스 제공자이며 VS Code Marketplace 확장이 아님",
+      "호환·요구사항": "GitHub Enterprise Cloud, Copilot Business/Enterprise(기업·소속 조직 발급 라이선스)"
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "오픈소스",
+    "제목": "ABFS 오픈소스 — 대형 Git 저장소 체크아웃·빌드를 초 단위로",
+    "제공자": "Google",
+    "출처": "Google Developers Blog",
+    "날짜": "2026-11-17",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · GitHub google/abfs 공개",
+    "하이라이트": false,
+    "링크": "https://developers.googleblog.com/accelerating-development-for-massive-git-repositories/",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/google/abfs"
+      },
+      {
+        "라벨": "CASFS",
+        "url": "https://github.com/google/abfs-casfs"
+      },
+      {
+        "라벨": "아키텍처 문서",
+        "url": "https://github.com/google/abfs/blob/main/doc/ARCHITECTURE.md"
+      }
+    ],
+    "한줄정리": "Google이 Android 개발에 쓰던 콘텐츠 주소 기반 빌드·파일 서비스 ABFS(Another Build File Service)를 GitHub에 오픈소스로 공개했다.",
+    "왜중요": "리눅스 커널 파일시스템 모듈·사용자 공간 데몬·서버 인프라로 소스·워크스페이스·중간 빌드 파일을 지연 로딩·캐시해, Android 체크아웃을 약 36분에서 8초 미만, 전체 빌드를 약 80분에서 2분 남짓으로 줄였다고 한다. 한 머신에 여러 워크스페이스를 동시에 마운트할 수 있어 병렬 코딩 에이전트가 브랜치별로 백포트·빌드·테스트를 나눠 돌리기 좋다. 첫 대상은 Android의 Soong/Ninja이고 Bazel은 개념 증명 단계이며, Android 17 이전 AOSP 릴리스는 패치가 필요하다.",
+    "써보기": "$ abfs mount -b android-latest-release   /ws/a17\n$ abfs mount -b android16-release        /ws/a16",
+    "세부": {
+      "핵심 변경점": "ABFS·CASFS·Ninja-go 공개. CI와 개발자 워크스페이스 간 공유 캐시로 빌드 액션을 최대 100% 재사용.",
+      "제약·가격": "Android 17 이전 AOSP는 패치 필요. Bazel 연동은 개념 증명.",
+      "호환·요구사항": "Linux 커널 모듈 기반. Google Cloud 서버 측 구성 문의는 abfs-gcp@google.com."
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "Baserow MCP 1.0.0 — 자동화·대시보드·앱 빌더 스킬 5종 추가",
+    "제공자": "Baserow",
+    "출처": "GitHub baserow/baserow-mcp",
+    "날짜": "2026-11-17",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 · MCP 레지스트리 등재",
+    "하이라이트": false,
+    "링크": "https://github.com/baserow/baserow-mcp/blob/main/CHANGELOG.md",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/baserow/baserow-mcp"
+      },
+      {
+        "라벨": "사이트",
+        "url": "https://baserow.io"
+      }
+    ],
+    "한줄정리": "오픈소스 노코드 DB Baserow의 공식 MCP 서버가 1.0.0이 되면서 데이터베이스·자동화·대시보드·앱 빌더·워크스페이스용 스킬 5종이 추가됐다.",
+    "왜중요": "에이전트가 Baserow 워크스페이스 하나에서 테이블·필드·뷰·행을 읽고 만들 뿐 아니라 워크플로 게시·일시정지, 대시보드 위젯, 애플리케이션 페이지까지 다룰 수 있다. 로그인 시 허용할 도구를 고르며 첫 연결은 읽기 전용 프리셋이고, 이후 Baserow의 My settings → MCP server에서 Edit tools로 바꾼다. Claude Code·Codex·Copilot CLI 플러그인과 Gemini CLI 확장을 제공하며 셀프호스팅은 Baserow 2.4.3 이상이 필요하다.",
+    "써보기": "npx add-mcp https://api.baserow.io/mcp -n baserow -g\nnpx skills add baserow/baserow-mcp\n# Claude Code\n/plugin marketplace add baserow/baserow-mcp\n/plugin install baserow@baserow",
+    "세부": {
+      "핵심 변경점": "새 스킬 baserow-databases, baserow-automations, baserow-dashboards, baserow-app-builder, baserow-workspace. baserow-basics는 행·공통 오류 형식·undo를 다루고 빠진 도구를 Edit tools로 켜도록 안내",
+      "제약·가격": "행 댓글·행 색상·차트는 premium 라이선스, 감사 로그는 advanced/enterprise 라이선스와 워크스페이스 관리자 필요",
+      "호환·요구사항": "원격 서버 https://api.baserow.io/mcp 또는 셀프호스팅 <백엔드 URL>/mcp. 셀프호스팅은 Baserow 2.4.3+, BASEROW_MCP_OAUTH_ENABLED=true, 공개 HTTPS 백엔드 URL. Claude, ChatGPT, Codex, Cursor, VS Code, GitHub Copilot, Gemini CLI, OpenCode, Zed, Goose, Windsurf 등 지원"
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "Antigravity Robotics 플러그인 — 로봇 셋업·MuJoCo 시뮬레이션 스킬",
+    "제공자": "Google",
+    "출처": "Google Developers Blog",
+    "날짜": "2026-11-17",
+    "날짜근거": "발표일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://developers.googleblog.com/gemini-hydrogen-for-robotics/",
+    "한줄정리": "Google Antigravity에 하드웨어 온보딩·시뮬레이션·로봇 제어 스킬을 묶은 Robotics 플러그인이 나와, Gemini 4 Hydrogen으로 로봇 팔 애플리케이션을 만들 수 있다.",
+    "왜중요": "드라이버 설치·카메라 탐색·팔 캘리브레이션(Robot bring-up), Antigravity 안에서 MuJoCo 장면 생성·미리보기, Gemini 공간 이해 기반 인식·제어, 컨트롤러·시뮬레이션 코드 생성까지 스킬로 제공한다. 글에 따르면 I2RT YAM 팔은 USB 연결부터 캘리브레이션까지 약 10분이 걸렸다. Gemini Robotics ER 2를 쓰던 개발자에게 Hydrogen으로 옮겨 보라고 권한다.",
+    "세부": {
+      "핵심 변경점": "Robotics 플러그인: Robot bring-up, MuJoCo in Antigravity, Perception and control, Application building 스킬.",
+      "제약·가격": "",
+      "호환·요구사항": "Antigravity의 Customizations에서 Build With Google 선반의 Robotics를 검색해 설치. 예시 하드웨어: I2RT YAM, SO-ARM101, FR3 Duo."
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "OpenCode Browse — 쓰던 브라우저를 에이전트에 연결하는 MCP",
+    "제공자": "OpenCode",
+    "출처": "opencode.ai",
+    "날짜": "2026-11-17",
+    "날짜근거": "공개일",
+    "신호": "HN 315pt · GeekNews 게재 · npm @opencode/browse 0.1.0 (2026-11-16T16:52Z)",
+    "하이라이트": false,
+    "링크": "https://opencode.ai/product/browse",
+    "관련링크": [
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@opencode/browse"
+      }
+    ],
+    "한줄정리": "MCP 서버와 Chromium 확장을 묶어, 에이전트가 사용자의 실제 브라우저(탭·로그인·확장 프로그램)를 그대로 쓰게 하는 도구다.",
+    "왜중요": "에이전트가 백그라운드 탭 그룹에서 페이지를 읽고 클릭·입력하며 스크린샷·탭 녹화·네트워크 트래픽을 캡처한다. 로그인·2FA·결제 단계에서는 탭을 사용자에게 넘기고 Continue를 누르면 이어서 진행하며, 허용 사이트를 지정해 에이전트 탭을 묶어 둘 수 있다. OpenCode 전용이 아니라 Claude Code·Cursor·Codex·Zed 등 MCP 클라이언트 어디서나 쓴다.",
+    "써보기": "npm install -g @opencode/browse && browse install\n# 또는\ncurl -fsSL https://opencode.ai/browse/install | bash",
+    "세부": {
+      "핵심 변경점": "툴바 버튼으로 이미 열어 둔 탭을 에이전트에 넘기는 Lend a tab, 로그인·2FA 핸드오프, 허용 사이트 제한",
+      "제약·가격": "",
+      "호환·요구사항": "Chrome, Edge, Brave, Arc, Helium, Vivaldi, Opera, Chromium. 크롬 확장을 먼저 설치하면 나머지 단계를 안내(CLI 직접 설치는 보통 불필요)"
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "MCP 코드 모드 vs 라우터 — 토큰 70~90% 절감, 라우터 추가 효과는 미미",
+    "제공자": "커뮤니티(Abhishek Rai)",
+    "출처": "arXiv 2611.19123",
+    "날짜": "2026-11-17",
+    "날짜근거": "공개일",
+    "신호": "사전등록 평가 · 하네스·4B 라우터 모델·트레이스 공개",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.19123",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/abhishek085/mcp-decision-layer"
+      },
+      {
+        "라벨": "모델·트레이스",
+        "url": "https://huggingface.co/abhishek085"
+      }
+    ],
+    "한줄정리": "MCP 게이트웨이에서 에이전트가 도구 스텁에 스크립트를 쓰는 '코드 모드'와 작은 모델이 도구를 미리 고르는 '결정 레이어(라우터)'를 오픈 모델 3종으로 비교한 사전등록 연구다.",
+    "왜중요": "서버 12개·방해 도구 최대 1,958개 환경에서 코드 모드는 일반 MCP 대비 토큰을 70~90% 줄이며 유틸리티를 높였다. 반면 코드 모드 앞에 라우터를 두는 효과는 통계적으로 유의하지 않았고, 스텁에 반환 형태 힌트를 넣는지가 성공률을 최대 39.5점 바꿔 라우터 추가보다 영향이 컸다. 도구가 많은 에이전트를 설계할 때 무엇부터 손볼지 정하는 근거가 된다.",
+    "써보기": "python -m venv .venv && source .venv/bin/activate\npip install -r requirements.txt\npython bench/confirm_analysis.py traces/confirmatory\npython bench/confirm_robustness.py traces/confirmatory",
+    "세부": {
+      "핵심 변경점": "가설 H1(코드 모드 > 일반 MCP)은 Qwen3.8-27B·Nemotron-3-Nano에서 지지, H3(라우터+코드 모드 > 코드 모드 단독)는 모든 에이전트에서 미확인. 반환 형태 힌트 제거 시 코드 모드 성공률 Gemma −22.7점, Nemotron −39.5점. 탐색 분석: 무제한 폴백은 도구 2,000개에서 결정 레이어를 14배 느리게 만들었고, 프롬프트 기반 LLM 라우터는 오염된 도구 설명으로 하이재킹 가능",
+      "제약·가격": "합성 월드(도구 즉시 응답), 셀당 1회·temperature 0, 양자화 모델·thinking 끔. 실제 서드파티 MCP 서버 미포함",
+      "호환·요구사항": "OpenAI 호환 API(vLLM 등)로 에이전트를 서빙해 재현. Apache-2.0"
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "FrontierHarness Eval v1.1 — 모델 바꾸면 하네스도 바꿔야 하나",
+    "제공자": "커뮤니티(Runta·Baseten)",
+    "출처": "Runta 블로그",
+    "날짜": "2026-11-17",
+    "날짜근거": "발행일",
+    "신호": "HN 190pt · 27,280회 실행, 830억 토큰",
+    "하이라이트": false,
+    "링크": "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
+    "이미지": "https://runta.com/social/blog-introducing-frontierharness-eval-v1-1.png",
+    "한줄정리": "코딩 에이전트 하네스 22종을 오픈 모델 5종(GLM-5.3, GLM-5.3-Flash, DeepSeek-V4.1-Flash-1017, Muse, Kimi-K3)과 조합해 62개 터미널 과제를 4회씩 돌리고 비용·통과율을 비교한 벤치마크다.",
+    "왜중요": "모델마다 가성비 최고 하네스가 달랐다(GLM-5.3은 Codex CLI, GLM Flash는 Pi, DeepSeek은 ZCode, Muse는 Oh My Pi, Kimi-K3는 Alma). 모델을 고정해도 하네스에 따라 패스당 비용이 1.9~4.9배 벌어졌고, 비싼 하네스가 더 잘 통과하지도 않았다. 비용은 프롬프트 크기·도구 수·캐시 적중률이 아니라 스텝 수와 상관(+0.51)이 있어, 하네스를 고를 땐 자기 과제로 비용까지 함께 재야 한다는 근거가 된다. Baseten 단일 제공자·오픈 모델만 대상이다.",
+    "세부": {
+      "핵심 변경점": "v1.0(Kimi K3 1개 모델, 하네스 9개) 대비 76배 규모: 22개 하네스 구성 × 5 모델 × 62 과제 × 4회. Harbor 평가, 하네스 기본 설정·최대 reasoning effort. 비용 분산의 92.8%는 모델, 2.3%는 하네스, 4.9%는 조합. 전체 비용의 64.5%가 실패·타임아웃 시행에 쓰였고, 가성비 상위 5개 하네스의 실패 시행 68~82%가 확신에 찬 최종 답으로 끝남. 보상 해킹 216건(163건은 온라인 조회)은 0점 처리",
+      "제약·가격": "비용은 Baseten 정가 기준 추정. 폐쇄형 모델은 미포함(추후 Claude Opus 5.5·GPT-6 Astra·Gemini 4 Carbon 추가 예정). 통과율 95% 구간이 약 ±10점이라 몇 점 차이는 동률",
+      "호환·요구사항": "대시보드와 Harbor Hub에 작업 기록 공개"
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "SilentGuard — HTTP 200인데 틀린 API 결과를 하네스에서 차단",
+    "제공자": "커뮤니티(Sajib Acharjee Dip 외)",
+    "출처": "arXiv 2611.20595",
+    "날짜": "2026-11-17",
+    "날짜근거": "공개일",
+    "신호": "코드·벤치마크(AgentOrchBench) 공개, Apache-2.0",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.20595",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/Sajib-006/silentguard"
+      },
+      {
+        "라벨": "데이터셋",
+        "url": "https://huggingface.co/datasets/Sajib-006/AgentOrchBench"
+      }
+    ],
+    "한줄정리": "API가 필터를 무시하거나 합계를 페이지 크기로 자르는 등 '조용히' 틀린 값을 돌려줄 때, 모델이 아닌 하네스가 불변식으로 검사해 틀린 값을 모델에게 보여주지 않는 라이브러리이자 연구다.",
+    "왜중요": "공개 연구 API 15개 중 11개에서 이런 무음 실패를 찾았고(카운트 최대 691배 부풀림), 체크리스트·리뷰 모델·LLM 저지 같은 기존 방식은 70% 넘는 오답을 남겼다. SilentGuard는 오픈 모델 7종에서 대상 결함 오답을 74.0%→1.7%, 프런티어 모델 3종에서 70.2%→0.5%로 줄였고 정상 과제 손실은 없었다. 경고만 주면 70.1%가 그대로 틀려 '강제'가 핵심이며, 복구가 아니라 응답 보류로 오답을 피한다.",
+    "써보기": "git clone https://github.com/Sajib-006/silentguard.git\ncd silentguard\npip install -e \".[bench]\"\npython examples/01_quickstart.py",
+    "세부": {
+      "핵심 변경점": "조건 C1..Ck에 대해 count(전체 조건) + count(나머지, NOT Ci) == count(나머지) 항등식으로 검사, 실패 시 1회 재요청 후 값을 withheld. 추가 모델 호출·API 변경 불필요. OpenAI 스타일 tool_schema()·call_tool()·check_answer() 제공. AgentOrchBench: count 36·lists 30·retail 30·workflows 100 과제, drop_last·cap_total·or_semantics 등 결함 6종",
+      "제약·가격": "검사를 통과하는 형태의 결함은 감지 못함. 새로운 결함 유형에서는 오답 61.1%→24.5%로 감소 폭이 작음. ignore_negation 결함에서는 오탐(100% 보류)",
+      "호환·요구사항": "라이브러리 자체는 의존성 없음. examples/03_llm_agent.py는 OpenAI 호환 엔드포인트 사용"
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "추론 엔지니어링 입문 — 프런티어 API에서 오픈 모델 제공자로 옮기기",
+    "제공자": "커뮤니티(The Pragmatic Engineer)",
+    "출처": "The Pragmatic Engineer",
+    "날짜": "2026-11-17",
+    "날짜근거": "발행일",
+    "신호": "Modal·Fireworks·Baseten 인터뷰 기반 심층 글",
+    "하이라이트": false,
+    "링크": "https://newsletter.pragmaticengineer.com/p/inference-engineering-for-software-engineers",
+    "이미지": "https://substackcdn.com/image/fetch/$s_!k1yV!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8fecea03-44c9-44ef-8f85-fc46e4e4f69a_910x1062.png",
+    "한줄정리": "프런티어 랩 API에서 오픈 모델을 호스팅하는 추론 제공자로 옮길 때의 판단 기준과 단계(멀티테넌트 API 교체 → 전용 GPU)를 Modal·Fireworks·Baseten 사례로 정리한 글이다.",
+    "왜중요": "Uber 토큰당 비용 약 50%, Pinterest 90%, AT&T 56% 절감 사례를 들며 비용·지연 제어·커스터마이징이 전환 이유라고 설명한다. 모델은 자체 eval이나 A/B로 고르고, 제공자 간 품질 차이는 Artificial Analysis 엔드포인트 정확도 지수(93~102%)로 비교하라고 권한다. 멀티테넌트 단계에서는 TTFT 꼬리 지연(p95/p99), 콜드 스타트·콜드 캐시, 프롬프트 캐시 활용률을 지켜봐야 한다.",
+    "세부": {
+      "핵심 변경점": "전환 경로: 프런티어 API → 추론 제공자의 멀티테넌트 API(OpenAI/Anthropic 호환 엔드포인트로 교체) → 전용 GPU 임대. 스마트 라우터로 쉬운 요청을 싼 모델로 보내는 방식. 작업당 비용 예시: Sonnet 5.5 $5.46 vs Kimi K3 $2.00(Artificial Analysis 지수). TTFT 변동 원인: 노이지 네이버, 콜드 스타트, 콜드 KV 캐시",
+      "제약·가격": "전용 GPU는 장기 선약정이 필요한 경우가 많음. 공개 가동률 예: Anthropic 99.5%, OpenAI API 99.97%",
+      "호환·요구사항": "코딩 에이전트(Claude Code, Codex, OpenCode)에서 DeepSeek 4.1 Flash·GLM 5.3·Kimi K3.1 Pro 등으로 교체하는 사례 언급"
+    },
+    "수집일": "2026-11-18"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "신규출시",
     "제목": "Qwen4-Max — Qwen 차세대 플래그십 멀티모달 모델 API 정식 출시",
     "제공자": "Alibaba (Qwen)",
     "출처": "Alibaba Cloud Model Studio 문서",

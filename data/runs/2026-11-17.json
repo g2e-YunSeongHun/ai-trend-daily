@@ -1,0 +1,807 @@
+{
+ "target": "2026-11-17",
+ "run_at": "2026-11-18T04:10+09:00",
+ "sources_checked": [
+  {
+   "section": "모델·API",
+   "source": "anthropic.com/news",
+   "latest_seen": "2026-11-09",
+   "note": "TARGET 항목 없음 (최신 Claude Fable 5.2·Mythos 5.2, 이미 수록)"
+  },
+  {
+   "section": "모델·API",
+   "source": "platform.claude.com/docs/en/release-notes/overview",
+   "latest_seen": "2026-11-17",
+   "note": "Linked billing 베타 1건"
+  },
+  {
+   "section": "모델·API",
+   "source": "openai.com/news/rss.xml",
+   "latest_seen": "2026-11-17",
+   "note": "11/17 항목은 NATO 사이버 방어·OpenAI for Chile(비즈니스·정책). GPT-6.2 발표는 RSS 미반영"
+  },
+  {
+   "section": "모델·API",
+   "source": "developers.openai.com/api/docs/changelog",
+   "latest_seen": "2026-11-17",
+   "note": "GPT-6.2 Astra·Sol, Responses API 할인 완료 창(2h/8h) 2건"
+  },
+  {
+   "section": "모델·API",
+   "source": "blog.google/technology/ai RSS",
+   "latest_seen": "2026-11-17",
+   "note": "11/17 'Put Gemini to work for you'(Gemini 앱 소비자 기능)만"
+  },
+  {
+   "section": "모델·API",
+   "source": "deepmind.google/discover/blog",
+   "latest_seen": "2026-11 (월 단위)",
+   "note": "최신 Gemini 4 Hydrogen(11/12, 이미 수록)"
+  },
+  {
+   "section": "모델·API",
+   "source": "ai.google.dev/gemini-api/docs/changelog",
+   "latest_seen": "2026-11-12",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "모델·API",
+   "source": "ai.meta.com/blog",
+   "latest_seen": "2026-07-27",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "모델·API",
+   "source": "research.meta.ai/blog",
+   "latest_seen": "2026-11-09",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "모델·API",
+   "source": "mistral.ai/news",
+   "latest_seen": "2026-11-05",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "모델·API",
+   "source": "huggingface.co/blog/feed.xml",
+   "latest_seen": "2026-11-16",
+   "note": "TARGET 항목 없음 (11/16 OpenRouter 글 이미 수록)"
+  },
+  {
+   "section": "모델·API",
+   "source": "huggingface.co 트렌딩 모델 (API sort=trendingScore)",
+   "latest_seen": "2026-11-17",
+   "note": "sensenova/SenseNova-Loop-9B 당일 생성·트렌딩 진입"
+  },
+  {
+   "section": "모델·API",
+   "source": "docs.x.ai/developers/release-notes",
+   "latest_seen": "2026-11-02",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "모델·API",
+   "source": "api-docs.deepseek.com/updates",
+   "latest_seen": "2026-11-13",
+   "note": "TARGET 항목 없음 (11/13 이미 수록)"
+  },
+  {
+   "section": "모델·API",
+   "source": "HF 조직별 최신 모델 (Qwen, deepseek-ai, moonshotai, zai-org, mistralai, meta-llama, google, openai)",
+   "latest_seen": "2026-11-02",
+   "note": "TARGET 신규 가중치 없음"
+  },
+  {
+   "section": "모델·API",
+   "source": "HN Algolia (11/17 00:00~11/18 12:00 UTC, >30pt)",
+   "latest_seen": "2026-11-17",
+   "note": "GPT-6.2 Astra and Sol 195pt 시드"
+  },
+  {
+   "section": "모델·API",
+   "source": "GeekNews RSS",
+   "latest_seen": "2026-11-18",
+   "note": "모델·API 관련 TARGET 항목 없음"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "github.com/anthropics/claude-code CHANGELOG.md (git clone) + npm @anthropic-ai/claude-code",
+   "latest_seen": "2026-11-17",
+   "note": "2.1.326 npm 2026-11-16T18:43Z(KST 11-17 03:43). 직전 회차 run_at 11-16T18:40Z 이후 공개라 미수집분"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "code.claude.com/docs/en/changelog",
+   "latest_seen": "2026-11-17",
+   "note": "CHANGELOG.md에서 생성되는 페이지, 내용 동일"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "developers.openai.com/codex/changelog (→ learn.chatgpt.com/docs/changelog) + npm @openai/codex",
+   "latest_seen": "2026-11-17",
+   "note": "11-17 GPT-6.2 Astra·Sol in Codex(모델 발표). CLI는 0.171.0-alpha만, 안정판 없음"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "cursor.com/changelog",
+   "latest_seen": "2026-11-06",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "npm @google/gemini-cli + git ls-remote google-gemini/gemini-cli",
+   "latest_seen": "0.68.0 (v0.69.0-preview.0만 신규)",
+   "note": "TARGET 안정판 없음"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "github.blog/changelog/feed/",
+   "latest_seen": "2026-11-17",
+   "note": "11-17(UTC) Copilot 항목 없음. 11-16 19:22Z 이후(KST 11-17) 항목 4건 검토"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "github/copilot-cli changelog.md (git clone) + npm @github/copilot",
+   "latest_seen": "1.0.113 (2026-11-17)",
+   "note": "관리 설정 1줄 변경"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "QwenLM/qwen-code CHANGELOG.md (git clone) + npm @qwen-code/qwen-code",
+   "latest_seen": "0.28.0 (2026-11-17)",
+   "note": "npm 2026-11-17T12:10Z"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "docs.devin.ai/desktop/changelog (windsurf.com/changelog 리다이렉트), docs.devin.ai/cli/changelog, docs.devin.ai/release-notes/overview",
+   "latest_seen": "2026-11-17",
+   "note": "Devin Desktop v3.14.30819 (November 17, 2026) — Devin Bots 출시"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "kiro.dev/changelog",
+   "latest_seen": "2026-11-11",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "ampcode.com/news",
+   "latest_seen": "2026-11-10",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "zed.dev/releases/stable",
+   "latest_seen": "2026-11-11",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "npm cline / roo-cline / opencode-ai / @kilocode/cli / @sourcegraph/amp",
+   "latest_seen": "2026-11-17",
+   "note": "opencode 1.19.6(07:22Z, V1 패치)·kilocode 7.8.30·amp 연속 빌드 외 안정 릴리스 없음. opencode CHANGELOG 최신 v2.3.0(11-13)"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "blog.langchain.com",
+   "latest_seen": "2026-11-13",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "PyPI crewai·aider-chat·claude-agent-sdk·openai-agents·langgraph·google-adk·pydantic-ai·langchain·agno·dspy·llm·smolagents·strands-agents·letta·browser-use·openhands-ai 등",
+   "latest_seen": "2026-11-17",
+   "note": "pydantic-ai 2.69.0, agno 3.2.1, llm 0.37.3, claude-agent-sdk 0.2.183, browser-use 1.0.6, @langchain/langgraph 1.7.5 확인"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "HN Algolia (2026-11-17 00:00Z~11-18 12:00Z, points>50)",
+   "latest_seen": "2026-11-17",
+   "note": "도구 원본 후보 없음(GPT-6.2는 모델, harness 비교·검증 글은 기법)"
+  },
+  {
+   "section": "도구·에이전트",
+   "source": "GeekNews RSS",
+   "latest_seen": "2026-11-18",
+   "note": "OpenCode Browse(11-17 12:33 KST) 시드 확인"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "github.com/anthropics/skills (git log)",
+   "latest_seen": "2026-11-16",
+   "note": "TARGET 커밋 없음 (11-16 #2221은 지난 회차에서 제외)"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "github.com/modelcontextprotocol/servers (git log)",
+   "latest_seen": "2026-11-11",
+   "note": "TARGET 커밋 없음"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "github.com/modelcontextprotocol/modelcontextprotocol (git log)",
+   "latest_seen": "2026-11-17",
+   "note": "TARGET 커밋은 문서 정리(#3565)·블로그 UI(#3563)뿐"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "blog.modelcontextprotocol.io",
+   "latest_seen": "2026-11-11",
+   "note": "TARGET 글 없음"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "registry.modelcontextprotocol.io (updated_since=2026-11-17, 15페이지 1,500건)",
+   "latest_seen": "2026-11-17",
+   "note": "대부분 소규모·자동 등록. 주요 벤더 신규 공식 서버 없음. Baserow 1.0.0 확인"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "npm @modelcontextprotocol/sdk",
+   "latest_seen": "2026-10-23",
+   "note": "1.32.2 이후 릴리스 없음"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "PyPI mcp",
+   "latest_seen": "2026-10-02",
+   "note": "TARGET 릴리스 없음"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "PyPI fastmcp",
+   "latest_seen": "2026-11-13",
+   "note": "4.2.0 이후 릴리스 없음 (11-13 기수록)"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "github.com/anthropics/claude-plugins-official (git log)",
+   "latest_seen": "2026-11-16",
+   "note": "TARGET 커밋 없음"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "HN Algolia (points>50 + 'MCP'/'skill'/'skills'/'plugin'/'Claude Code' 검색)",
+   "latest_seen": "2026-11-17",
+   "note": "스킬·MCP 원본은 OpenCode Browse(HN 315pt, 11-16 21:20 UTC 게시)뿐. Tokendoctor 30pt는 기수록"
+  },
+  {
+   "section": "스킬·MCP",
+   "source": "GeekNews RSS",
+   "latest_seen": "2026-11-18",
+   "note": "OpenCode Browse(11-17 KST) 게재. Modern Web Guidance는 11-10 기수록"
+  },
+  {
+   "section": "기법·연구",
+   "source": "anthropic.com/engineering",
+   "latest_seen": "2026-11-16",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "기법·연구",
+   "source": "anthropic.com/research",
+   "latest_seen": "2026-11-16",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "기법·연구",
+   "source": "openai.com/news/rss.xml",
+   "latest_seen": "2026-11-17",
+   "note": "11-17 항목은 NATO 사이버 방어·OpenAI for Chile(연구·기법 아님). GPT-6.2 Astra and Sol은 RSS 미노출, HN에서 확인(모델 섹션)"
+  },
+  {
+   "section": "기법·연구",
+   "source": "developers.googleblog.com (RSS)",
+   "latest_seen": "2026-11-17",
+   "note": "11-17: ABFS 오픈소스(도구 성격), Gemini 4 Hydrogen(모델). 기법 글은 11-16 이전"
+  },
+  {
+   "section": "기법·연구",
+   "source": "simonwillison.net/atom/everything/",
+   "latest_seen": "2026-11-17",
+   "note": "11-17 Datasette Lite 재작성(AI 무관), Go Proverbs 인용"
+  },
+  {
+   "section": "기법·연구",
+   "source": "latent.space/feed",
+   "latest_seen": "2026-11-17",
+   "note": "11-17 Cloudflare neolab 인터뷰·AINews 매출 뉴스 — 기법 아님"
+  },
+  {
+   "section": "기법·연구",
+   "source": "interconnects.ai/feed",
+   "latest_seen": "2026-11-14",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "기법·연구",
+   "source": "oneusefulthing.org/feed",
+   "latest_seen": "2026-11-09",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "기법·연구",
+   "source": "newsletter.pragmaticengineer.com/feed",
+   "latest_seen": "2026-11-17",
+   "note": "Inference engineering for software engineers 포함"
+  },
+  {
+   "section": "기법·연구",
+   "source": "magazine.sebastianraschka.com/feed",
+   "latest_seen": "2026-11-15",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "기법·연구",
+   "source": "huggingface.co/blog/feed.xml",
+   "latest_seen": "2026-11-16",
+   "note": "TARGET 항목 없음"
+  },
+  {
+   "section": "기법·연구",
+   "source": "arxiv.org/list/cs.CL/new, cs.AI/new",
+   "latest_seen": "2026-11-17",
+   "note": "신규 목록(2026-11-17 화) 중 코드 공개 108편 훑음 → 실무 적용 명확한 2편 포함"
+  },
+  {
+   "section": "기법·연구",
+   "source": "hn.algolia.com (points>50, 11-17 00:00~11-18 12:00 UTC)",
+   "latest_seen": "2026-11-17",
+   "note": "22건 중 AI 기법 관련 4건 검토"
+  },
+  {
+   "section": "기법·연구",
+   "source": "news.hada.io/rss/news (GeekNews)",
+   "latest_seen": "2026-11-18",
+   "note": "최신 21건(11-17~18 KST) 확인"
+  },
+  {
+   "section": "공통",
+   "source": "developers.googleblog.com (교차 확인)",
+   "latest_seen": "2026-11-17",
+   "note": "Gemini Hydrogen 로보틱스·ABFS 글 11-17"
+  }
+ ],
+ "unavailable": [
+  {
+   "source": "reddit.com/r/LocalLLaMA/top.rss",
+   "reason": "429 후 404 반복 (4회 재시도)"
+  },
+  {
+   "source": "openai.com/index/introducing-gpt-6-2-astra-sol",
+   "reason": "HTML 403 (규칙대로 RSS 사용했으나 미반영) — developers.openai.com 체인지로그·모델 문서로 대체 검증"
+  },
+  {
+   "source": "qwen.ai/research, z.ai/blog, moonshotai.github.io",
+   "reason": "JS 렌더링 페이지로 목록 미확보 — HF 조직 모델 목록으로 대체"
+  },
+  {
+   "source": "reddit.com RSS (r/ClaudeAI, r/LocalLLaMA 등)",
+   "reason": "RSS가 404 'Not Found' 피드 반환 (재시도 후에도 동일)"
+  },
+  {
+   "source": "antigravity.google/changelog",
+   "reason": "JS 렌더링 페이지, 본문 47자만 추출"
+  },
+  {
+   "source": "GitHub 릴리스 페이지(pydantic/pydantic-ai, openai/codex 등)",
+   "reason": "클라우드 GitHub 제한 (403)"
+  },
+  {
+   "source": "openai.com/index/introducing-gpt-6-2-astra-sol",
+   "reason": "HTML 403 (모델 섹션 소관)"
+  },
+  {
+   "source": "reddit.com/r/ClaudeAI top.rss",
+   "reason": "RSS 404/429 반복 (재시도 4회)"
+  },
+  {
+   "source": "reddit.com/r/mcp top.rss",
+   "reason": "RSS 429/404 반복 (재시도 4회)"
+  },
+  {
+   "source": "github.com/punkpeye/awesome-mcp-servers, smithery.ai, glama.ai, mcp.so",
+   "reason": "시간 제약으로 미확인 (MCP 레지스트리로 대체)"
+  },
+  {
+   "source": "GitHub API·gh search repos",
+   "reason": "클라우드 GitHub 제한 — 당일 생성 레포 검색 불가, ★ 수 미확인"
+  },
+  {
+   "source": "벤더 공식 MCP 발표(GitHub, Notion, Slack, Figma, Stripe, Cloudflare, AWS, Google)",
+   "reason": "개별 블로그 미순회. MCP 레지스트리에서 해당 네임스페이스 TARGET 등재 없음으로 대체 확인"
+  },
+  {
+   "source": "reddit.com/r/ClaudeAI/top.rss?t=day",
+   "reason": "RSS 404/429 반복(20~25초 간격 재시도 6회)"
+  },
+  {
+   "source": "reddit.com/r/LocalLLaMA/top.rss?t=day",
+   "reason": "RSS 404/429 반복(재시도 7회)"
+  },
+  {
+   "source": "reddit.com/r/MachineLearning/top.rss?t=day",
+   "reason": "RSS 404/429 반복(재시도 7회)"
+  }
+ ],
+ "candidates": [
+  {
+   "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
+   "title": "GPT-6.2 Astra and Sol",
+   "section": "모델·API",
+   "decision": "포함",
+   "date_basis": "발표일 2026-11-17 (developers.openai.com 체인지로그 Nov 17)",
+   "reason": "공식 발표 페이지는 403, 체인지로그·모델 문서·마이그레이션 가이드로 내용 확인"
+  },
+  {
+   "url": "https://developers.openai.com/api/docs/guides/background#use-discounted-completion-windows",
+   "title": "Responses API discounted background completion windows (2h/8h)",
+   "section": "모델·API",
+   "decision": "포함",
+   "date_basis": "릴리스일 2026-11-17 (체인지로그)",
+   "reason": "GPT-6.2 발표와 별도 체인지로그 항목, 기존 모델(GPT-6.1 Terra, GPT-6 Luna)에도 적용되는 가격 기능"
+  },
+  {
+   "url": "https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections",
+   "title": "Claude API Linked billing (beta)",
+   "section": "모델·API",
+   "decision": "포함",
+   "date_basis": "릴리스일 2026-11-17 (Claude 릴리스 노트)",
+   "reason": "extract.py date는 베타 헤더 날짜(2026-10-01)를 잡음. 릴리스 노트 기준 11/17"
+  },
+  {
+   "url": "https://huggingface.co/sensenova/SenseNova-Loop-9B",
+   "title": "SenseNova-Loop-9B",
+   "section": "모델·API",
+   "decision": "포함",
+   "date_basis": "공개일 2026-11-17 (모델 카드 News·HF createdAt)",
+   "reason": "Apache-2.0 가중치, 공개 당일 HF 트렌딩·좋아요 113. Preview(10/28)는 미수록"
+  },
+  {
+   "url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/",
+   "title": "Put Gemini to work for you",
+   "section": "모델·API",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-17",
+   "reason": "Gemini 앱 소비자 기능, API·개발자 도구와 무관"
+  },
+  {
+   "url": "https://developers.openai.com/api/docs/changelog",
+   "title": "OpenAI CSAM Image Classifier (omni-moderation-csam-latest)",
+   "section": "모델·API",
+   "decision": "제외",
+   "date_basis": "릴리스일 2026-11-16",
+   "reason": "날짜 범위 밖, 승인 조직 전용"
+  },
+  {
+   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.326",
+   "title": "Claude Code 2.1.326",
+   "section": "도구·에이전트",
+   "decision": "포함",
+   "date_basis": "릴리스일 2026-11-17 (KST; npm 2026-11-16T18:43Z)",
+   "reason": "Code Mode+에이전트 팀 동시 사용, 도구 규칙 경고, OTEL host 속성 등 체감 변경. 직전 회차 실행 이후 공개"
+  },
+  {
+   "url": "https://docs.devin.ai/work-with-devin/bots",
+   "title": "Devin Bots",
+   "section": "도구·에이전트",
+   "decision": "포함",
+   "date_basis": "릴리스일 2026-11-17 (Devin Desktop v3.14.30819 체인지로그)",
+   "reason": "신규 기능 출시. 11-16 회차 Devin CLI 3.13.3과는 별개 발표"
+  },
+  {
+   "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.0",
+   "title": "Qwen Code 0.28.0",
+   "section": "도구·에이전트",
+   "decision": "포함",
+   "date_basis": "릴리스일 2026-11-17 (CHANGELOG.md·npm 12:10Z)",
+   "reason": "qwen4-max 지원, 웹 셸 관리형 worktree 세션, 서브에이전트 공용 루프 기본화"
+  },
+  {
+   "url": "https://github.blog/changelog/2026-11-16-control-where-github-copilot-customizations-come-from",
+   "title": "Control where GitHub Copilot customizations come from",
+   "section": "도구·에이전트",
+   "decision": "포함",
+   "date_basis": "발표일 2026-11-17 (KST; 피드 2026-11-16T19:48Z)",
+   "reason": "기업 관리 설정 strictPluginOnlyCustomization 신설. 직전 회차 실행(18:40Z) 이후 공개. 스킬·MCP 섹션과 겹치면 한쪽만 유지"
+  },
+  {
+   "url": "https://github.blog/changelog/2026-11-16-vs-code-retires-the-local-harness-in-february-2027",
+   "title": "VS Code retires the Local harness in February 2027",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "발표일 2026-11-16T19:22Z",
+   "reason": "11-11 VS Code 1.146 항목에 Local harness 지원 중단·2027년 2월 제거 이미 수록 (재보도)"
+  },
+  {
+   "url": "https://github.blog/changelog/2026-11-16-github-copilot-weekly-releases-november-9",
+   "title": "GitHub Copilot weekly releases — November 9",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-16T21:34Z",
+   "reason": "주간 요약. Fable 5.2(11-10 Copilot CLI 1.0.109), VS Code 1.146(11-11) 등 기수록 내용 재정리"
+  },
+  {
+   "url": "https://github.blog/changelog/2026-11-16-github-copilot-models-deprecated-on-november-16-2026",
+   "title": "GitHub Copilot models deprecated on November 16, 2026",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "발효일 2026-11-16 (US 현지)",
+   "reason": "발효일이 TARGET 전날(US 11-16), 10-15 공지된 모델 3종 종료. 모델 선택기 변경뿐"
+  },
+  {
+   "url": "https://github.com/github/copilot-cli/blob/main/changelog.md",
+   "title": "Copilot CLI 1.0.113",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "릴리스일 2026-11-17",
+   "reason": "관리 설정 features.browserUse 1줄 추가뿐, 체감 변경 작음"
+  },
+  {
+   "url": "https://learn.chatgpt.com/docs/changelog",
+   "title": "GPT-6.2 Astra and GPT-6.2 Sol in Work and Codex",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "발표일 2026-11-17",
+   "reason": "모델 발표의 일부. 모델·API 섹션 공식 발표와 중복"
+  },
+  {
+   "url": "https://pypi.org/project/pydantic-ai/2.69.0/",
+   "title": "Pydantic AI 2.69.0",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "릴리스일 2026-11-17 (PyPI 01:52Z)",
+   "reason": "릴리스 노트 미확보(GitHub 제한), 내용 확인 불가"
+  },
+  {
+   "url": "https://llm.datasette.io/en/stable/changelog.html#v0-37-3",
+   "title": "LLM 0.37.3",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "릴리스일 2026-11-16",
+   "reason": "버그 수정만인 패치"
+  },
+  {
+   "url": "https://pypi.org/project/claude-agent-sdk/0.2.183/",
+   "title": "Claude Agent SDK (Python) 0.2.183",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "릴리스일 2026-11-17 (KST; PyPI 2026-11-16T23:03Z)",
+   "reason": "Claude Code 2.1.326과 동기 릴리스, 별도 노트 미확보"
+  },
+  {
+   "url": "https://pypi.org/project/agno/3.2.1/",
+   "title": "Agno 3.2.1",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "릴리스일 2026-11-17 (PyPI 17:06Z)",
+   "reason": "3.2.0(11-12 수록) 직후 패치, 노트 미확보"
+  },
+  {
+   "url": "https://www.npmjs.com/package/opencode-ai/v/1.19.6",
+   "title": "opencode 1.19.6",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "릴리스일 2026-11-17 (npm 07:22Z)",
+   "reason": "스킬·MCP 섹션에 포함(중복 방지)"
+  },
+  {
+   "url": "https://news.hada.io/topic?id=37333",
+   "title": "OpenCode Browse - 쓰던 브라우저를 코딩 에이전트에 연결하는 도구",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "GeekNews 게재 2026-11-17 12:33 KST",
+   "reason": "원본 URL·공개일 확인 불가 (opencode.ai/docs/browse 404, 레포 CHANGELOG에 없음)"
+  },
+  {
+   "url": "https://blog.antonio.cx/running-agents-with-lend",
+   "title": "Running coding agents without handing them my credentials",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-13",
+   "reason": "날짜 범위 밖 (HN에는 11-17 주목)"
+  },
+  {
+   "url": "https://github.com/baserow/baserow-mcp/blob/main/CHANGELOG.md",
+   "title": "Baserow MCP 1.0.0",
+   "section": "스킬·MCP",
+   "decision": "포함",
+   "date_basis": "릴리스일 2026-11-17 (CHANGELOG '1.0.0 (2026-11-17)', 태그 v1.0.0, 레지스트리 publishedAt 2026-11-17T17:22Z)",
+   "reason": "벤더 공식 MCP 서버 메이저 릴리스, 스킬 5종 추가, 레지스트리 등재"
+  },
+  {
+   "url": "https://opencode.ai/product/browse",
+   "title": "OpenCode Browse",
+   "section": "스킬·MCP",
+   "decision": "포함",
+   "date_basis": "공개일 2026-11-17 KST (npm @opencode/browse 0.1.0 2026-11-16T16:52Z)",
+   "reason": "HN 315pt·GeekNews. 11-16 회차(18:20Z 실행) 이후 확인돼 KST 기준으로 포함"
+  },
+  {
+   "url": "https://docs.zyte.com/zyte-web-data/mcp.html",
+   "title": "Zyte MCP (레지스트리 com.zyte/mcp 1.0.0)",
+   "section": "스킬·MCP",
+   "decision": "제외",
+   "date_basis": "레지스트리 등재 2026-11-17",
+   "reason": "서비스는 이전부터 운영(Zyte 블로그에 기존 활용 글), 레지스트리 첫 등재만으로 신규 발표 아님"
+  },
+  {
+   "url": "https://registry.modelcontextprotocol.io/v0.1/servers/com.wix%2Fwixel/versions",
+   "title": "Wix Wixel MCP 1.0.0",
+   "section": "스킬·MCP",
+   "decision": "제외",
+   "date_basis": "레지스트리 등재 2026-11-17",
+   "reason": "공식 발표·문서 원문 미확인, 레지스트리 항목만 있음"
+  },
+  {
+   "url": "https://github.com/jgraph/drawio-mcp",
+   "title": "draw.io MCP 1.10.0 / tool-server 1.13.0",
+   "section": "스킬·MCP",
+   "decision": "제외",
+   "date_basis": "레지스트리 등재 2026-11-17",
+   "reason": "릴리스 노트 없음, 문서 이동·버전 범프 위주"
+  },
+  {
+   "url": "https://github.com/localixai/tokendoctor",
+   "title": "tokendoctor (HN 30pt)",
+   "section": "스킬·MCP",
+   "decision": "제외",
+   "date_basis": "공개 2026-10-25",
+   "reason": "11-03 기수록, HN 50pt 미만"
+  },
+  {
+   "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3565",
+   "title": "MCP extensions overview SEP-3392 정렬",
+   "section": "스킬·MCP",
+   "decision": "제외",
+   "date_basis": "커밋 2026-11-17",
+   "reason": "문서 수정만"
+  },
+  {
+   "url": "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
+   "title": "Introducing FrontierHarness Eval v1.1",
+   "section": "기법·연구",
+   "decision": "포함",
+   "date_basis": "발행일 2026-11-17 (extract.py)",
+   "reason": "하네스 22종×모델 5종 비교 벤치마크, HN 190pt"
+  },
+  {
+   "url": "https://newsletter.pragmaticengineer.com/p/inference-engineering-for-software-engineers",
+   "title": "Inference engineering for software engineers",
+   "section": "기법·연구",
+   "decision": "포함",
+   "date_basis": "발행일 2026-11-17 (RSS·extract.py)",
+   "reason": "추론 제공자 전환 단계·TTFT·캐시 등 구체적 절차와 수치. 추출 본문은 약 2.2만 자에서 끝나 후반부(전용 GPU·speculative decoding) 미확인"
+  },
+  {
+   "url": "https://arxiv.org/abs/2611.19123",
+   "title": "Beyond Plain MCP: Do Decision Models and Code Mode Make Tool Use Cheaper and Faster?",
+   "section": "기법·연구",
+   "decision": "포함",
+   "date_basis": "공개일 2026-11-17 (arXiv 신규 목록, 제출 11-14)",
+   "reason": "하네스·4B 라우터·트레이스 공개, 코드 모드 토큰 70~90% 절감"
+  },
+  {
+   "url": "https://arxiv.org/abs/2611.20595",
+   "title": "Invariant-Aware Harness Enforcement to Protect LLM Agents from Silent API Failures (SilentGuard)",
+   "section": "기법·연구",
+   "decision": "포함",
+   "date_basis": "공개일 2026-11-17 (arXiv 신규 목록, 제출 11-16)",
+   "reason": "pip 설치 가능한 라이브러리+벤치마크 공개, 실무 적용 명확"
+  },
+  {
+   "url": "https://arxiv.org/abs/2611.18624",
+   "title": "Skill Transfer: Adapting Agent Skills from Strong to Weak Agents",
+   "section": "기법·연구",
+   "decision": "제외",
+   "date_basis": "공개일 2026-11-17 (arXiv 신규 목록)",
+   "reason": "코드 공개됐으나 방법이 강·약 모델 궤적 수집과 반복 수리 루프를 요구해 바로 적용하기 어려움 — 같은 날 포함 2편 대비 우선순위 낮음"
+  },
+  {
+   "url": "https://arxiv.org/abs/2611.19549",
+   "title": "Beyond Prompts: Runtime Contracts for Coding Agents",
+   "section": "기법·연구",
+   "decision": "제외",
+   "date_basis": "공개일 2026-11-17 (arXiv 신규 목록)",
+   "reason": "저비용 모델·소형 픽스처 1개 한정, 주요 대비(프롬프트 규칙 대비) 비유의 — 우선순위 낮음"
+  },
+  {
+   "url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+   "title": "How the Claude Code team thinks about verification",
+   "section": "기법·연구",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-16 (datePublished 메타)",
+   "reason": "날짜 범위 밖 (HN에는 11-17 올라옴, 173pt). 공식 블로그라 주목일 예외 해당 없음"
+  },
+  {
+   "url": "https://velog.io/@doolyk/coding-agent-deletion-incidents-shell-analysis",
+   "title": "코딩 에이전트 삭제 사고 10건, 실행된 셸 명령으로 본 원인과 안전한 형태 (GeekNews 37349)",
+   "section": "기법·연구",
+   "decision": "제외",
+   "date_basis": "GeekNews 게재 2026-11-17 KST",
+   "reason": "원본이 velog.io(개인 블로그 플랫폼 제외 규칙)"
+  },
+  {
+   "url": "https://blog.antonio.cx/running-agents-with-lend",
+   "title": "Running coding agents without handing them my credentials",
+   "section": "기법·연구",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-13, HN 11-17 126pt",
+   "reason": "도구(lend, 레포 첫 커밋 2026-11-13) 소개 글 — 도구·에이전트/스킬·MCP 섹션 후보로 이관"
+  },
+  {
+   "url": "https://developers.googleblog.com/accelerating-development-for-massive-git-repositories/",
+   "title": "Accelerating development for massive Git repositories (ABFS 오픈소스)",
+   "section": "기법·연구",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-17",
+   "reason": "오픈소스 도구 공개가 핵심 — 도구·에이전트 섹션 후보로 이관"
+  },
+  {
+   "url": "https://simonwillison.net/2026/Nov/17/datasette-lite/",
+   "title": "Running the full server-side Datasette Python app in the browser",
+   "section": "기법·연구",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-17",
+   "reason": "AI 무관(Pyodide·서비스 워커)"
+  },
+  {
+   "url": "https://latent.space/p/cloudflare/",
+   "title": "Cloudflare Joins the Jevolution and Labels Itself a Neolab",
+   "section": "기법·연구",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-17",
+   "reason": "인터뷰·업계 동향 글, 절차·명령 없음"
+  },
+  {
+   "url": "https://developers.googleblog.com/securing-your-agents-a-hands-on-guide-to-agent-anomaly-detection/",
+   "title": "Securing Your Agents: A Hands-On Guide to Agent Anomaly Detection",
+   "section": "기법·연구",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-16",
+   "reason": "날짜 범위 밖"
+  },
+  {
+   "url": "https://developers.googleblog.com/tpu-model-design-considerations-and-optimization-guide/",
+   "title": "TPU Model Design Considerations and Optimization Guide",
+   "section": "기법·연구",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-16",
+   "reason": "날짜 범위 밖"
+  },
+  {
+   "url": "https://developers.googleblog.com/accelerating-development-for-massive-git-repositories/",
+   "title": "ABFS 오픈소스 공개",
+   "section": "도구·에이전트",
+   "decision": "포함",
+   "date_basis": "발행일 2026-11-17 (extract.py)",
+   "reason": "기법 섹션 시드에서 교차 확인"
+  },
+  {
+   "url": "https://developers.googleblog.com/gemini-hydrogen-for-robotics/",
+   "title": "Antigravity Robotics 플러그인 (Gemini 4 Hydrogen 로보틱스)",
+   "section": "스킬·MCP",
+   "decision": "포함",
+   "date_basis": "발행일 2026-11-17 (extract.py)",
+   "reason": "Hydrogen 모델은 11-12 기수록, 새 플러그인 출시로 포함"
+  },
+  {
+   "url": "https://github.com/antoniomika/lend",
+   "title": "lend — 원격 에이전트용 자격 증명 프록시",
+   "section": "도구·에이전트",
+   "decision": "제외",
+   "date_basis": "발행일 2026-11-13 (blog.antonio.cx), HN 126pt 11-17",
+   "reason": "주목일 후보이나 README 설치 안내·★ 미검증(클라우드 GitHub 제한)"
+  },
+  {
+   "url": "https://news.hada.io/topic?id=37324",
+   "title": "Modern Web Guidance 1.0 (GeekNews)",
+   "section": "스킬·MCP",
+   "decision": "제외",
+   "date_basis": "GeekNews 2026-11-17 KST",
+   "reason": "11-10 기수록 항목의 재보도"
+  }
+ ],
+ "verification": "포함 16건: extract.py(블로그·체인지로그·arXiv·HF), npm·MCP 레지스트리·git ls-remote(GitHub 링크)로 날짜 확인. GPT-6.2 가격·컨텍스트 수치는 모델 문서 HTML과 문자열 대조. Claude Code 2.1.326(npm 11-16T18:43Z)·Copilot 정책(11-16T19:48Z)·OpenCode Browse는 US 11-16이나 KST 11-17이고 11-16 회차 실행 후 공개돼 포함"
+}
