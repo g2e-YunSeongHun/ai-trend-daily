@@ -1,6 +1,482 @@
 [
   {
     "섹션": "모델·API",
+    "태그": "업데이트",
+    "제목": "Gemini API 파일 슬라이싱 — Office 파일 입력, 쪽·시트·구간만 골라 과금",
+    "제공자": "Google",
+    "출처": "Gemini API 릴리스 노트",
+    "날짜": "2026-11-18",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://ai.google.dev/gemini-api/docs/document-processing#customize-document-processing",
+    "관련링크": [
+      {
+        "라벨": "릴리스 노트",
+        "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      },
+      {
+        "라벨": "영상 처리 설정",
+        "url": "https://ai.google.dev/gemini-api/docs/video-understanding#customize-video-processing"
+      },
+      {
+        "라벨": "오디오 구간 자르기",
+        "url": "https://ai.google.dev/gemini-api/docs/audio#clipping-intervals"
+      }
+    ],
+    "한줄정리": "Gemini API가 Word·PowerPoint·Excel 등 Office·OpenDocument 파일을 직접 받고, 문서·스프레드시트·영상·오디오에서 필요한 쪽·시트·셀 범위·시간 구간·콘텐츠 레이어만 잘라 보낼 수 있게 됐다.",
+    "왜중요": "`document` 블록에 `processing`(`{\"type\": \"static\", ...}`)을 붙여 쪽 범위(`start_page`/`end_page`), 워크시트(`sheet_index`), 셀 범위(`visible_cells`), 레이어(`page_image`·`page_text`, `data`·`formulas`·`visual`)를 고르면 잘라낸 부분만 토큰으로 계산·과금된다. 큰 문서는 `page_text`로 먼저 훑고 차트가 있는 쪽만 `high` 해상도 이미지로 다시 보내는 식으로 비용을 줄일 수 있다. 사용자 입력뿐 아니라 함수 응답(`function_result.result`) 안에서도 쓸 수 있고 Gemini 3·Gemini 4+ 모델에서 동작한다.",
+    "써보기": "\"processing\": {\n    \"type\": \"static\",\n    \"page_options\": {\"start_page\": 3, \"end_page\": 7, \"content_layers\": [\"page_image\"]},\n},",
+    "세부": {
+      "핵심 변경점": "지원 형식: .docx/.doc/.dotx/.odt, .pptx/.ppt/.odp, .xlsx/.xls/.ods. 영상은 start_offset/end_offset 구간 자르기와 fps (0, 24] 지정, 오디오는 start_offset/end_offset 구간 자르기. 모델은 전체 쪽 수와 워크시트 이름을 자동으로 받아 후속 턴에서 다른 범위를 요청할 수 있다",
+      "제약·가격": "쪽 이미지 토큰: low 약 280, medium(기본) 약 560, high 약 1,120 토큰/쪽. 스프레드시트는 시트당 최대 50,000셀. 기존 파일 크기·쪽 수 한도는 파일 전체에 적용",
+      "호환·요구사항": "Gemini 3 및 Gemini 4+ 모델, Interactions API의 document/audio/video 입력 블록"
+    },
+    "수집일": "2026-11-19"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "Aion 1.0 Instruct — Windows용 2.3B 온디바이스 SLM 가중치 공개",
+    "제공자": "Microsoft",
+    "출처": "Hugging Face microsoft/Aion-1.0-Instruct-2.3B",
+    "날짜": "2026-11-18",
+    "날짜근거": "공개일",
+    "신호": "Microsoft 공식 HF 조직 공개, MIT 라이선스",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/microsoft/Aion-1.0-Instruct-2.3B",
+    "관련링크": [
+      {
+        "라벨": "ONNX WebGPU",
+        "url": "https://huggingface.co/microsoft/Aion-1.0-Instruct-2.3B-ONNX-WebGPU"
+      },
+      {
+        "라벨": "샘플 레포",
+        "url": "https://github.com/microsoft/Aion-Instruct-Preview-Sample"
+      }
+    ],
+    "한줄정리": "Microsoft Windows Applied Sciences Group이 Windows OS 기본 소형 언어 모델이 될 2.3B 파라미터 Aion Instruct의 미양자화 가중치를 MIT 라이선스로 공개했다.",
+    "왜중요": "Phi Silica의 후속으로, 요약·재작성·문서 이해·질의응답을 32K 컨텍스트로 기기 안에서 처리하는 용도다. 툴 호출 형식(`<|tool_call|>`)과 채팅 템플릿이 포함돼 로컬 에이전트·문서 처리 실험에 쓸 수 있다. 최적화 버전이 콘텐츠 검열 모델과 함께 2027년 1월 말까지 Windows에 들어갈 예정이며, 이번 공개는 사전 공개 성격이라 양자화 버전은 이후에 나온다.",
+    "세부": {
+      "핵심 변경점": "약 2.29B 파라미터, 28층, GQA(쿼리 24·KV 8 헤드), 슬라이딩 윈도 21층+전체 어텐션 7층 하이브리드, 컨텍스트 32,768, 어휘 200,029, 지식 기준 2025-12. 영어·독일어·스페인어·포르투갈어·이탈리아어·프랑스어·중국어·일본어",
+      "제약·가격": "MIT. 세계 지식용으로 학습되지 않았다고 명시. 벤치마크: MMLU 55.15, GSM8K 74.91, IFEval 83.90",
+      "호환·요구사항": "커스텀 모델링 코드라 trust_remote_code=True 필요, transformers 5.x로 내보냄. ONNX WebGPU 변환본 별도 레포"
+    },
+    "수집일": "2026-11-19"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "Rumble-2-Flash — 40개+ 언어 0.5B 오픈 음성 인식 모델",
+    "제공자": "Reson8",
+    "출처": "Hugging Face 블로그",
+    "날짜": "2026-11-18",
+    "날짜근거": "발행일",
+    "신호": "HF 공식 블로그 게재, Apache 2.0 가중치",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/blog/rumble-2-flash",
+    "관련링크": [
+      {
+        "라벨": "모델",
+        "url": "https://huggingface.co/Reson8/Rumble-2-Flash"
+      }
+    ],
+    "한줄정리": "Reson8이 40개 이상 언어를 자동 감지해 받아쓰는 0.5B 파라미터 음성 인식 모델 Rumble-2-Flash를 Apache 2.0으로 공개했다.",
+    "왜중요": "Qwen3-ASR 아키텍처를 써서 Transformers·vLLM에서 별도 코드나 `trust_remote_code` 없이 바로 돌아간다. Open ASR Leaderboard 다국어 트랙 평균 오류율 6.96%로 15배 큰 Meta omniASR-LLM 7B와 Whisper large-v3보다 앞서고, 302시간 콜센터 벤치마크에서 WER 7.86%로 NVIDIA Nemotron 3.5 Transcribe(30B, 7.78%)와 비슷하다. 배치가 꽉 찰 때 7,000 RTFx 이상(1시간 오디오를 약 0.5초)이라 대량 전사·전화 녹취 처리에 쓸 만하다.",
+    "써보기": "uv pip install torch transformers accelerate\nmodel_id = \"Reson8/Rumble-2-Flash\"\nprocessor = AutoProcessor.from_pretrained(model_id)\nmodel = AutoModelForMultimodalLM.from_pretrained(model_id, device_map=\"auto\")",
+    "세부": {
+      "핵심 변경점": "상위 모델 Rumble-2를 GOLD 기반 온폴리시 증류로 축소(토크나이저가 다른 교사·학생 간 증류). 숫자 표기(숫자/단어)·필러·반복 보존·언어 강제 지정 등 출력 제어. 영어 트랙 평균 WER 6.6%",
+      "제약·가격": "Apache 2.0. Reson8 API로도 제공(가격 원문 미기재)",
+      "호환·요구사항": "🤗 Transformers, vLLM 네이티브 지원. 오디오 입력은 로컬 경로·URL·NumPy 배열 또는 그 리스트"
+    },
+    "수집일": "2026-11-19"
+  },
+  {
+    "태그": "업데이트",
+    "제목": "Claude Code 2.1.327 — MCP 설정 stdin 등록·`/status` 진단 목록",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/claude-code",
+    "날짜": "2026-11-18",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "링크": "https://github.com/anthropics/claude-code/releases/tag/v2.1.327",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://code.claude.com/docs/en/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@anthropic-ai/claude-code"
+      }
+    ],
+    "한줄정리": "MCP 서버 JSON을 stdin으로 받는 `claude mcp add-json <name> -`, 깨진 설정 파일을 모아 보여 주는 `/status` 목록을 더하고 권한·서브에이전트 동작을 여럿 바꾼 Claude Code 릴리스.",
+    "왜중요": "토큰이 든 MCP 서버 설정을 명령줄에 남기지 않고 등록할 수 있고, 깨진 agent·skill·command 파일과 키바인딩 오류, 무시된 권한 설정, 매칭되지 않는 훅을 `/status` 한곳에서 확인할 수 있다. `claude mcp add --scope project`가 `.mcp.json`의 다른 최상위 키를 지우던 문제를 고쳤고, `ExitWorktree`가 저장 안 된 작업이 있을 수 있는 worktree를 지우기 전에 묻도록 바뀌었다. 첫 Bash 명령 전에 셸 시작 파일을 미리 실행하는 속도 개선은 `CLAUDE_CODE_DISABLE_SHELL_HEAD_START=1`로 끌 수 있다.",
+    "써보기": "claude mcp add-json <name> -\n/status\n/tui classic",
+    "세부": {
+      "핵심 변경점": "`claude mcp add-json <name> -`(세션 안에서는 불가), `/status` 진단 목록, `/config` 덮어쓰기 표시, `attributionProject` 설정(billing group), `/tui classic` 이름, 자동 모드가 `Bash(pnpm dlx *)` 같은 패키지 실행 허용 규칙 무시, 매우 긴 변수 전개 Bash 명령 거부, WebFetch 2,000자 초과 URL 거부, VS Code 탐색기 'Claude Code: Add to Chat'",
+      "제약·가격": "자동 모드의 과금 분류기 폴백은 다음 릴리스에서 제거 예고",
+      "호환·요구사항": "`claude mcp add-json`의 stdin 입력은 Claude Code 세션 내부에서 사용 불가"
+    },
+    "섹션": "도구·에이전트",
+    "하이라이트": false,
+    "수집일": "2026-11-19"
+  },
+  {
+    "태그": "업데이트",
+    "제목": "CrewAI 1.15.42 — Knowledge 기본 저장소를 로컬 Qdrant로",
+    "제공자": "CrewAI",
+    "출처": "GitHub crewAIInc/crewAI",
+    "날짜": "2026-11-18",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (PyPI 등재)",
+    "링크": "https://github.com/crewAIInc/crewAI/releases/tag/1.15.42",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://docs.crewai.com/en/changelog"
+      }
+    ],
+    "한줄정리": "Knowledge 기본 저장소를 로컬 Qdrant로 바꾸고 ChromaDB를 선택 extra로 분리했으며, 독립 실행 에이전트에 도구를 나중에 붙일 수 있게 한 CrewAI 릴리스.",
+    "왜중요": "Knowledge를 기본 설정으로 쓰던 프로젝트는 업그레이드 후 저장소가 ChromaDB에서 로컬 Qdrant로 바뀌므로 기존 데이터 위치를 확인해야 한다. ChromaDB가 기본 의존성에서 빠져 설치가 가벼워진다. `max_execution_time`을 워커를 기다리지 않고 지키도록 하는 등 버그 수정도 다수 포함됐다.",
+    "써보기": "uv tool install crewai",
+    "세부": {
+      "핵심 변경점": "ChromaDB 선택 extra화, Knowledge 기본 로컬 Qdrant·저장소 분리, 독립 에이전트 도구 지연 추가, agents.yaml에서 LLM 매핑 허용",
+      "제약·가격": "",
+      "호환·요구사항": "soupsieve 4.0 이상(CVE-2026-126190)"
+    },
+    "섹션": "도구·에이전트",
+    "하이라이트": false,
+    "수집일": "2026-11-19"
+  },
+  {
+    "태그": "신규출시",
+    "제목": "LangSmith for Coding Agents — 코딩 에이전트 비용을 PR 결과에 연결",
+    "제공자": "LangChain",
+    "출처": "LangChain 블로그",
+    "날짜": "2026-11-18",
+    "날짜근거": "발행일",
+    "신호": "공식 발표",
+    "링크": "https://www.langchain.com/blog/langsmith-coding-agents-roi",
+    "한줄정리": "Claude Code·Codex·Cursor·VS Code의 GitHub Copilot·Deep Agents 트레이스의 비용을 GitHub PR·GitLab MR 결과에 자동 귀속해 대시보드로 보여 주는 LangSmith 코딩 에이전트 전용 기능.",
+    "왜중요": "'outcomes' 개념으로 스레드와 PR을 연결해 병합된 PR 하나에 든 비용과 PR로 이어지지 않은 지출을 나눠 볼 수 있다. 스레드를 기능·버그 수정·조사·코드 리뷰 등 작업 유형으로 분류하고, 호출된 스킬·가장 비싼 PR·대화 길이별 비용도 보여 줘 모델이나 정책을 바꾼 전후를 비교할 수 있다. 여러 벤더의 코딩 에이전트를 한 대시보드로 모으는 것이 요점이다.",
+    "세부": {
+      "핵심 변경점": "코딩 에이전트 agent type, 스레드-PR 자동 귀속(한 스레드 여러 PR·여러 스레드 한 PR 모두 처리), PR 상태별(open·closed·merged) 비용, 미귀속 지출 분리, 작업 유형 뷰",
+      "제약·가격": "",
+      "호환·요구사항": "지원: Claude Code, OpenAI Codex, Cursor, VS Code의 GitHub Copilot, Deep Agents"
+    },
+    "섹션": "도구·에이전트",
+    "하이라이트": false,
+    "수집일": "2026-11-19"
+  },
+  {
+    "태그": "업데이트",
+    "제목": "Foundry Agent Service — Copilot harness 프리뷰·음성·브라우저 GA",
+    "제공자": "Microsoft",
+    "출처": "Microsoft Foundry 블로그",
+    "날짜": "2026-11-18",
+    "날짜근거": "발표일",
+    "신호": "공식 발표",
+    "링크": "https://devblogs.microsoft.com/foundry/whats-new-in-foundry-agent-service-at-ignite-2026/",
+    "관련링크": [
+      {
+        "라벨": "Foundry Dev Pack",
+        "url": "https://devblogs.microsoft.com/foundry/the-foundry-dev-pack-is-here-build-foundry-agents-your-way/"
+      },
+      {
+        "라벨": "Hosted agents",
+        "url": "https://devblogs.microsoft.com/foundry/hosted-agents-foundry-agent-service-ignite-2026/"
+      }
+    ],
+    "한줄정리": "Microsoft가 에이전트 루프와 샌드박스를 운영하는 Copilot harness(퍼블릭 프리뷰), 음성 에이전트·컴퓨터 사용·브라우저 자동화 GA, hosted agents의 메모리 스냅샷·egress 제어 등을 Foundry Agent Service에 더했다.",
+    "왜중요": "에이전트 실행 기반을 직접 만들지 않고 지식·스킬·도구만 붙여 장시간 작업 에이전트를 만들 수 있고, Foundry UI·GitHub Copilot 앱·Foundry CLI(`azd ai`)·VS Code Foundry Toolkit에서 정의를 작성해 소스 관리에 둘 수 있다. Toolbox가 관리형 MCP 엔드포인트로 도구를 재사용하게 하고, hosted agents는 세션 유휴 시 상태를 저장하고 다음 요청에 이어 간다. 고객 소유 AKS 배포는 12월 초 퍼블릭 프리뷰 목표다.",
+    "세부": {
+      "핵심 변경점": "Microsoft Copilot harness(프리뷰), 음성 에이전트 GA, Web Search(Web IQ) GA, A2A 도구 GA, 컴퓨터 사용·브라우저 자동화 GA, Toolbox 관리형 MCP 엔드포인트, hosted agents 공유 서브넷 IP GA·메모리 스냅샷 프리뷰·egress 제어 GA·장시간 작업 복구 GA",
+      "제약·가격": "기본 동시 세션 쿼터 구독·리전당 1,000–2,000. 유휴 타임아웃 2분~4시간(기본 15분)",
+      "호환·요구사항": "Work IQ·Fabric IQ 통합은 프리뷰. 고객 소유 AKS 배포는 Coming soon"
+    },
+    "섹션": "도구·에이전트",
+    "하이라이트": false,
+    "수집일": "2026-11-19"
+  },
+  {
+    "태그": "업데이트",
+    "제목": "VS Code 1.147 — 모델 라우터·예약 전송·내 브라우저 쓰는 에이전트",
+    "제공자": "Microsoft",
+    "출처": "VS Code 릴리스 노트",
+    "날짜": "2026-11-18",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "링크": "https://code.visualstudio.com/updates/v1_147",
+    "한줄정리": "결정 모델이 요청을 경로별 모델로 보내는 모델 라우터(실험적), 에이전트 요청 예약 전송·초안, 기본 브라우저를 에이전트가 조작하는 Browser Use(프리뷰)를 더한 VS Code 릴리스.",
+    "왜중요": "라우터는 `~/.agents/model-routers/`의 YAML에 어떤 작업에 어떤 모델을 쓸지 적으면 결정 모델 `gpt-6-luna-decisions`가 요청마다 경로를 고른다. Agents 창에서 요청을 나중에 보내거나 초안으로 여러 개 쌓아 둘 수 있고, 에이전트 응답에 HTML 미리보기·네이티브 차트를 넣을 수 있다. 기업 관리 설정이 있어도 `vscode.allowedHarnesses`로 Claude·Codex 하네스를 허용할 수 있게 됐다(이 하네스들은 Copilot 관리 권한·샌드박스·MCP 통제를 따르지 않음).",
+    "써보기": "\"chat.copilot.modelRouter.enabled\": true\n/model-router\n/plugin enable browser-use\n/browser-use:doctor",
+    "세부": {
+      "핵심 변경점": "모델 라우터(chat.copilot.modelRouter.enabled), Send Later(sessions.sendLater.enabled), 초안(sessions.drafts.enabled), 원격 환경을 GitHub Environment로 공유, assisted permissions 사용자 지침(chat.permissions.assisted.instructions), Browser Use(chat.agentHost.browserUse.enabled), `/html-preview`·`/vscode-ui` 스킬, 관리형 셸 권한 규칙 정규식",
+      "제약·가격": "모델 라우터·Send Later·초안은 Experimental, Browser Use는 Preview. 예약 요청은 로컬 에이전트 호스트가 켜져 있어야 실행",
+      "호환·요구사항": "Browser Use는 GitHub Copilot 브라우저 확장, 로컬 Copilot 하네스 세션, PATH의 Node.js 22 이상 필요. macOS Ventura·Sonoma, 32비트 ARM Linux 지원 중단 예고"
+    },
+    "섹션": "도구·에이전트",
+    "하이라이트": true,
+    "수집일": "2026-11-19"
+  },
+  {
+    "태그": "업데이트",
+    "제목": "Mistral Vibe 3.1.3 — `/goal` 목표 지속 실행·LLM 전후 훅",
+    "제공자": "Mistral AI",
+    "출처": "PyPI mistral-vibe · GitHub mistralai/mistral-vibe",
+    "날짜": "2026-11-18",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (PyPI 등재)",
+    "링크": "https://pypi.org/project/mistral-vibe/3.1.3/",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://github.com/mistralai/mistral-vibe/blob/main/CHANGELOG.md"
+      }
+    ],
+    "한줄정리": "목표를 정하면 여러 턴에 걸쳐 끝날 때까지 작업하는 `/goal`, 모델 호출 전후에 실행되는 `pre_llm`·`post_llm` 훅, 예약 루프 관리자를 더하고 기본 모델을 Mistral Large 4로 바꾼 Mistral Vibe 릴리스.",
+    "왜중요": "`/goal`은 `config.toml`의 `max_goal_token_budget`으로 토큰 예산 상한을 둘 수 있어 장시간 작업을 통제하기 쉽다. `post_llm` 훅은 모델 응답 뒤 재시도를 요청할 수 있고 턴당 재시도 3회를 `post_agent` 훅과 나눠 쓴다. 보호된 파일을 읽는 셸 명령은 허용된 명령이어도 승인을 묻도록 바뀌었다.",
+    "써보기": "uv tool install --python 3.14 mistral-vibe\n/goal <objective>\n/goal pause\n/loop",
+    "세부": {
+      "핵심 변경점": "/goal(edit·pause·resume·clear), max_goal_token_budget, pre_llm·post_llm 훅, /loop 관리자, /model 퍼지 검색, `vibe -p --thinking LEVEL`, /raw, /trusted-folders, Ctrl+S 입력 임시 보관",
+      "제약·가격": "기본 모델이 Mistral Large 4로 변경. Medium 3.5를 유지하려면 `active_model = \"mistral-medium-3.5\"`",
+      "호환·요구사항": "api_base가 mistral.ai 밖(자체 호스팅)이면 실험 서비스 접속·크래시 리포트 전송 중단"
+    },
+    "섹션": "도구·에이전트",
+    "하이라이트": false,
+    "수집일": "2026-11-19"
+  },
+  {
+    "태그": "업데이트",
+    "제목": "Codex CLI 0.170.0 — TUI 실시간 음성 통화·환경별 동명 MCP 서버",
+    "제공자": "OpenAI",
+    "출처": "OpenAI Codex 체인지로그",
+    "날짜": "2026-11-18",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "링크": "https://github.com/openai/codex/releases/tag/rust-v0.170.0",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://developers.openai.com/codex/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@openai/codex"
+      }
+    ],
+    "한줄정리": "TUI에서 WebRTC로 실시간 음성 통화를 협상하고, OpenTelemetry HTTP 익스포터 인증 헤더를 자동 갱신하며, 같은 이름의 MCP 서버를 환경별로 따로 쓸 수 있게 한 Codex CLI 릴리스.",
+    "왜중요": "터미널 Codex에서 음성 통화로 작업할 수 있는 기반이 들어갔고, OTEL로 사용량을 수집하는 팀은 만료되는 인증 헤더를 직접 갱신하지 않아도 된다. 환경마다 같은 이름의 MCP 서버를 분리하는 기능은 실험적이다. 크기 초과 WebSocket 요청의 HTTP 폴백, MCP OAuth 자격 증명 경합, 권한 갱신 시 샌드박스 제한 유실 등도 고쳤다.",
+    "써보기": "npm install -g @openai/codex@0.170.0",
+    "세부": {
+      "핵심 변경점": "TUI 실시간 음성 WebRTC 협상(#61172), OTEL HTTP 익스포터 인증 헤더 자동 갱신(#61028), 환경별 동명 MCP 서버 분리(실험적, #60905), 클라우드 대화 자동 재연결 개선",
+      "제약·가격": "동명 MCP 서버 지원은 experimental",
+      "호환·요구사항": "sandbox 문서에 권한 프로필·파일시스템 규칙 설명 추가(#61133)"
+    },
+    "섹션": "도구·에이전트",
+    "하이라이트": false,
+    "수집일": "2026-11-19"
+  },
+  {
+    "태그": "업데이트",
+    "제목": "OpenAI Agents SDK 0.25.0 — Runloop 제공자 제거·핸드오프 오류 복구",
+    "제공자": "OpenAI",
+    "출처": "GitHub openai/openai-agents-python",
+    "날짜": "2026-11-18",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (PyPI 등재)",
+    "링크": "https://github.com/openai/openai-agents-python/releases/tag/v0.25.0",
+    "관련링크": [
+      {
+        "라벨": "PyPI",
+        "url": "https://pypi.org/project/openai-agents/0.25.0/"
+      }
+    ],
+    "한줄정리": "샌드박스 Runloop 제공자를 제거하고, 서드파티 세션 어댑터용 유틸리티를 공개하며, 핸드오프 오류 복구를 옵트인으로 더한 Python Agents SDK 마이너 릴리스.",
+    "왜중요": "이 SDK는 마이너 버전을 브레이킹 변경에 쓰므로, Runloop 샌드박스를 쓰던 코드는 업그레이드 전에 다른 제공자로 옮겨야 한다. GPT-6 Chat Completions 도구 요청이 기본적으로 non-reasoning으로 가고, 모델 기본값이 TS SDK와 맞춰졌으며, MCP v2에서 Streamable HTTP 동시 요청을 허용한다.",
+    "써보기": "pip install openai-agents",
+    "세부": {
+      "핵심 변경점": "서드파티 세션 어댑터 유틸리티 공개(#5428), Runloop 제공자 제거(#5369), 핸드오프 오류 복구 옵트인(#5418), GPT-6 Chat Completions 도구 요청 non-reasoning 기본(#5420), TS SDK와 모델 기본값 정렬(#6064), MCP v2 Streamable HTTP 동시 요청(#5641)",
+      "제약·가격": "",
+      "호환·요구사항": "openai 3.48.0, mcp 2.3.0 등 의존성 갱신"
+    },
+    "섹션": "도구·에이전트",
+    "하이라이트": false,
+    "수집일": "2026-11-19"
+  },
+  {
+    "태그": "업데이트",
+    "제목": "Zed 1.29.1 — Claude Fable 5.2 BYOK·Git 패널 브랜치 비교 모드",
+    "제공자": "Zed Industries",
+    "출처": "Zed 릴리스 노트",
+    "날짜": "2026-11-18",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "링크": "https://zed.dev/releases/stable/1.29.1",
+    "한줄정리": "Anthropic BYOK 사용자용 Claude Fable 5.2(조직 권한 시 Mythos 5.2) 지원, 에이전트 스레드 제목 자동 생성 끄기 설정, 기준 브랜치 대비 변경 파일을 모아 보는 Git 패널 모드를 더한 Zed 안정판.",
+    "왜중요": "자기 Anthropic API 키로 Zed Agent를 쓰는 경우 Fable 5.2를 바로 고를 수 있다. `agent.auto_generate_thread_titles`를 false로 두면 스레드 제목 생성 호출을 끌 수 있고, ACP 에이전트 설정 옵션 순서도 정리됐다. 리뷰 전 origin/main 대비 바뀐 파일 전체를 Git 패널에서 diff로 열어 볼 수 있다.",
+    "써보기": "git panel: show branch changes",
+    "세부": {
+      "핵심 변경점": "Claude Fable 5.2 BYOK(#66760), agent.auto_generate_thread_titles(#63998), ACP 옵션 순서(#66733), Git 패널 브랜치 모드(#66482), git.date_format·date_style 설정, 북마크 피커",
+      "제약·가격": "Mythos 5.2는 조직에 접근 권한이 있을 때만",
+      "호환·요구사항": "브랜치 모드의 파일은 diff로 열 수 있지만 stage·restore 불가"
+    },
+    "섹션": "도구·에이전트",
+    "하이라이트": false,
+    "수집일": "2026-11-19"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "MCP 레퍼런스 서버 v2.5.0 — 전 서버 Streamable HTTP·보안 8건 수정",
+    "제공자": "Model Context Protocol",
+    "출처": "GitHub modelcontextprotocol/servers",
+    "날짜": "2026-11-18",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm·PyPI 동시 게시)",
+    "하이라이트": false,
+    "링크": "https://github.com/modelcontextprotocol/servers/releases/tag/v2.5.0",
+    "관련링크": [
+      {
+        "라벨": "filesystem README",
+        "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@modelcontextprotocol/server-filesystem"
+      },
+      {
+        "라벨": "PyPI",
+        "url": "https://pypi.org/project/mcp-server-git/"
+      }
+    ],
+    "한줄정리": "MCP 공식 레퍼런스 서버(filesystem·memory·sequential-thinking·everything·fetch·git·time)가 모두 Streamable HTTP로도 뜰 수 있게 되고, git·filesystem·everything 서버의 보안 취약점 8건이 수정된 릴리스.",
+    "왜중요": "지금까지는 everything 서버만 HTTP를 지원했지만 이제 `--transport streamable-http` 하나로 모든 서버를 `http://127.0.0.1:3001/mcp` 엔드포인트로 띄워 여러 클라이언트가 함께 쓸 수 있다. mcp-server-git은 merge 후 자동 maintenance, promisor 원격의 lazy fetch, 빈 이름 필터 드라이버 등으로 저장소 설정이 프로그램을 실행하던 경로가 막혀 2026.11.18로 올려야 한다. 날짜 버전(2025.x·2026.x)으로 filesystem 서버를 쓰던 경우 패키지 매니저가 2.4.0을 업그레이드로 제안하지 않으므로 버전을 직접 지정해야 한다.",
+    "써보기": "npm install @modelcontextprotocol/server-filesystem@2.4.0\nnpx -y @modelcontextprotocol/server-filesystem --transport streamable-http /Users/username/Desktop\nuvx mcp-server-git --transport streamable-http --repository path/to/git/repo\nnpx @modelcontextprotocol/inspector --transport http --server-url http://localhost:3001/mcp",
+    "세부": {
+      "핵심 변경점": "전 서버 Streamable HTTP 지원(#5536, 기본은 stdio 유지, HOST·PORT로 변경). git: 보안 권고 6건(GHSA-h2g3·87qg·9vjp·pm7p·r2q8·8wv7) 수정, git_remote URL의 쿼리 값·프래그먼트 마스킹. filesystem 2.4.0: 디렉터리 목록을 검사한 디렉터리 기준으로 고정(GHSA-rq2p, Linux·macOS). everything 2.3.1: NAT64 주소 우회 차단(GHSA-38j4). memory 2.2.0/2.2.1: MEMORY_MAX_ENTITIES·MEMORY_MAX_RELATIONS·MEMORY_MAX_FILE_BYTES 쓰기 한도(옵트인), 락 파일 정리. fetch: 사설 IP 가드가 검사한 주소로만 접속(DNS 리바인딩 차단), IP 주소에 대한 --allowed-hosts 와일드카드 거부.",
+      "제약·가격": "HTTP 모드에서 filesystem 서버는 Roots를 받을 수 없어 허용 디렉터리를 명령줄로 줘야 한다. HOST=0.0.0.0은 외부에 노출되므로 주의. filesystem의 디렉터리 고정은 Windows에서 아직 적용되지 않음. git 서버의 --repository 범위 검사는 쓰기 작업 후 재확인되지 않음(#5599).",
+      "호환·요구사항": "패키지: server-filesystem 2.4.0, server-memory 2.2.1, server-sequential-thinking 2.2.0, server-everything 2.3.1(npm), mcp-server-fetch·git·time 2026.11.18(PyPI). fetch는 Python 3.11.5 이상. 2026-07-28 및 2025년대 클라이언트 모두 하나의 /mcp 엔드포인트로 지원."
+    },
+    "수집일": "2026-11-19"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "Sidehand — 가려진 Windows 앱을 에이전트가 조작하는 MCP 서버",
+    "제공자": "커뮤니티(Blue-B)",
+    "출처": "GitHub Blue-B/sidehand",
+    "날짜": "2026-11-18",
+    "날짜근거": "주목일",
+    "신호": "GeekNews 게재 · MCP 레지스트리·npm 등재",
+    "하이라이트": false,
+    "링크": "https://github.com/Blue-B/sidehand",
+    "관련링크": [
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/sidehand"
+      },
+      {
+        "라벨": "GeekNews",
+        "url": "https://news.hada.io/topic?id=37409"
+      }
+    ],
+    "한줄정리": "사용자가 앞 창에서 계속 타이핑하는 동안 Claude Code·Codex·Cursor 같은 MCP 클라이언트가 뒤에 가려진 Windows 앱의 컨트롤을 텍스트로 읽고 입력·클릭·선택하게 해 주는 Windows 10/11용 MCP 서버이자 CLI.",
+    "왜중요": "스크린샷 기반 컴퓨터 사용과 달리 마우스 커서를 움직이지 않고 창을 앞으로 가져오지 않으며, 컨트롤 하나를 한 줄로 표현해 작성자 벤치마크에서 277토큰(비교 도구 2,488~13,425토큰), 2.0초로 작업을 마쳤다. UI Automation에 안 잡히는 앱은 Windows OCR로 읽고, 스크린샷의 이메일·키를 가리는 `mask` 명령도 있다. 0.5.2부터 Chrome·Edge·Electron 텍스트 필드에서는 포커스를 뺏지 않고 키 입력이 된다. 라이선스는 PolyForm Shield 1.0.0으로, 경쟁 제품을 만드는 용도는 금지된다.",
+    "써보기": "claude mcp add sidehand -- npx -y sidehand mcp\ncodex mcp add sidehand -- npx -y sidehand mcp\nnpx -y sidehand doctor",
+    "세부": {
+      "핵심 변경점": "명령: tree(창 컨트롤을 ref와 함께 텍스트로), act(type·click·select·check·press·wheel·drag 등), ocr, wait, window·launch, capture·mask, doctor. MCP에서는 ui_tree·ui_ocr·ui_act 등 도구로 노출. 0.5.2(2026-11-18): 브라우저 텍스트 필드의 백그라운드 키 입력, 대상 앱이 앞으로 나오면 11~13ms 안에 포커스 반환, press 키 사전 검증.",
+      "제약·가격": "PolyForm Shield 1.0.0(0.5.1부터, 이전 버전은 MIT) — 업무 사용 포함 무료지만 경쟁 제품 구축·제공은 불가. 다른 창에서 읽은 텍스트가 에이전트로 전달되므로 프롬프트 인젝션에 주의하고 SIDEHAND_ALLOW로 볼 수 있는 창을 제한할 수 있다. 원시 마우스 입력을 읽는 게임은 클릭을 무시하며, 관리자 권한 앱은 에이전트도 관리자 권한이 필요하다. 그 밖의 키·단축키는 --allow-foreground 동의가 필요하다.",
+      "호환·요구사항": "Windows 10/11, Node 18.3+. 네이티브 Windows의 Claude Desktop·Cursor·Codex는 `cmd /c npx` 필요. WSL에서도 동작. pi 확장과 Claude Code용 `sidehand guard` PreToolUse 훅 제공."
+    },
+    "수집일": "2026-11-19"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Transformers MoE 전문가 스트리밍 — 32GB Mac에서 180B MoE 실행",
+    "제공자": "Hugging Face",
+    "출처": "Hugging Face 블로그",
+    "날짜": "2026-11-18",
+    "날짜근거": "발행일",
+    "신호": "Hugging Face 공식 블로그 · Transformers PR #50717·벤치마크 Space 공개",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/blog/moe-expert-streaming",
+    "관련링크": [
+      {
+        "라벨": "PR",
+        "url": "https://github.com/huggingface/transformers/pull/50717"
+      },
+      {
+        "라벨": "Space",
+        "url": "https://huggingface.co/spaces/tarekziade/moe-expert-streaming"
+      },
+      {
+        "라벨": "변환 모델",
+        "url": "https://huggingface.co/tarekziade/Qwen3.8-Flash-Next-expert-streaming"
+      }
+    ],
+    "이미지": "https://huggingface.co/blog/assets/moe-expert-streaming/thumbnail.png",
+    "한줄정리": "라우터가 고른 MoE 전문가 가중치만 디스크에서 읽어 오는 Transformers 오프로딩 옵션을 PR로 제안하고, 32GB M5 MacBook에서 Qwen3.8-Flash-Next(전문가 121 GB)를 약 14 tok/s로 돌린 과정을 정리한 글이다.",
+    "왜중요": "기존 Accelerate 오프로딩은 토큰마다 레이어의 전문가 전체를 복사해 0.16 tok/s에 그쳤지만, 전문가를 슬롯 풀 캐시에 올려 grouped_mm을 그대로 쓰는 방식으로 짧은 디코드에서 Strata(14.8 tok/s)에 약 6% 뒤처진 13.9 tok/s까지 따라잡았다. llama.cpp(--n-cpu-moe, --fit on)·vLLM(--cpu-offload-gb, --cpu-offload-params experts) 오프로딩 비교표도 있어, RAM에 다 안 들어가는 MoE를 로컬에서 돌릴 엔진과 플래그를 고를 때 참고가 된다. 아직 PR 단계로 API는 메인테이너와 논의 중이고, 변환에 약 5시간이 걸린다.",
+    "써보기": "pip install \"git+https://github.com/huggingface/transformers.git@refs/pull/50717/head\"\npath = snapshot_download(\"tarekziade/Qwen3.8-Flash-Next-expert-streaming\")\nmodel = AutoModelForCausalLM.from_pretrained(f\"{path}/dense\", dtype=torch.bfloat16,\n    device_map={\"\": \"mps\", \"experts.*\": \"disk\"}, quantization_config=MetalConfig(bits=8),\n    experts_offload={\"cache_bytes\": 12 << 30, \"quantized_experts\": f\"{path}/experts-q3\"})",
+    "세부": {
+      "핵심 변경점": "device_map에서 \"disk\"로 지정한 전문가는 스트리밍 경로로 처리. 캐시 미스는 8개 I/O 스레드가 전문가당 한 번의 연속 읽기로 가져오고, 다음 두 레이어의 라우터를 미리 돌려 프리페치할 전문가를 추정. 전문가 3비트 양자화(디스크 49 GB, 기기 캐시 12 GiB), dense 레이어 8비트, n-gram 테이블은 디스크에서 필요한 행만 읽음",
+      "제약·가격": "PR(huggingface/transformers#50717) 단계, API 논의 중. 로드 후 약 18 GiB, 6K 프롬프트에서 최대 25.4 GiB 사용. 작성자 기준으로도 코딩 에이전트용으로는 느림",
+      "호환·요구사항": "표준 experts 레이아웃의 MoE 모델 대상. Mac(MPS)에서는 Hub에 공개된 Metal 커널을 불러 씀"
+    },
+    "수집일": "2026-11-19"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Gemini 4 Carbon은 왜 느린가 — 버그 수정 에이전트 트레이스 분석",
+    "제공자": "Kernel",
+    "출처": "Kernel 블로그",
+    "날짜": "2026-11-18",
+    "날짜근거": "주목일",
+    "신호": "HN 248pt",
+    "하이라이트": false,
+    "링크": "https://kernel.dev/blog/why-is-gemini-4-carbon-taking-so-long/",
+    "관련링크": [],
+    "한줄정리": "Kernel이 비공개 버그 수정 평가에서 Gemini 4 Carbon이 Opus·Astra보다 훨씬 오래 걸린 원인을 단계별 트레이스로 분해한 분석 글이다.",
+    "왜중요": "느린 추론은 Astra 대비 추가 시간의 16–30%, Opus 대비 45–49%만 설명했고, 나머지는 티켓이 요구하지 않은 작업(전체 단계의 약 절반)과 단계당 적은 도구 호출·재읽기(읽은 줄의 39%가 이미 본 줄, Astra는 7%)에서 나왔다. 하네스가 5턴마다 \"do you already have enough to make the fix?\"를 자동으로 묻게 하자 한 시행이 37분에서 28분으로 줄어, 장시간 코딩 에이전트의 과잉 탐색을 하네스 쪽에서 줄이는 아이디어로 참고할 만하다. 비공개 평가 기반이고 확인 질문 실험은 시행 1건이다.",
+    "세부": {
+      "핵심 변경점": "Carbon은 Astra보다 약 7배 많은 단계·11배 많은 액션을 수행. opencode·mini-SWE-agent 하네스에서도 차이 없음. 단계당 도구 호출 부족과 재읽기가 초과 실행 시간의 약 25%로 추정",
+      "제약·가격": "Kernel 비공개 평가 데이터 기반",
+      "호환·요구사항": ""
+    },
+    "수집일": "2026-11-19"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "고온 샘플링엔 top-nσ — 긴 생성·코딩 에이전트 붕괴 막는 샘플러",
+    "제공자": "커뮤니티(Allen G. Roush 외)",
+    "출처": "arXiv 2611.22148",
+    "날짜": "2026-11-18",
+    "날짜근거": "발행일",
+    "신호": "arXiv 2611.22148 · NeurIPS 2026 · 코드·데이터 공개",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.22148",
+    "관련링크": [
+      {
+        "라벨": "코드",
+        "url": "https://github.com/Hellisotherpeople/Long-Context-Generation-Is-a-Sampling-Problem-8-"
+      }
+    ],
+    "한줄정리": "오픈 웨이트 모델 29종으로 긴 생성을 시험해, 온도를 올렸을 때의 품질 붕괴는 샘플러가 남기는 후보 토큰 수가 좌우하며 top-nσ가 이를 막는다고 보인 논문이다.",
+    "왜중요": "온도 2에서 top-p·top-k·Top-H를 쓴 코딩 에이전트는 GitHub 이슈 100개 중 0개를 해결했지만 top-nσ는 46~62개를 해결했고(Qwen3.5 모델 3종), 전체 벤치마크에서 top-nσ는 온도 1 점수의 중앙값 100%를, top-p는 26%를 유지했다. HuggingFace·vLLM·SGLang은 온도를 먼저 적용한 뒤 후보를 자르는데, 후보 집합을 온도 1에서 고르고 온도를 나중에 적용하면 Top-H·min-p·P-less도 무너지지 않았다. 기본 온도 1에서는 샘플러 간 차이가 거의 없으므로, 다양성을 위해 온도를 올리는 로컬 모델·에이전트 설정에서 의미가 있다.",
+    "세부": {
+      "핵심 변경점": "top-nσ는 최대 로짓에서 n 표준편차 이내 토큰만 남김. n이 1 이하면 꼬리 토큰을 구조적으로 배제하며 llama.cpp에 이미 있음. 온도 2에서 top-nσ 0.5·1과 min-p 0.3은 25–28%를 유지",
+      "제약·가격": "16K 토큰을 강제로 생성하면 top-nσ(n=1)도 44–69% 확률로 반복 루프에 빠짐",
+      "호환·요구사항": "1B~122B 오픈 웨이트 모델 대상, 샘플러는 vLLM 로짓 프로세서로 구현"
+    },
+    "수집일": "2026-11-19"
+  },
+  {
+    "섹션": "모델·API",
     "태그": "신규출시",
     "제목": "Claude API Linked billing — 앱 사용료를 고객 Claude 조직에 청구 (베타)",
     "제공자": "Anthropic",
