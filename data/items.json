@@ -2,6 +2,316 @@
   {
     "섹션": "모델·API",
     "태그": "신규출시",
+    "제목": "`mindlab/macaron-v1.1-venti-pro` — Model Studio 1M 컨텍스트 모델",
+    "제공자": "MindLab (Alibaba Cloud Model Studio)",
+    "출처": "Alibaba Cloud Model Studio 신규 모델 릴리스 노트",
+    "날짜": "2026-11-20",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (Model Studio 신규 모델 목록 2026-11-20 항목)",
+    "하이라이트": false,
+    "링크": "https://www.alibabacloud.com/help/en/model-studio/macaron-v1-1-venti-pro-by-mindlab",
+    "관련링크": [
+      {
+        "라벨": "Model Studio 신규 모델 목록",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models"
+      },
+      {
+        "라벨": "Macaron 시리즈",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/macaron-mindlab"
+      }
+    ],
+    "이미지": "https://img.alicdn.com/tfs/TB1xpNqnmslXu8jSZFuXXXg7FXa-1200-630.png_.webp",
+    "한줄정리": "MindLab의 MoL 아키텍처 기반 모델 `mindlab/macaron-v1.1-venti-pro`가 Alibaba Cloud Model Studio 싱가포르 리전(International 배포 범위)에 추가됐다.",
+    "왜중요": "Chat·Agent·Coding·UI4A 능력을 강화하고 이미지 이해를 지원하며, 컨텍스트 창 1,048,576 토큰·최대 출력 131,072 토큰에 OpenAI 호환·Anthropic 호환 API로 호출할 수 있다. 가격은 1M 토큰당 입력 $2, 출력 $10이고 캐시 적중 입력은 $0.1로, 긴 컨텍스트를 반복해 쓰는 에이전트 작업에 맞춰져 있다. 싱가포르 리전 전용이며 웹 검색·배치 추론·파인튜닝은 지원하지 않는다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "Macaron 시리즈(v1.1-venti, v1.1-coding-venti, v1-tall)에 venti-pro 추가. 입력 텍스트·이미지, 출력 텍스트. Function Calling·Structured Outputs·Prefix Completion·Context Caching 지원. 추론 서비스 제공자는 MindLab",
+      "제약·가격": "싱가포르 리전(International). 1M 토큰당 입력 $2, 출력 $10, 암시적 캐시 적중 입력 $0.1, 명시적 캐시 생성(5분 TTL) $0.1, 명시적 캐시 적중 $0.1. RPM 600, TPM 5,000,000. Web Search·Batch Inference·Fine-tuning·Model Experience 미지원",
+      "호환·요구사항": "OpenAI 호환·Anthropic 호환 API. 사고 모드에서도 최대 입력 1,048,576, 최대 출력 131,072, 최대 사고 길이 131,072 토큰"
+    },
+    "수집일": "2026-11-21"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Claude Code 2.1.329 — `/tasks`에 예약 작업·`/loop` 통합, 훅 출처 경고",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/claude-code",
+    "날짜": "2026-11-20",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/anthropics/claude-code/releases/tag/v2.1.329",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://code.claude.com/docs/en/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@anthropic-ai/claude-code"
+      }
+    ],
+    "이미지": "https://opengraph.githubassets.com/5b42bee5d440f0e84ecda22947f89cf6c4fa8ccb21c7ee3aac2297099480c966/anthropics/claude-code/releases/tag/v2.1.329",
+    "한줄정리": "폴더의 훅이 어디에 선언됐는지 알려주는 신뢰 대화상자 경고, `/tasks`에 이 세션의 예약 작업·`/loop` 깨우기·목표·포크 표시, `/mcp`의 \"Server message\" 행 등을 더한 Claude Code 업데이트다.",
+    "왜중요": "`/code-review`는 대상 없이 실행하면 기본 브랜치 대비 브랜치 전체를 리뷰하도록 바뀌었고, PR 번호를 주면 `gh pr diff`로 PR을 읽거나 읽지 못했다고 알린다. Code Mode는 OpenTelemetry 이벤트·메트릭을 켠 상태에서도 쓸 수 있게 됐다. 2.1.326의 `max_tokens` 오류 자동 재시도가 제거돼 출력 토큰이 더 적은 게이트웨이 뒤에서는 `CLAUDE_CODE_MAX_OUTPUT_TOKENS`를 그 한도로 설정해야 하고, 이전 버전이 저장한 예약 작업 대부분은 새 로그인 세션에서 다시 예약해야 한다.",
+    "써보기": "npm install -g @anthropic-ai/claude-code\nclaude --version",
+    "세부": {
+      "핵심 변경점": "훅 선언 위치 경고(신뢰 대화상자), 관리 설정 훅 로드 실패 시 대화 내 경고, `/tasks`에 예약 작업·`/loop`·목표·포크 추가(x로 중지), `/mcp` 서버 페이지에 원격 HTTP MCP 서버의 JSON-RPC 오류 메시지 표시, `/status`에 \"Marketplace auto-update\" 행, `/code-review` 기본 동작 변경, auto mode의 `git status` 실행 빈도 축소",
+      "제약·가격": "2.1.326의 max_tokens 자동 재시도 제거. 이전 버전이 저장한 예약 작업 대부분은 새 로그인 세션에서 재예약 필요(자기 세션 `--resume`은 계속 실행)",
+      "호환·요구사항": "Self-hosted runner·VS Code 확장 변경 포함. macOS 컴퓨터 사용은 새 안전 규칙 적용"
+    },
+    "수집일": "2026-11-21"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "ADK Python 2.15.0 — pass@k·pass^k 평가, 세션별 샌드박스 격리",
+    "제공자": "Google",
+    "출처": "GitHub google/adk-python",
+    "날짜": "2026-11-20",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/google/adk-python/releases/tag/v2.15.0",
+    "관련링크": [
+      {
+        "라벨": "PyPI",
+        "url": "https://pypi.org/project/google-adk/2.15.0/"
+      },
+      {
+        "라벨": "평가 설정 가이드",
+        "url": "https://github.com/google/adk-python/blob/main/docs/guides/evaluation/eval_config/index.md"
+      }
+    ],
+    "한줄정리": "`adk eval`의 다중 실행 평가에 pass@k·pass^k를 더하고, 실행 환경을 사용자·세션 단위로 격리하며, 느린 도구 실행 중에도 음성 스트림이 끊기지 않게 한 Google Agent Development Kit 릴리스다.",
+    "왜중요": "에이전트가 과제를 한 번이라도 푸는지(pass@k)와 매번 안정적으로 푸는지(pass^k)를 구분해 측정하고, `tool_parameter_match`로 도구 호출 인자별 부분 점수를 줄 수 있다. `BaseEnvironment.scope`(SHARED·USER·SESSION)로 샌드박스 초기화를 범위별로 잠그고, `run_live`는 모든 도구 호출을 백그라운드 작업으로 돌린다. ADK Web의 Visual Agent Builder가 제거됐고 `McpInstructionProvider`는 더 이상 `session.state`에서 프롬프트 인자를 자동으로 채우지 않는 호환성 변경이 있다.",
+    "써보기": "pip install google-adk",
+    "세부": {
+      "핵심 변경점": "pass_at_k·pass_hat_k 다중 실행 기준, tool_parameter_match, EnvironmentScope, 실험적 BufferedSessionService, FsspecArtifactService 쓰기·삭제·버전 관리(gs://·s3://·file://·memory://), GoogleMapsToolset, BigQuery ask_data_insights의 search_scope, VertexAiRagMemoryService 검색 지연 최대 6배 단축",
+      "제약·가격": "Breaking: ADK Web의 Visual Agent Builder 제거, McpInstructionProvider는 arguments 명시 필요. DYNAMIC_INSTRUCTION_ROUTING 기본 활성(ADK_DISABLE_DYNAMIC_INSTRUCTION_ROUTING=1로 해제)",
+      "호환·요구사항": "send_context_update는 Gemini 3.x Live 연결에서 동작"
+    },
+    "수집일": "2026-11-21"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Gemini CLI 0.70.0 — 정책 규칙 ReDoS 방지·권한 느슨한 MCP 서버 건너뜀",
+    "제공자": "Google",
+    "출처": "GitHub google-gemini/gemini-cli",
+    "날짜": "2026-11-20",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/google-gemini/gemini-cli/releases/tag/v0.70.0",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/changelogs/latest.md"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@google/gemini-cli"
+      }
+    ],
+    "한줄정리": "정책 엔진과 MCP·IDE 연동의 보안을 강화하고 모델 목록·네트워크 타임아웃·세션 복원을 손본 Gemini CLI 안정 릴리스다.",
+    "왜중요": "정책 정규식을 `re2js`로 선형 시간에 평가해 ReDoS를 막고, `commandPrefix`·`commandRegex` 규칙을 최상위 명령 인자에만 엄격히 대조하며, 해석되지 않은 변수 확장이 있는 셸 명령은 사용자 확인을 요구한다. 명령 권한이 안전하지 않은 시스템 MCP 서버는 건너뛰고, IDE 컴패니언 탐색은 사용자별 디렉터리를 쓴다. 기존 정책 규칙을 쓰고 있다면 매칭 방식이 엄격해진 점을 확인할 필요가 있다.",
+    "써보기": "npm install -g @google/gemini-cli",
+    "세부": {
+      "핵심 변경점": "re2js 기반 정책 정규식 평가, commandPrefix/commandRegex 최상위 인자 매칭, 미해석 변수 확장 셸 명령 확인 강제, 안전하지 않은 시스템 MCP 서버 건너뜀, 동의 프롬프트에 정규 링크 대상 표시, 모델 목록의 출력 토큰 한도 정확화, 요청 타임아웃이 기본 300초를 넘으면 HTTP 본문 타임아웃 확장",
+      "제약·가격": "",
+      "호환·요구사항": "직전 안정판 0.69.0 이후 릴리스. 0.71.0-preview.0은 프리뷰 채널"
+    },
+    "수집일": "2026-11-21"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Mistral Vibe 3.1.4 — 승인 정책 선택·`/skills` 관리 강화·데스크톱 앱",
+    "제공자": "Mistral AI",
+    "출처": "GitHub mistralai/mistral-vibe",
+    "날짜": "2026-11-20",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/mistralai/mistral-vibe/releases/tag/v3.1.4",
+    "관련링크": [
+      {
+        "라벨": "PyPI",
+        "url": "https://pypi.org/project/mistral-vibe/3.1.4/"
+      },
+      {
+        "라벨": "CHANGELOG",
+        "url": "https://github.com/mistralai/mistral-vibe/blob/main/CHANGELOG.md"
+      }
+    ],
+    "한줄정리": "`--approval-policy`로 도구 승인 방식을 에이전트와 따로 고르고, `/skills`에서 스킬 생성·편집·삭제와 로드 실패 원인 확인을 할 수 있게 한 Mistral의 코딩 에이전트 CLI 업데이트다.",
+    "왜중요": "승인 방식은 ask·accept-edits·smart-approve·auto-approve 중에서 `--approval-policy`나 `default_approval_policy` 설정으로 정하고, `/agent`로 에이전트를 바꿔도 현재 승인 정책이 유지된다. 서브에이전트·백그라운드 작업·PR·목표·할 일이 입력창 위 상태 레일 하나로 합쳐졌고, 로컬 세션은 기본으로 Session API 엔진에서 돈다. Vibe를 데스크톱 앱으로도 내려받을 수 있게 됐다.",
+    "써보기": "curl -LsSf https://mistral.ai/vibe/install.sh | bash\nuv tool install --python 3.14 mistral-vibe",
+    "세부": {
+      "핵심 변경점": "--approval-policy·default_approval_policy, /agent 전환, /skills 실패 목록·e 편집·x 삭제·n 새 스킬, /mcp 도구 검색, /thinking <level>, collapse_turn_details, keep_awake, 상태 레일 통합, OS 인증서 신뢰 기본",
+      "제약·가격": "",
+      "호환·요구사항": "로컬 세션 Session API 엔진 기본(experimental_local_runtime_session_api = false로 이전 엔진). temperature 미설정 모델 기본값 0.2→1.0"
+    },
+    "수집일": "2026-11-21"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Codex CLI 0.171.0 — GPT-6.2 Sol 기본 선택·TUI 워크스페이스 기본 적용",
+    "제공자": "OpenAI",
+    "출처": "GitHub openai/codex",
+    "날짜": "2026-11-20",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": true,
+    "링크": "https://github.com/openai/codex/releases/tag/rust-v0.171.0",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://developers.openai.com/codex/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@openai/codex"
+      }
+    ],
+    "한줄정리": "모델 카탈로그에 GPT-6.2 Sol·Astra를 추가해 Sol을 기본 선택으로 두고, 문서·이미지 미리보기와 서브에이전트 기록을 대화 옆에 띄우는 TUI 워크스페이스를 기본으로 켠 Codex CLI 릴리스다.",
+    "왜중요": "`codex exec --remote <ADDR>`로 기존 앱 서버에서 비대화형 세션을 시작·재개할 수 있고, TUI에서 `/rc`·`/remote`로 로컬 원격 제어와 기기 페어링 코드를 관리한다. 프롬프트 입력기에 설정 가능한 실행 취소·다시 실행 단축키가 생겼고, `tui_extensions_statusline`을 켜면 `/statusline`에서 MCP 상태 줄을 고르고 만들 수 있다. 세션 전환·재개 시 초안과 대기 중 후속 입력을 원래 스레드에 보존하는 등 수정도 함께 들어갔다.",
+    "써보기": "npm install -g @openai/codex@0.171.0",
+    "세부": {
+      "핵심 변경점": "GPT-6.2 Sol·Astra 카탈로그 추가(Sol 기본), TUI 워크스페이스 기본 활성, undo/redo 단축키, `codex exec --remote <ADDR>`, `/rc`·`/remote`, `/statusline` MCP 상태 줄(플래그 필요)",
+      "제약·가격": "MCP 상태 줄은 `tui_extensions_statusline` 활성 시에만",
+      "호환·요구사항": "소스 빌드·릴리스 도구가 Rust 1.99.1로 갱신"
+    },
+    "수집일": "2026-11-21"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "MotherDuck Skills 3.2 — Copilot 플러그인에 원격 MCP 포함·레지스트리 등재",
+    "제공자": "MotherDuck",
+    "출처": "GitHub motherduckdb/agent-skills",
+    "날짜": "2026-11-20",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 · MCP 레지스트리 등재(io.github.motherduckdb/motherduck)",
+    "하이라이트": false,
+    "링크": "https://github.com/motherduckdb/agent-skills/releases/tag/v3.2.0",
+    "관련링크": [
+      {
+        "라벨": "CHANGELOG",
+        "url": "https://github.com/motherduckdb/agent-skills/blob/main/CHANGELOG.md"
+      },
+      {
+        "라벨": "MCP 문서",
+        "url": "https://motherduck.com/docs/sql-reference/mcp/"
+      }
+    ],
+    "이미지": "https://opengraph.githubassets.com/da561e2d0f8fff425f950ab7066415acb3f9634588475d83e12e0372d43d7bbb/motherduckdb/agent-skills/releases/tag/v3.2.0",
+    "한줄정리": "MotherDuck의 코딩 에이전트용 스킬 21종 묶음이 GitHub Copilot CLI 전용 네이티브 플러그인을 내고, 호스팅 MotherDuck MCP 서버(`https://api.motherduck.com/mcp`)를 공식 MCP 레지스트리에 올렸다.",
+    "왜중요": "3.1.0에서 Copilot CLI가 Claude 형식 대신 Agent Plugins 1.0 형식 패키지를 설치하게 됐고, 이 플러그인이 원격 MotherDuck MCP 서버까지 등록해 별도 MCP 설정 없이 스키마 탐색·쿼리·Dives·Flights 작업을 할 수 있다. 로그인은 브라우저 OAuth로 하며 설정에 토큰을 저장하지 않는다. 3.2.0에서 Copilot 플러그인 이름이 `motherduck-skills`에서 `motherduck`으로 바뀌어 Copilot CLI 사용자는 재설치가 필요하고, Claude Code·Codex·Cursor·Gemini CLI 설치는 그대로다.",
+    "써보기": "/plugin marketplace add motherduckdb/agent-skills\n/plugin install motherduck@motherduck-skills",
+    "세부": {
+      "핵심 변경점": "3.1.0: `plugins/motherduck-skills-copilot`(Agent Plugins 1.0, 스킬 21종 + `https://api.motherduck.com/mcp`를 가리키는 `mcp.json`)과 `.github/plugin/marketplace.json` 추가, `motherduck-security-governance` 스킬 설명의 YAML 파싱 오류 수정. 3.2.0: Copilot 플러그인 이름을 `motherduck`으로 변경, 레지스트리 항목 `io.github.motherduckdb/motherduck` 추가",
+      "제약·가격": "Copilot CLI는 이름 변경으로 기존 `motherduck-skills` 제거 후 `motherduck@motherduck-skills` 설치 필요(Breaking). MCP 서버는 Copilot 플러그인에만 포함되며 다른 설치 경로는 MCP를 직접 설정해야 함",
+      "호환·요구사항": "Claude Code, GitHub Copilot CLI, Codex, Gemini CLI, Cursor/VS Code(Skills CLI, Node.js 22.20+). MCP 서버는 Streamable HTTP, OAuth 로그인, MotherDuck 권한을 따름"
+    },
+    "수집일": "2026-11-21"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "rdocs2md — HWP·PDF·Office를 Markdown으로 바꾸는 Rust CLI/MCP",
+    "제공자": "커뮤니티(kirinonakar)",
+    "출처": "GitHub kirinonakar/rdocs2md, GeekNews",
+    "날짜": "2026-11-20",
+    "날짜근거": "공개일",
+    "신호": "GeekNews Show GN 게재 (공개 당일)",
+    "하이라이트": false,
+    "링크": "https://github.com/kirinonakar/rdocs2md",
+    "관련링크": [
+      {
+        "라벨": "GeekNews",
+        "url": "https://news.hada.io/topic?id=37522"
+      }
+    ],
+    "이미지": "https://opengraph.githubassets.com/d52687466bcbfb201bdc395fb2fb438f140880efd78f60a8957a5e1da9c24006/kirinonakar/rdocs2md",
+    "한줄정리": "PDF, 한글(HWP/HWPX), Office, OpenDocument, RTF, EPUB 등 14개 문서 형식을 Markdown·HTML·JSON으로 바꾸는 Windows x64용 단일 실행 파일로, CLI와 MCP stdio 서버, Agent Skill을 함께 제공한다.",
+    "왜중요": "외부 런타임·Office·OCR 엔진 없이 오프라인으로 돌아가며, 에이전트가 MCP 도구(`inspect_document`, `convert_document`, `extract_document_range` 등)로 문서를 검사하고 특정 페이지·슬라이드·시트만 뽑아 읽을 수 있다. 특히 HWP 3.x/5.x와 HWPX를 직접 파싱해 한국 공공·업무 문서를 에이전트에 넣을 때 쓸 만하다. 현재 Windows x64 전용이고, 스캔 PDF OCR·암호화 문서는 지원하지 않으며 표·다단·수식 정확도는 개선 중인 초기 버전이다.",
+    "써보기": ".\\rdocs2md.exe \"meeting-notes.hwpx\" -o \"meeting-notes.md\"\n.\\rdocs2md.exe \"report.pdf\" --pages 2-4,7 --stdout\n.\\rdocs2md.exe --help",
+    "세부": {
+      "핵심 변경점": "v1.0.0. semantic/hybrid/layout 3가지 모드, `--format md|html|json`, `--pages`·`--slides`·`--sheets` 범위 선택, `--extract-images`. MCP 설정은 `\"args\": [\"mcp\", \"--root\", \"C:\\\\docu_path\"]`, 루트 밖 접근은 `--allow-outside-root`. `skills/rdocs2md/SKILL.md`는 CLI 사용법을 가르치는 스킬",
+      "제약·가격": "MIT 라이선스. Windows x64만 지원. 스캔 PDF OCR·암호화 문서 복호화·디지털 서명 검증 미지원. 입력 파일 최대 256 MiB, MCP 인라인 결과 512 KiB",
+      "호환·요구사항": "README 측정(2026-11-20, Windows x64): 단일 EXE 3.17 MiB, 공개 샘플 14개 변환 130.0 ms. MCP 프로토콜 버전 2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25 협상 지원"
+    },
+    "수집일": "2026-11-21"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Harness adapters — 에이전트 하네스 안에서 RL로 학습한 LoRA",
+    "제공자": "Hugging Face",
+    "출처": "Hugging Face 블로그",
+    "날짜": "2026-11-20",
+    "날짜근거": "발행일",
+    "신호": "Hugging Face 공식 블로그 · 어댑터·GGUF·RL 태스크·평가 트레이스 공개",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/blog/harness-adapters-at-scale",
+    "관련링크": [
+      {
+        "라벨": "컬렉션",
+        "url": "https://huggingface.co/collections/harness-hub/qwen38-27b-harness-adapters"
+      },
+      {
+        "라벨": "super-adapter",
+        "url": "https://huggingface.co/harness-hub/Qwen3.8-27B-super-adapter"
+      },
+      {
+        "라벨": "safeagents 플러그인",
+        "url": "https://huggingface.co/harness-hub/qwen-safeagents-plugin"
+      }
+    ],
+    "한줄정리": "Qwen3.8-27B를 pi·OpenCode·Hermes Agent 하네스 안에서 그대로 돌리며 GRPO로 하네스별 LoRA 어댑터를 학습하는 재현 가능한 레시피와 산출물을 공개했다.",
+    "왜중요": "pi 하네스에서 Qwen3.8-27B의 Terminal-Bench 2.1 점수는 39%(과제당 평균 2.9K 토큰)였지만, 가중치를 고정하고 RL로 학습한 LoRA를 붙이면 pass@1 55%, 평균 1.5K 토큰으로 정확도와 비용이 함께 좋아졌다. 에이전트 루프를 프레임워크용으로 다시 구현하지 않고 실제 하네스와 vLLM 사이 프록시로 토큰을 기록해 학습하므로, 자기 하네스·과제 분포에 맞춘 어댑터를 만드는 출발점으로 쓸 만하다. 어댑터당 2xB200 GPU로 학습했고 thinking off로 학습했으며, 하네스 밖 AutomationBench에서는 기반 모델과 차이가 노이즈 수준이었다.",
+    "써보기": "openenv validate path/to/task --sandbox hf-sandbox",
+    "세부": {
+      "핵심 변경점": "TRL AsyncGRPOTrainer·OpenEnv·Harbor로 하네스별 LoRA(all-linear) 학습. 과제는 openenv validate 의미 검사(oracle_max·floor_gap·canary_floor·episode_determinism) 통과 후, 기반 모델이 4회(일부 8회) 시도 중 일부만 푸는 과제만 남김(442개 중 171개). 보상은 검증기 정답 여부 + tool-efficiency 보너스 0.1, 최종 LR 2e-5. SWE-bench Pro(hard 51)에서 pi 39.2%→64.7%, hermes 29.4%→43.1%, opencode 35.3%→51.0%. 세 LoRA를 PEFT combination_type=\"cat\"으로 이어 붙여(rank 96) weight ½로 만든 super-adapter는 세 하네스 모두에서 기반 모델보다 높고 tool call 53–73% 감소.",
+      "제약·가격": "어댑터당 NVIDIA 2xB200(vLLM 1장, 학습 1장). thinking off 상태에서 도구 호출 전 짧은 텍스트를 내는 'reasoning leakage'가 관찰돼 후속 연구 예정. 하네스별 결과는 하네스 간 직접 비교 불가.",
+      "호환·요구사항": "Pi 1.5.2, OpenCode 2.2.7, Hermes Agent v0.22.6이 설치된 docker 이미지 사용. 데이터셋 harness-hub/agentic-coding-envs(871개 과제), 평가 트레이스 harness-hub/harness-adapters-trajectories 공개."
+    },
+    "수집일": "2026-11-21"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "LLM 제로샷 분류 신뢰도 — 말로 묻기보다 logit 점수",
+    "제공자": "커뮤니티(University of Sheffield)",
+    "출처": "arXiv 2611.25289",
+    "날짜": "2026-11-20",
+    "날짜근거": "발행일",
+    "신호": "arXiv 2611.25289 · 코드 공개(GitHub minieggz/llm-as-classifier)",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.25289",
+    "관련링크": [
+      {
+        "라벨": "코드",
+        "url": "https://github.com/minieggz/llm-as-classifier"
+      }
+    ],
+    "한줄정리": "오픈 웨이트 LLM 11종(1B–32B)과 분류 데이터셋 5종으로, 제로샷 분류 라벨의 신뢰도를 뽑는 방법(말로 된 신뢰도·샘플링 vs 토큰 확률을 읽는 logit 점수)을 비교한 연구다.",
+    "왜중요": "신뢰도 추출 방법은 정확도에는 거의 영향을 주지 않았지만, logit 기반 점수는 AUROC 0.74–0.77로 블랙박스 방법(0.57–0.66)보다 맞는 라벨과 틀린 라벨을 훨씬 잘 가려냈다. LLM 분류 결과 중 믿을 것과 사람이 다시 볼 것을 나누는 파이프라인이라면 토큰 확률을 읽는 쪽이 낫다는 뜻이다. 라벨을 단일 토큰 식별자로 바꾸면 판별력은 유지되나 정확도가 평균 3–6포인트 떨어지고, 라벨 prefix 트리에서 갈라지는 위치만 점수 매기는 decision-only scoring은 라벨이 많은 세트에서 디코드 스텝을 88–96% 줄였다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "decision-only scoring으로 디코드 스텝 Banking77 96%, CLINC150 92%, 20NG 88% 감소(Gemma 4 토크나이저 기준), full-label 점수와 성능 비슷. 최고 평균 AUROC 0.802(Qwen 3.5 9B, constrained + Google length normalisation).",
+      "제약·가격": "logit 점수는 토큰 확률에 접근할 수 있는 화이트박스 환경이 필요. 디코드 스텝 감소가 오버헤드 때문에 실제 시간 절감과 정확히 일치하지는 않음. 제약 디코딩이 생성 오류는 막지만 성능을 해칠 수 있음.",
+      "호환·요구사항": "최고 조합(Gemma 4 31B, Qwen 3.5 9B)은 상용 Jev 1.13.0 분류기와 견줄 만한 수준. 라벨 수 3~151개 데이터셋에서 평가."
+    },
+    "수집일": "2026-11-21"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "신규출시",
     "제목": "Genie 4 API GA — 키보드로 조종하는 실시간 월드 생성 모델",
     "제공자": "Google",
     "출처": "Gemini API 릴리스 노트",
