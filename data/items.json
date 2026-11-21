@@ -1,6 +1,223 @@
 [
   {
     "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "Inkling 2 Mini — 노트북에서 도는 루프형 26B MoE 오픈 웨이트",
+    "제공자": "Thinking Machines Lab",
+    "출처": "Thinking Machines 뉴스",
+    "날짜": "2026-11-21",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · HN 1242pt · HF 트렌딩 1위",
+    "하이라이트": true,
+    "링크": "https://thinkingmachines.ai/news/inkling-2-mini/",
+    "관련링크": [
+      {
+        "라벨": "모델 (HF)",
+        "url": "https://huggingface.co/thinkingmachines/Inkling-2-Mini"
+      },
+      {
+        "라벨": "HF 블로그",
+        "url": "https://huggingface.co/blog/inkling2mini"
+      },
+      {
+        "라벨": "GGUF (unsloth)",
+        "url": "https://huggingface.co/unsloth/Inkling-2-Mini-GGUF"
+      }
+    ],
+    "이미지": "https://thinkingmachines.ai/news/inkling-2-mini/images/cover-social.png",
+    "한줄정리": "가운데 레이어를 토큰마다 세 번 반복 실행하는 looped transformer 구조의 MoE 모델로, 총 26.4B·활성 3.4B 파라미터에 메모리 약 20GB로 로컬에서 돌릴 수 있는 오픈 웨이트 모델.",
+    "왜중요": "총 파라미터 100B 미만 오픈 웨이트 모델 가운데 DeepSWE v1.1(48.2%)·Vals Index v2.2(46.5%)에서 가장 높은 점수를 냈고, SWE-bench Verified(bash only) 79.2%를 기록했다. 가중치 대부분이 NVFP4라 32GB RAM 이상 Mac(Ollama)이나 DGX Spark에서 돌릴 수 있고, SGLang·vLLM·Ollama·Unsloth 등이 출시일부터 지원한다. 다만 MultiChallenge 50.0%로 다중 턴 대화와 제약이 많은 지시 따르기는 Qwen3.8-27B보다 낮다고 원문이 밝히고 있다.",
+    "써보기": "# llama.cpp (고정 루프 모델, 4비트)\nllama serve -hf ggml-org/Inkling-2-Mini-GGUF:IQ4_NL",
+    "세부": {
+      "핵심 변경점": "MoE: 레이어마다 128개 전문가 중 8개 라우팅. 1M 토큰 컨텍스트, 텍스트·이미지 입력. 루프 횟수를 바꿀 수 있는 연구용 TML-d24-varloop-research도 공개",
+      "제약·가격": "Tinker에서 추론·파인튜닝, Tinker Playground에서 채팅 가능. Terminal Bench v2.1은 71.6%로 Qwen3.8-27B(73.0%)보다 낮음",
+      "호환·요구사항": "메모리 약 20GB(NVFP4 + 마지막 4개 레이어 MXFP8). Mac은 RAM 32GB 이상(Ollama). transformers에서는 reasoning_effort로 추론 강도 지정"
+    },
+    "수집일": "2026-11-22"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Kiro IDE 1.5 — Remote SSH·Dev Container·클라우드 세션을 IDE에서",
+    "제공자": "AWS Kiro",
+    "출처": "Kiro 체인지로그",
+    "날짜": "2026-11-21",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://kiro.dev/changelog/ide/1-5",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://kiro.dev/changelog"
+      }
+    ],
+    "이미지": "https://kiro.dev/images/changelog/ide/1-5.png",
+    "한줄정리": "Kiro IDE 1.5.11에서 SSH로 원격 Linux 머신에 붙거나, 레포의 Dev Container 안에서 열거나, 실행 중인 클라우드 세션을 별도 창으로 여는 원격 작업 기능이 추가됐다.",
+    "왜중요": "Connect to Host로 붙으면 에디터는 내 컴퓨터에 남고 파일·터미널·에이전트는 원격 머신에서 돌기 때문에 연결을 끊어도 에이전트가 계속 일한다. Reopen in Container는 Docker로 레포의 dev container를 빌드해 로컬이나 SSH 호스트에서 연다. Open in IDE는 클라우드 세션의 작업을 레포 복사 없이 새 창에서 검토하고 이어갈 수 있게 해 준다.",
+    "세부": {
+      "핵심 변경점": "Connect to Host(SSH), Reopen in Container(Dev Container), Open in IDE(클라우드 세션)",
+      "제약·가격": "",
+      "호환·요구사항": "SSH 대상은 Linux 머신, Dev Container는 Docker 필요"
+    },
+    "수집일": "2026-11-22"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Qwen Code 0.28.3 — GitHub·Teams·웹훅 채널, 헤드리스 백그라운드 워크플로",
+    "제공자": "Alibaba Qwen",
+    "출처": "GitHub QwenLM/qwen-code",
+    "날짜": "2026-11-21",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.3",
+    "관련링크": [
+      {
+        "라벨": "CHANGELOG",
+        "url": "https://github.com/QwenLM/qwen-code/blob/main/CHANGELOG.md"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@qwen-code/qwen-code"
+      }
+    ],
+    "한줄정리": "관리형 에이전트 채널에 GitHub·Microsoft Teams·전송 전용 Generic Webhook을 추가하고, CLI에서 백그라운드 워크플로를 헤드리스로 실행할 수 있게 한 Qwen Code 릴리스.",
+    "왜중요": "Generic Webhook 채널은 알림·프롬프트·예약 작업 결과를 JSON으로 지정한 HTTPS 엔드포인트에 보내며 Bearer 인증을 선택할 수 있어 기존 알림 시스템에 붙이기 쉽다. 감시 중인 PR에서 CI 실패·충돌·head 변경이 생기면 연결된 관리형 세션을 공개 댓글 없이 깨운다. `experimental.mods`를 켜면 `qwen --acp`·Zed·VS Code companion에서도 Mods를 쓸 수 있다. 원문은 알려진 호환성 깨짐이 없다고 밝힌다.",
+    "세부": {
+      "핵심 변경점": "CLI 스크린 리더 모드(옵트인), 용량 오류로 소진된 모델을 그 턴 동안 건너뛰는 옵트인 설정, `/model --vision`에 `--timeout`, Web Shell·VS Code companion 번체 중국어 UI",
+      "제약·가격": "",
+      "호환·요구사항": "WeCom 관리형 채널 어댑터는 실험 기능"
+    },
+    "수집일": "2026-11-22"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Claude Code 2.1.330 — 엔터프라이즈 조직 로그인·차트 mod easel",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/claude-code",
+    "날짜": "2026-11-21",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/anthropics/claude-code/releases/tag/v2.1.330",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://code.claude.com/docs/en/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@anthropic-ai/claude-code"
+      }
+    ],
+    "한줄정리": "Anthropic Enterprise Admin Console로 관리하는 조직에 로그인하면 조직 설정과 클라우드 제공자·게이트웨이가 자동으로 적용되고, 요청하면 차트를 그려 주는 내장 mod easel이 추가된 릴리스.",
+    "왜중요": "`claude auth login`만으로 조직 설정을 받아오므로 엔터프라이즈 배포 시 사용자별 설정 작업이 줄어든다. easel은 Pro·Max(가능한 경우 Team·Enterprise)의 macOS·Linux에서 요청 시나 MCP 지표 결과 아래에 차트를 그리며, 자동 차트는 `/config`에서 끌 수 있다. 아주 긴 대화를 압축한 직후 몇 분씩 멈추던 문제와 WebFetch가 일부 페이지에서 세션을 멈추던 문제 등 50여 건이 수정됐다.",
+    "써보기": "npm install -g @anthropic-ai/claude-code\nclaude auth login\n# 짧은 로그인 링크가 오류를 내면 전체 링크 출력\nCLAUDE_CODE_FULL_SIGN_IN_LINK=1 claude auth login",
+    "세부": {
+      "핵심 변경점": "self-hosted runner `--start-dir`/`SELF_HOSTED_RUNNER_START_DIR`, `claude plugin install --json`에 commandPrinted·commandFailed, `/mcp`에서 플러그인 서버를 \"Plugin MCPs\"로 분리 표시, `/stats`가 로컬 시간대 기준으로 집계",
+      "제약·가격": "easel은 Pro·Max(가능한 경우 Team·Enterprise), macOS·Linux",
+      "호환·요구사항": "ExitWorktree가 다른 세션이 쓰는 worktree를 지우던 문제 수정"
+    },
+    "수집일": "2026-11-22"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Cline CLI 3.0.75 — 원샷 실행 기본 yolo 모드·Cline Cloud 세션 실험",
+    "제공자": "Cline",
+    "출처": "GitHub cline/cline (apps/cli CHANGELOG)",
+    "날짜": "2026-11-21",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm)",
+    "하이라이트": false,
+    "링크": "https://github.com/cline/cline/blob/main/apps/cli/CHANGELOG.md",
+    "관련링크": [
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/cline"
+      }
+    ],
+    "한줄정리": "프롬프트 인자나 stdin으로 한 번 실행하는 원샷 모드가 act 모드 대신 yolo 모드로 시작하고, TUI에서 작업을 Cline Cloud로 보내는 실험 기능이 들어간 Cline CLI 릴리스.",
+    "왜중요": "원샷 실행은 승인할 사람이 없다는 이유로 기본이 yolo 모드로 바뀌었다. 자동 승인을 끄거나 모드 플래그를 주면 act 모드가 유지되고, 팀 도구가 필요하면 `--act`를 줘야 한다. 스크립트·CI에서 쓰는 경우 동작이 달라지므로 확인이 필요하다. 실행 디렉터리의 `.env`·`bunfig.toml`을 더 이상 읽지 않고, `read_files` 결과가 8k자에서 잘리지 않고 도구 한도(2000줄·약 48k자)까지 전달된다.",
+    "써보기": "# TUI에서 Cline Cloud 세션 사용 (실험)\nCLINE_CLOUD_SESSIONS=1 cline\n# Ctrl+O: Local/Cloud 전환, Ctrl+K: 레포·브랜치 선택",
+    "세부": {
+      "핵심 변경점": "`--timeout`과 Ctrl+C로 원샷 실행의 첫 턴을 중단 가능. 저장된 모델이 없으면 Cline 공급자는 Claude Sonnet 5.5 대신 첫 번째 무료 모델로 시작. 요청 본문을 디스크에 쓰던 CLINE_CAPTURE_* 변수 제거",
+      "제약·가격": "Cline Cloud 세션은 실험 기능",
+      "호환·요구사항": "모델 카탈로그 갱신: models.dev에서 공급자 94개 추가"
+    },
+    "수집일": "2026-11-22"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "DBHub 2.0 — ClickHouse 지원·PostgreSQL 파서 기반 SQL 분류 DB MCP",
+    "제공자": "Bytebase",
+    "출처": "DBHub 블로그",
+    "날짜": "2026-11-21",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · npm·MCP 레지스트리 등재",
+    "하이라이트": false,
+    "링크": "https://dbhub.ai/blog/dbhub-2-0-0",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/bytebase/dbhub"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@bytebase/dbhub"
+      },
+      {
+        "라벨": "읽기 전용 모드",
+        "url": "https://dbhub.ai/config/read-only-mode"
+      }
+    ],
+    "한줄정리": "PostgreSQL·MySQL·MariaDB·SQL Server·Oracle·SQLite를 하나의 MCP 서버로 묶어 온 DBHub가 첫 분석용 DB로 ClickHouse를 지원하는 2.0을 발표했다.",
+    "왜중요": "소스를 여러 개 설정하면 DBHub 프로세스 하나로 PostgreSQL의 고객 데이터와 ClickHouse의 이벤트를 한 대화에서 함께 조회할 수 있다. PostgreSQL은 키워드 기반 분류 대신 libpg-query로 실제 파서를 써서 WITH 안에 숨은 쓰기까지 구분하고, 파싱하지 못한 문장은 거부한다. 기본 도구는 search_objects·execute_sql 두 개뿐이라 도구 정의 컨텍스트가 작다.",
+    "써보기": "npx @bytebase/dbhub@latest --demo",
+    "세부": {
+      "핵심 변경점": "ClickHouse 지원, PostgreSQL SQL 분류를 libpg-query 파서로 교체(읽기 전용 트랜잭션 가드는 2차 방어선으로 유지), 로고·사이트 리디자인",
+      "제약·가격": "오픈소스. 파서 방식은 현재 PostgreSQL에만 적용",
+      "호환·요구사항": "npm 30일 다운로드 37,807(2025-12) → 363,897(2026-11)"
+    },
+    "수집일": "2026-11-22"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "코딩 에이전트로 FPGA 추론 칩 만들기 — 며칠 자동 루프로 33배 가속",
+    "제공자": "커뮤니티(Ankit Gupta)",
+    "출처": "ankitg.me 블로그",
+    "날짜": "2026-11-21",
+    "날짜근거": "주목일",
+    "신호": "HN 167pt · GeekNews 게재",
+    "하이라이트": false,
+    "링크": "https://ankitg.me/blog/vibecoding-inference-chip/",
+    "관련링크": [
+      {
+        "라벨": "HN 토론",
+        "url": "https://news.ycombinator.com/item?id=50579297"
+      },
+      {
+        "라벨": "GeekNews",
+        "url": "https://news.hada.io/topic?id=37581"
+      }
+    ],
+    "이미지": "https://ankitg.me/assets/fpga-board.png",
+    "한줄정리": "Conductor에서 며칠 동안 돈 클라우드 코딩 에이전트가 AWS F2 FPGA에 DeepGrove 삼진(ternary) 가중치 모델을 올리고, 비트 단위로 일치하는 첫 기준선에서 초당 6토큰이던 속도를 213토큰으로 33배 끌어올린 사례.",
+    "왜중요": "수백 번의 실험에 Claude·OpenAI 토큰 비용은 약 $10,000이 들었고, 개선은 대부분 매번 1.5배 안팎이 쌓인 결과였다(호스트 오버헤드 축소, 투기적 디코딩, 가중치 패킹 등). 외부에서 준 설계 조언보다 '몇 시간씩 걸리는 일은 하지 말라'는 프로세스 조언이 즉시 효과를 내서, 짧은 C 테스트·합성·로직 깊이 검사 루프로 바뀌었다고 한다. 사람은 빠른 반복 방법과 정확성 기준을 정의하고 탐색은 에이전트에 맡기라는 장기 에이전트 운영의 시사점이 있다. 코드 레포는 공개되지 않았다.",
+    "세부": {
+      "핵심 변경점": "F2 f2.6xlarge($1.98/h) 213 tok/s로 24/24 비트 일치. 같은 출력을 내는 CPU 구현(m8a.8xlarge)은 129.5 tok/s",
+      "제약·가격": "토큰 비용 약 $10,000. 코드 비공개",
+      "호환·요구사항": "AWS F2 FPGA 인스턴스"
+    },
+    "수집일": "2026-11-22"
+  },
+  {
+    "섹션": "모델·API",
     "태그": "신규출시",
     "제목": "`mindlab/macaron-v1.1-venti-pro` — Model Studio 1M 컨텍스트 모델",
     "제공자": "MindLab (Alibaba Cloud Model Studio)",
