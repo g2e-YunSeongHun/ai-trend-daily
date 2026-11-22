@@ -1,6 +1,130 @@
 [
   {
     "섹션": "모델·API",
+    "태그": "업데이트",
+    "제목": "OpenRouter 데이터 사고 대응 — 제공업체 3곳 퇴출, 125개 ZDR 해제",
+    "제공자": "OpenRouter",
+    "출처": "OpenRouter 블로그",
+    "날짜": "2026-11-22",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · HN 251pt · GeekNews 게재",
+    "하이라이트": true,
+    "링크": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/",
+    "관련링크": [
+      {
+        "라벨": "Together AI 사고 공지",
+        "url": "https://www.together.ai/blog/security-event-prompt-leakage-for-requests-in-june-and-july-of-2026"
+      }
+    ],
+    "한줄정리": "보안 연구진이 일부 추론 제공업체의 데이터 유출·데이터 정책 미준수 정황을 보고하자, OpenRouter가 제공업체 3곳을 퇴출하고 엔드포인트 125개의 Zero Data Retention(ZDR) 자격을 해제했다.",
+    "왜중요": "OpenRouter 자체의 침해는 없었지만, ZDR을 전제로 라우팅하던 요청이 갈 수 있는 엔드포인트가 줄었다. 연구진이 지목한 곳 외에 예방 차원에서 뺀 엔드포인트도 포함되며, 해제된 엔드포인트는 보증·검증을 거쳐야 ZDR 자격이 복원된다. 공지에 연결된 Together AI 사고(2026년 6~7월 MiniMax M3·GLM-5.2·Kimi K2.6 요청의 프롬프트 샘플 유출)에서는 신규 계정의 ZDR 기본값 적용과 민감 데이터 고객의 ZDR 활성화 권고가 나왔다.",
+    "세부": {
+      "핵심 변경점": "제공업체 3곳 퇴출, 125개 엔드포인트 ZDR 자격 제거, 영향 가능 고객 전원 통지. 연구진 테스트 방식을 상시 점검으로 도입하고, 요청·응답이 제3자로 전달되는지 네트워크 경로를 기술 검증 중",
+      "제약·가격": "영향받은 제공업체 일부는 공개 공지를 내지 않았음. 제공업체 공지 목록(Novita, Phala, Together)은 계속 갱신 예정",
+      "호환·요구사항": "Together AI: 신규 계정 ZDR 기본값, 민감한 프롬프트를 다루는 고객은 계정 설정에서 ZDR 활성화 권고"
+    },
+    "써보기": "",
+    "수집일": "2026-11-23"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "신규출시",
+    "제목": "fast-anything — 느린 함수만 코딩 에이전트로 Rust 포팅",
+    "제공자": "커뮤니티(EL4CTEO)",
+    "출처": "GitHub EL4CTEO/fast-anything",
+    "날짜": "2026-11-22",
+    "날짜근거": "주목일",
+    "신호": "HN 138pt (레포 공개 2026-11-21)",
+    "하이라이트": false,
+    "링크": "https://github.com/EL4CTEO/fast-anything",
+    "관련링크": [
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@el4cteo/fast-anything"
+      },
+      {
+        "라벨": "스킬",
+        "url": "https://github.com/EL4CTEO/fast-anything/blob/main/skills/fast-anything/SKILL.md"
+      }
+    ],
+    "한줄정리": "앱을 프로파일링해 시간을 많이 쓰는 함수만 골라 코딩 에이전트(claude·codex 등)에게 Rust로 포팅시키고, 실제 호출을 녹화해 결과가 같은지 검증한 뒤 끼워 넣는 CLI다.",
+    "왜중요": "전체를 Rust로 다시 쓰지 않고 병목 함수 하나 단위로 옮기며, 녹화한 실제 호출(최대 500건)과 엣지 케이스가 모두 일치하고 원본보다 빠를 때만 활성화한다. `FAST_ANYTHING_DISABLE=1`로 언제든 원본으로 돌아가고 `disable`로 바이트 단위까지 되돌릴 수 있다. Python·Node/TypeScript·Ruby·Java·Go·PHP·C/C++·C#을 지원하지만, 순수 데이터를 주고받는 최상위 결정적 함수만 포팅 대상이고 Rust 툴체인이 필요하다.",
+    "써보기": "npm i -g @el4cteo/fast-anything\nfast-anything go --agent claude -- python app.py\nclaude mcp add fast-anything -- fast-anything mcp",
+    "세부": {
+      "핵심 변경점": "scan(프로파일·순위) → port(호출 녹화, 단일 함수 Rust crate + TASK.md) → verify(릴리스 빌드 후 재생) → enable/disable → bench → report 단계. `--agent`는 claude, codex 또는 stdin으로 프롬프트를 받는 아무 명령. Claude Code 플러그인, 8개 툴의 MCP 서버(fast_scan 등), 스킬 동봉. README 예시: Python fuzzy dedupe 4.91s → 42ms(116×)",
+      "제약·가격": "MIT 라이선스. 인자를 제자리에서 바꾸는 함수는 포팅 거부, 원본보다 호출당 느린 포팅은 활성화하지 않음",
+      "호환·요구사항": "Rust 툴체인(rustup). Python 3.10+, Node 22+/Bun/Deno 2+, Ruby 3.3+, Java 22+, Go 1.22+, PHP 8.1+(FFI), .NET 8+, gcc/clang/Intel oneAPI. npm 또는 cargo install fast-anything"
+    },
+    "수집일": "2026-11-23"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "Pandex MCP — 유럽 법령·최고법원 판례를 원문 인용으로 주는 MCP",
+    "제공자": "Pandex",
+    "출처": "GitHub pandex-io/pandex-mcp",
+    "날짜": "2026-11-22",
+    "날짜근거": "주목일",
+    "신호": "HN 132pt · GeekNews 게재 · MCP 레지스트리 등재(io.pandex/law)",
+    "하이라이트": false,
+    "링크": "https://github.com/pandex-io/pandex-mcp",
+    "관련링크": [
+      {
+        "라벨": "사이트",
+        "url": "https://www.pandex.io"
+      },
+      {
+        "라벨": "API 문서",
+        "url": "https://api.pandex.io/docs"
+      },
+      {
+        "라벨": "수록 범위",
+        "url": "https://api.pandex.io/coverage"
+      }
+    ],
+    "한줄정리": "EU와 프랑스·독일·네덜란드·영국·오스트리아·스위스·룩셈부르크, 유럽인권재판소의 법령과 최고법원 판례를 출처 기관에서 직접 모아 MCP 서버(`https://api.pandex.io/mcp`)로 제공하는 서비스다.",
+    "왜중요": "법령 조문을 과거 시점 문언까지 포함해 원문 그대로 돌려주고, 인용 관계(`get_citations`)와 개정 이력(`get_changes`)까지 6개 읽기 전용 도구로 조회할 수 있어 모델이 기억으로 법조문을 지어내는 문제를 줄인다. 키 없이 하루 50회, 무료 키로 하루 1,000회까지 쓸 수 있고 베타 기간 무료다. 원문은 공식 간행물에서 왔지만 정본이 아니며 법률 자문이 아니라고 명시돼 있다.",
+    "써보기": "claude mcp add --transport http pandex https://api.pandex.io/mcp\n\n# 또는 리서치 스킬이 포함된 Claude Code 플러그인\n/plugin marketplace add pandex-io/pandex-mcp\n/plugin install pandex@pandex",
+    "세부": {
+      "핵심 변경점": "도구 6종: search(단어·의미 검색, `§ 823 BGB`·ECLI 같은 인용 직접 조회), get_document(특정 날짜 기준 문언 포함), get_outline, get_citations, get_changes, list_sources. 280만 건 문서, 3,700만 건 인용 연결. Claude Code 플러그인에 legal-research 스킬 포함.",
+      "제약·가격": "키 없이 하루 50회, 무료 키 하루 1,000회(베타 기간 €0). 사용량 요금 €1/1,000 요청. 일부 기관은 수록이 partial로 공개돼 있음.",
+      "호환·요구사항": "Streamable HTTP 원격 서버. Claude Code, claude.ai·데스크톱 커스텀 커넥터, Cursor·Windsurf·VS Code·Zed 등 원격 서버를 받는 클라이언트. 키는 `Authorization: Bearer px_...` 헤더 또는 `https://api.pandex.io/mcp/px_...` 주소로 전달."
+    },
+    "수집일": "2026-11-23"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "오픈소스",
+    "제목": "LookAtMyQuant — Inkling-2-Mini를 3.9~12.8GB로 줄인 양자화 컴파일러",
+    "제공자": "커뮤니티(ShinMegamiBoson)",
+    "출처": "GitHub ShinMegamiBoson/lookatmyquant",
+    "날짜": "2026-11-22",
+    "날짜근거": "주목일",
+    "신호": "HN 545pt",
+    "하이라이트": false,
+    "링크": "https://github.com/ShinMegamiBoson/lookatmyquant",
+    "관련링크": [
+      {
+        "라벨": "방법·결과",
+        "url": "https://lookatmyquant.pages.dev/compiler/"
+      },
+      {
+        "라벨": "5.4GB 빌드",
+        "url": "https://huggingface.co/shinmegamiboson/Inkling-2-Mini-LookAtMyQuant-5.4GB"
+      }
+    ],
+    "한줄정리": "모델의 각 가중치 조각이 압축될 때 출력에 주는 손상을 측정해 크기 예산 안에서 손상이 가장 적은 코드를 고르는 양자화 컴파일러로, Inkling-2-Mini(18.89GB)를 Apple Silicon MLX용 3.85~12.76GB 빌드 6종으로 내놓았다.",
+    "왜중요": "README 기준 12.76GB 빌드는 BF16 원본과 모든 벤치마크에서 100.0% 일치(349/349)하면서 텍스트 가중치 메모리를 32.5% 줄였고, 5.38GB 빌드는 GSM8K 87.0%·HumanEval strict 71.3%로 원본(96.5%·92.7%)보다 떨어진다. Gemma 4 E2B에서는 같은 파일 크기의 Q4_K_M보다 KL이 12배 낮다고 밝힌다. `lamq serve`로 `/v1/chat/completions` 호환 서버를 띄울 수 있어 로컬 코딩 에이전트 백엔드로 바로 붙여볼 수 있다. 수치는 작성자 자체 측정이다.",
+    "써보기": "pip install git+https://github.com/ShinMegamiBoson/lookatmyquant.git\nlamq serve shinmegamiboson/Inkling-2-Mini-LookAtMyQuant-5.4GB \\\n    --drafter shinmegamiboson/Inkling-2-Mini-LookAtMyQuant-drafter --port 8080\ncurl http://localhost:8080/v1/chat/completions -H 'Content-Type: application/json' \\\n    -d '{\"messages\": [{\"role\": \"user\", \"content\": \"What is 17 times 23?\"}], \"reasoning_effort\": \"low\"}'",
+    "세부": {
+      "핵심 변경점": "trellis 코드(ht2/ht3, rtr1/rtr4)·128행 그룹 Fisher 이상치 할당·NVFP4 패스스루 조합. SQYFR v3(on-policy DAgger 증류)로 4.72GB 빌드 GSM8K 94.0%, 3.85GB 빌드 89.5%. Apple M5 Max에서 5.4GB 빌드 median 124.4 tok/s(드래프터 사용).",
+      "제약·가격": "벤치마크는 작성자 자체 측정(GSM8K test[:200], HumanEval 164문항). `--context` 기본 32768. 서버는 기본 127.0.0.1 바인딩, 다른 주소는 `LAMQ_API_KEY` 필요.",
+      "호환·요구사항": "Apple Silicon(MLX) 런타임 기본. NVIDIA GPU는 `pip install -e \".[cuda]\"` 후 `--device cuda`. MIT 라이선스."
+    },
+    "수집일": "2026-11-23"
+  },
+  {
+    "섹션": "모델·API",
     "태그": "오픈소스",
     "제목": "Inkling 2 Mini — 노트북에서 도는 루프형 26B MoE 오픈 웨이트",
     "제공자": "Thinking Machines Lab",
