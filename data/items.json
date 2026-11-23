@@ -1,6 +1,311 @@
 [
   {
     "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "Strands Decider v2 — 선택지 확률만 내는 Gemma 4 기반 판단 모델",
+    "제공자": "AWS (Strands Agents)",
+    "출처": "Strands Agents 블로그",
+    "날짜": "2026-11-23",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · Apache-2.0 가중치 공개",
+    "하이라이트": false,
+    "링크": "https://strandsagents.com/blog/introducing-strands-decider-v2/",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/strands-labs/strands-decider"
+      },
+      {
+        "라벨": "모델",
+        "url": "https://huggingface.co/StrandsAgents"
+      }
+    ],
+    "한줄정리": "텍스트를 생성하지 않고 주어진 선택지마다 확률을 한 번의 forward pass로 돌려주는 'system one' 모델 5종(Gemma 4 E2B~31B)을 Apache-2.0으로 공개했다.",
+    "왜중요": "툴 선택·요청 라우팅·답변 품질 판정처럼 답이 정해진 에이전트 내부 결정을 큰 LLM 대신 싸게 처리하는 용도다. v2 31B는 6개 공개 텍스트 벤치 평균 82.1(v1 26B-A4B 70.0), 보정 오차(ECE) 0.027(v1 0.062)로 확률을 '작은 모델 결과를 믿을지, 큰 모델을 부를지' 판단에 쓸 수 있게 했다. Haiku 5.5와 Sonnet 5.5 사이 라우터로 썼을 때 Sonnet 단독 대비 94% 과제를 44% 비용으로 풀었다고 밝혔다.",
+    "써보기": "pip install strands-decider\nstrands-decider ask StrandsAgents/strands-decider-E4B-gemma4-v2-2611 \\\n  --state \"Help! My payouts have been failing for 3 days!\" \\\n  --choice \"Which team should handle this?=billing,sales,retail\"\nstrands-decider serve StrandsAgents/strands-decider-E4B-gemma4-v2-2611 --port 8000",
+    "세부": {
+      "핵심 변경점": "LM head를 선택지 토큰 직접 스코어링(255행 readout)으로 교체, prefix-bidirectional 어텐션으로 공유 상태를 한 번만 인코딩, 학습 데이터 136k→17M 예제, rank-64 LoRA. 이미지 90.1·비디오 70.2 점수",
+      "제약·가격": "Apache-2.0. 자유 텍스트 생성 불가, 선택지가 정해진 결정에만 사용",
+      "호환·요구사항": "베이스 Gemma 4 E2B·E4B·12B·26B-A4B·31B. Strands Harness SDK의 decision models로 에이전트에 연결, Lambda·SageMaker 배포 예제 제공"
+    },
+    "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "신규출시",
+    "제목": "Claude Enterprise Frontier Safeguards — 최상위 모델 ZDR (베타)",
+    "제공자": "Anthropic",
+    "출처": "Claude Platform 릴리스 노트",
+    "날짜": "2026-11-23",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/overview",
+    "관련링크": [
+      {
+        "라벨": "릴리스 노트",
+        "url": "https://platform.claude.com/docs/en/release-notes/api"
+      },
+      {
+        "라벨": "설정 가이드",
+        "url": "https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/setup-console"
+      },
+      {
+        "라벨": "데이터 보존 문서",
+        "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
+      }
+    ],
+    "한줄정리": "30일 데이터 보존이 필요해 ZDR로 쓸 수 없던 Claude Fable·Mythos 등 최상위 모델을, 프롬프트·응답의 암호화 사본(Sealed Safety Data)을 고객 소유 클라우드 버킷에 두는 방식으로 Zero Data Retention 아래에서 쓰게 하는 베타 기능이다.",
+    "왜중요": "지금까지 Covered Models(Fable 5~5.2, Mythos 5~5.2)는 30일 보존이 필수라 ZDR 조직은 쓸 수 없었다. EFS를 켠 워크스페이스에서는 Anthropic이 프롬프트·응답을 보관하지 않고, Anthropic Human Review가 꺼져 플래그된 Safety Case를 고객 측이 직접 검토한다. EFS 자체는 무료이고 모델 동작·가격·한도는 그대로지만 버킷 비용은 클라우드 요금으로 나가며, 자격 있는 조직만 쓸 수 있고 EFS 워크스페이스에서는 Batch API 새 배치와 Claude Managed Agents 세션이 돌지 않는다.",
+    "세부": {
+      "핵심 변경점": "Claude Platform, Claude Platform on AWS, Claude Models on Google Cloud(Anthropic managed)에서 베타. 워크스페이스 단위 적용(Default Workspace 불가). 조직 웹훅(베타)에 external_storage.failed·external_storage.recovered 이벤트 추가",
+      "제약·가격": "Anthropic 과금 없음, 버킷 저장·읽기·쓰기·키 작업·전송 비용은 클라우드 제공자 청구. 액세스 획득과 고객 관리 키 연결은 스스로 되돌릴 수 없음. Files API 업로드·코드 실행 컨테이너·Batch 결과·Managed Agents 세션 데이터는 미포함",
+      "호환·요구사항": "Claude Console Organization Admin 권한, Amazon S3 또는 Google Cloud Storage 버킷(AWS는 us-east-2 권장). 레거시 ZDR 조직은 새 워크스페이스로 EFS 사용"
+    },
+    "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "신규출시",
+    "제목": "GLM-5.4 — 루프 트랜스포머 첫 플래그십, 코딩 플랜에 공개",
+    "제공자": "Z.ai (Zhipu)",
+    "출처": "Z.ai 블로그",
+    "날짜": "2026-11-23",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · HN 806pt · GeekNews",
+    "하이라이트": true,
+    "링크": "https://z.ai/blog/glm-5.4",
+    "관련링크": [
+      {
+        "라벨": "문서",
+        "url": "https://docs.z.ai/guides/llm/glm-5.4"
+      },
+      {
+        "라벨": "모델 전환 가이드",
+        "url": "https://docs.z.ai/devpack/latest-model"
+      }
+    ],
+    "이미지": "https://z-ai-bj.oss-cn-beijing.aliyuncs.com/prompts-rich-media-resources/5.4-blog/20261123-173242.jpeg?w=1280&h=720&fit=fill",
+    "한줄정리": "GLM-5 베이스의 28개 레이어를 두 번 반복 실행하는 Loop Transformer 구조로 만든 Z.ai의 750B 규모 새 플래그십으로, 1M 컨텍스트·최대 출력 128K를 지원한다.",
+    "왜중요": "파라미터를 늘리지 않고 레이어 반복으로 추론 깊이를 키워 2T~3T 파라미터 모델 수준이라고 밝혔고, 30B 동일 조건 비교에서 GPQA-Diamond·MMLU-Pro 등의 평균 출력 길이가 10~14% 줄었다. 지금은 GLM Coding Plan 전 플랜(Max·Pro·Lite)에서 Claude Code·Codex 등 코딩 에이전트로 쓸 수 있고, 주간 한도 플랜은 GLM-5.3 대비 1.5배 쿼터가 주어진다. 일반 Model API는 보안 평가 후 공개, 가중치는 안전성 보강 뒤 공개 예정이며, 지나치게 긴 사고 루프에 빠지는 한계가 있다고 명시했다.",
+    "써보기": "{\n  \"env\": {\n    \"CLAUDE_CODE_AUTO_COMPACT_WINDOW\": \"1000000\",\n    \"ANTHROPIC_DEFAULT_HAIKU_MODEL\": \"glm-5.4[1m]\",\n    \"ANTHROPIC_DEFAULT_SONNET_MODEL\": \"glm-5.4[1m]\",\n    \"ANTHROPIC_DEFAULT_OPUS_MODEL\": \"glm-5.4[1m]\"\n  }\n}",
+    "세부": {
+      "핵심 변경점": "Loop Transformer(28개 레이어 2회 반복), 반복별 토큰 게이트, 교차 루프 KV 공유+슬라이딩 윈도우 하이브리드 KV 캐시, 희소 어텐션 인덱스 재사용. 입력 비디오·이미지·텍스트·파일, 출력 텍스트",
+      "제약·가격": "현재 GLM Coding Plan·ZCode·Z.ai Chat에서만 제공. Model API는 'Coming Soon', 가중치 공개는 추후. 처리 속도 비혼잡 시 최대 200 tokens/s, 피크 70~80 tokens/s",
+      "호환·요구사항": "Claude Code·Goose는 https://api.z.ai/api/anthropic, Codex는 https://api.z.ai/api/v1, 기타 OpenAI 호환 도구는 https://api.z.ai/api/coding/paas/v4 엔드포인트. 위 설정은 ~/.claude/settings.json의 env에 추가(GLM Coding Plan 구독·Z.AI API 키 필요)"
+    },
+    "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "Ling-3.2-air — 124B·활성 5.5B 멀티모달 MoE 오픈 웨이트",
+    "제공자": "inclusionAI (Ant Group)",
+    "출처": "Hugging Face inclusionAI",
+    "날짜": "2026-11-23",
+    "날짜근거": "공개일",
+    "신호": "공식 가중치 공개 · HF ♥47 (공개 당일)",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/inclusionAI/Ling-3.2-air",
+    "관련링크": [
+      {
+        "라벨": "ModelScope",
+        "url": "https://www.modelscope.cn/models/inclusionAI/Ling-3.2-air"
+      },
+      {
+        "라벨": "vLLM 포크",
+        "url": "https://github.com/inclusionAI/vllm-ling-v3"
+      }
+    ],
+    "한줄정리": "Ling-3.0-flash-VL과 같은 네이티브 멀티모달 구조의 하이브리드 선형 MoE(총 124B, 활성 5.5B) 모델을 MIT 라이선스로 공개했다.",
+    "왜중요": "전작 대비 워크플로 자동화와 전문 문서 추론이 크게 좋아졌다고 밝혔다: AutomationBench-AA 15.7%→61%, Terminal-Bench 4.0 0%→27%, AA-Briefcase Elo 987→1340, Artificial Analysis Intelligence Index v5.0.1 23점. 이미지·비디오 입력과 툴 호출·추론 파서를 지원해 자체 호스팅 에이전트용 후보가 되지만, 권장 구성이 141GB급 GPU 4장(H100·H800은 8장)이라 실행 비용이 크다.",
+    "써보기": "docker pull lmsysorg/sglang:dev-Ling-3.0-flash-VL\ndocker run --rm --gpus all --ipc=host --shm-size 32g -p 30000:30000 \\\n  lmsysorg/sglang:dev-Ling-3.0-flash-VL \\\n  python3 -m sglang.launch_server --model-path inclusionAI/Ling-3.2-air \\\n    --tp 4 --context-length 262144 --speculative-algorithm NEXTN \\\n    --trust-remote-code --reasoning-parser auto --tool-call-parser auto",
+    "세부": {
+      "핵심 변경점": "35 KDA + 7 Gated MLA(5:1) 레이어, 라우팅 전문가 512개 중 8개 활성, 어휘 157,184. Harvey LAB-AA v1.1 기준 통과율 87.7%",
+      "제약·가격": "MIT 라이선스. 256K 컨텍스트 권장 구성은 141GB급 GPU 4장(H20-3e·H200) 또는 B300·GB300 4-GPU 노드",
+      "호환·요구사항": "SGLang day-0 이미지(MTP 추측 디코딩 포함) 권장, vLLM은 inclusionAI/vllm-ling-v3 포크. 권장 샘플링 temperature=1.0, top_p=0.95, top_k=20, enable_thinking=true"
+    },
+    "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Strands Box — Claude Code·Codex·Kiro CLI를 샌드박스에서 한 줄로",
+    "제공자": "AWS (Strands Agents)",
+    "출처": "Strands Agents 블로그",
+    "날짜": "2026-11-23",
+    "날짜근거": "발행일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://strandsagents.com/blog/strands-box-cli/",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/strands-agents/box"
+      },
+      {
+        "라벨": "퀵스타트",
+        "url": "https://strandsagents.com/docs/user-guide/box/quickstart/"
+      }
+    ],
+    "이미지": "https://strandsagents.com/blog/og/strands-box-cli.png",
+    "한줄정리": "오픈소스 에이전트 샌드박스 Strands Box에 Claude Code·Codex·Kiro CLI 네이티브 지원이 붙어, `box run claude` 한 줄로 이미 설치된 코딩 에이전트를 OS 샌드박스와 정책 검사 아래 실행한다.",
+    "왜중요": "권한 프롬프트를 끈 'YOLO 모드'로 에이전트를 돌리면서도, 셸 명령·파일 접근·네트워크 요청·MCP 호출을 모델 바깥의 Dogwood 규칙으로 검사하고 API 키는 박스 밖 egress 게이트웨이에서만 실제 값으로 바꿔 넣어 에이전트가 키를 볼 수 없다. 작업별 프로필(코딩용·온콜용 등)로 허용 범위를 나누고, 세션을 재시작하지 않고 정책을 갱신하거나 '1시간에 AWS MCP 호출 60회' 같은 이력 기반 제한도 걸 수 있다. Box CLI는 프리뷰이며 macOS 15 이상 Apple 실리콘 Mac과 Linux ARM64·x86-64에서 동작한다.",
+    "써보기": "curl -fsSL https://raw.githubusercontent.com/strands-agents/box/main/install.sh | sh\ncd ~/src/my-app\nbox run claude\nbox profile create coding --with claude,bedrock --tools git,npm --policy scoped\nbox run coding",
+    "세부": {
+      "핵심 변경점": "Claude Code·Codex·Kiro CLI용 pack 기본 제공(모델 제공자 Amazon Bedrock·Anthropic, 도구 git·gh·npm·uv·cargo pack 포함). 프로필 = pack 조합 + 정책 파일(profile.toml). 자격 증명 route(env://, aws://)로 키를 플레이스홀더로 대체 후 egress에서 주입. 규칙 거부 시 규칙 설명을 에이전트에게 사유로 반환. 정책 수정은 실행 중 키 한 번으로 적용.",
+      "제약·가격": "Box CLI 프리뷰. 라우트로 넘기지 않은 키(프로젝트 파일·MCP 설정에 적힌 키)는 에이전트가 여전히 볼 수 있다.",
+      "호환·요구사항": "macOS 15+ Apple 실리콘, Linux ARM64·x86-64. 오픈소스(strands-agents/box, v0.3.0 태그 2026-11-23)."
+    },
+    "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "FastMCP 4.2.5 — 변경 알림 스트림·도구 사용량 메트릭",
+    "제공자": "Prefect (FastMCP)",
+    "출처": "GitHub PrefectHQ/fastmcp",
+    "날짜": "2026-11-23",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (PyPI 2026-11-23 등재)",
+    "하이라이트": false,
+    "링크": "https://github.com/PrefectHQ/fastmcp/releases/tag/v4.2.5",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://gofastmcp.com/changelog"
+      },
+      {
+        "라벨": "PyPI",
+        "url": "https://pypi.org/project/fastmcp/4.2.5/"
+      }
+    ],
+    "한줄정리": "Python MCP 프레임워크 FastMCP가 2026-07-28 연결에서 `subscriptions/listen`을 서비스해 도구·프롬프트·리소스 변경 이벤트를 클라이언트에 푸시하고, 도구별 사용량 메트릭과 실험적 Events 확장(SEP-3415)을 추가했다.",
+    "왜중요": "`FastMCP.notify_tools_changed()` 등으로 서버가 도구 목록 변경을 연결된 클라이언트에 바로 알릴 수 있고, 옵트인 `UsageMiddleware`가 사용자·도구별 호출을 OpenTelemetry `mcp.server.operation.duration` 히스토그램으로 기록한다. listen 스트림이 기본으로 켜져 연결마다 요청 하나가 계속 열려 있으므로(프로세스당 최대 1024개), 서버리스·연결 과금 환경은 확인이 필요하다. CIMD 클라이언트 스코프·리다이렉트 URI 매칭·리프레시 토큰 재사용 처리 등 OAuth 검사도 엄격해져 `valid_scopes`를 지정하지 않은 서버는 동작이 바뀔 수 있다.",
+    "써보기": "from fastmcp.server.middleware.usage import UsageMiddleware\nmcp.add_middleware(UsageMiddleware(user_id_salt=\"a-secret-value\"))\n\nfastmcp experimental events list server.py\nfastmcp experimental events watch server.py alert.fired severity=high\n\n# listen 스트림 끄기\nFASTMCP_ENABLE_SUBSCRIPTIONS_LISTEN=false",
+    "세부": {
+      "핵심 변경점": "subscriptions/listen 기본 활성화(listChanged·resources.subscribe 광고), notify_* 푸시, UsageMiddleware(OTel 메트릭), 실험적 Events 확장(fastmcp.experimental.events, poll·push, `fastmcp experimental events list|watch` CLI), OpenAPI `forward_client_headers` 옵션, OAuthProxy·OIDCProxy `client_registration_ttl_seconds`",
+      "제약·가격": "Events 확장은 실험적이며 예고 없이 API가 바뀔 수 있음. 변경 이벤트는 같은 프로세스 안에서만 전달되어 다중 워커·레플리카에서는 같은 프로세스에 연결된 리스너에게만 감. 2025-11-25 이전 핸드셰이크 연결은 영향 없음",
+      "호환·요구사항": "CIMD 클라이언트: valid_scopes·required_scopes 미설정 시 어떤 스코프도 요청 불가. 호스트 루트 정확 패턴은 그 경로만 매칭(`/*` 추가 필요). 회전 후 60초 넘게 재사용된 리프레시 토큰은 grant 전체 종료. AzureProvider 멀티테넌트는 issuer 검사 생략(token_issuer로 고정 가능)"
+    },
+    "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "신규출시",
+    "제목": "Heirloom — AI가 바꾼 코드 동작을 머지 전에 사람이 확인하는 플러그인",
+    "제공자": "커뮤니티(cheongfish)",
+    "출처": "GitHub cheongfish/heirloom",
+    "날짜": "2026-11-23",
+    "날짜근거": "주목일",
+    "신호": "GeekNews 게재 (Show GN)",
+    "하이라이트": false,
+    "링크": "https://github.com/cheongfish/heirloom",
+    "관련링크": [
+      {
+        "라벨": "GeekNews",
+        "url": "https://news.hada.io/topic?id=37703"
+      },
+      {
+        "라벨": "에이전트용 문서",
+        "url": "https://github.com/cheongfish/heirloom/blob/main/docs/agent/README.md"
+      }
+    ],
+    "한줄정리": "에이전트가 작업을 인계하면 base와 head를 임시 Git worktree에서 실행해 출력을 기록하고, 사람이 로컬 대시보드에서 결과를 먼저 예측한 뒤 실제 동작을 보고 판정하게 하는 Claude Code·Codex용 오픈소스 플러그인이다.",
+    "왜중요": "\"테스트 통과\" 보고만으로는 알기 어려운 동작 차이를 탐침 명령 출력으로 직접 비교하고, 되돌림·분리 판정은 이유와 함께 에이전트에 돌려보낸다. 모두 수용하면 서명된 판정으로 PR 본문 단락과 `heirloom/understood` commit status를 남기고, 사람이 유지하기로 한 결정은 코드·테스트 앵커와 함께 `.heirloom/decisions/`에 기록해 다음 에이전트가 그 경로를 고치기 전에 회수한다. Antigravity CLI·Cursor CLI도 지원하지만 Cursor는 CLI만, 세션 종료 시 인계 알림 없음.",
+    "써보기": "# Claude Code\n/plugin marketplace add cheongfish/heirloom#release\n/plugin install heirloom@heirloom\n# Codex\ncodex plugin marketplace add cheongfish/heirloom@release\ncodex plugin add heirloom@heirloom",
+    "세부": {
+      "핵심 변경점": "인계 → 탐침 base/head 실행 → 대시보드(http://127.0.0.1:17380/)에서 예측 후 공개·판정(예상대로·잘못 알았음·답함·되돌림·분리) → PR/MR 단락·commit status·결정 기록. 선택 기능으로 phase별 테스트(.heirloom/config.json의 testCadence.mode=phase). 최신 0.4.1(2026-11-19)",
+      "제약·가격": "Apache-2.0. 탐침·테스트 명령은 대시보드에서 허락한 뒤 사용자 권한으로 임시 worktree에서 실행. 같은 OS 사용자 권한 프로그램의 우회까지는 막지 못해 차단보다 탐지·감사가 목표",
+      "호환·요구사항": "Node 20 이상, git. PR 생성 시 gh(GitHub) 또는 glab(GitLab). Codex는 설치 뒤 /hooks에서 Heirloom 훅 신뢰 필요"
+    },
+    "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Semantic governance — 툴 호출 전 '사용자가 요청했나' 검사",
+    "제공자": "Google",
+    "출처": "Google Developers Blog",
+    "날짜": "2026-11-23",
+    "날짜근거": "발행일",
+    "신호": "공식 발표 · AgentDojo 전체 벤치 6회 반복",
+    "하이라이트": false,
+    "링크": "https://developers.googleblog.com/did-the-user-ask-for-this-securing-ai-agents-against-intent-hijacking-with-semantic-governance-policies/",
+    "관련링크": [
+      {
+        "라벨": "소개 글(11-20)",
+        "url": "https://developers.googleblog.com/check-what-your-ai-agents-do-before-they-do-it-with-semantic-governance-policies/"
+      }
+    ],
+    "한줄정리": "에이전트가 제안한 툴 호출을 실행 전에 LLM 판정기가 '사용자가 요청한 행동인가'로 검사하게 했더니 AgentDojo 간접 프롬프트 인젝션 성공률이 48.7%에서 0.9%로 떨어졌다는 Google의 평가 글.",
+    "왜중요": "공격 문구를 탐지하는 대신 '행동'을 사용자 요청·시스템 지시(신뢰)와 툴 결과(비신뢰, 데이터로만 취급)에 대조하는 설계라, 자체 가드레일을 만들 때 그대로 참고할 수 있다. gemini-2.5-flash 에이전트로 AgentDojo v1.2.2(97개 과제, 949회 공격)를 6번 돌렸고 정상 과제 유틸리티 손실은 평균 2.6pt, 툴 호출이 필요한 공격 929건은 한 번도 성공하지 않았다. 다만 답변 문구만 조작하는 공격(호텔 추천 등)은 막지 못하고, 판정기 자체를 노린 적응형 공격은 측정하지 않았다. 제품 기능은 Gemini platform Agent Gateway 뒤에서 Preview로만 쓸 수 있다.",
+    "세부": {
+      "핵심 변경점": "판정기는 사용자 요청·에이전트 지시를 신뢰 컨텍스트로, 툴 결과·파일·메시지는 비신뢰 데이터로 읽는다. 허용되면 응답 그대로 통과, 거부되면 호출이 거부 메시지로 바뀌고 실행되지 않는다. 결과: ASR 48.7%→0.9%(6회 모두 0.84~0.95%), 공격 하 '안전하게 완료' 22.7%→25.1%, banking·Slack·workspace는 공격 성공 0건, 정상 과제 과차단 97개 중 1개(약 1%).",
+      "제약·가격": "Gemini platform Preview, Agent Gateway 필요. 권장 도입 순서: dry run 모드로 켜고 Cloud Logging에서 판정 검토 후 enforcement 전환. 텍스트만 조작하는 공격은 응답 필터링 같은 보완 통제가 필요.",
+      "호환·요구사항": "AgentDojo는 모델을 직접 호출하므로 실제 정책 엔진을 테스트 하네스로 같은 입력을 줘 측정. NIST CAISI 평가에선 적응형 공격이 ASR을 11%→81%로 올린 사례가 있어 적응형 공격엔 별도 검증 필요."
+    },
+    "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "에이전트 평가 만들고 유지하기 — HF의 8단계 가이드",
+    "제공자": "Hugging Face",
+    "출처": "Hugging Face 블로그",
+    "날짜": "2026-11-23",
+    "날짜근거": "발행일",
+    "신호": "공식 블로그",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/blog/agentic-evals",
+    "관련링크": [],
+    "한줄정리": "과제 정의부터 점수 보고까지 에이전트 평가를 만드는 8단계를 Terminal-Bench 2의 raman-fitting 과제와 오픈소스 하니스 Harbor로 따라가며 보여 주는 Hugging Face 가이드.",
+    "왜중요": "모델을 고정하고 하니스만 바꿔도 Terminal-Bench 정확도가 최대 29.9%p 달라졌다는 감사 사례를 들며, 과제·환경·하니스·검증기 각 부품을 재사용 전에 무엇을 확인할지 표로 정리했다. oracle(정답 풀이)·nop(아무것도 안 하는) 에이전트로 과제와 검증기를 먼저 검사하는 절차와, 벤치마크 오류를 찾고 고치는 방법, 무엇을 공개할지 판단표까지 담아 사내 에이전트 평가를 세울 때 바로 참고할 수 있다.",
+    "써보기": "harbor run -t terminal-bench/raman-fitting \\\n  -a oracle -e hf-sandbox\nharbor task init my-org/task-01 -p datasets/my-evals\nharbor run -p datasets/my-evals -a oracle -e hf-sandbox\nharbor run -p datasets/my-evals -a nop -e hf-sandbox",
+    "세부": {
+      "핵심 변경점": "평가의 세 시대(질의응답→에이전트→팀·스웜), 에이전트 평가 구성요소(과제·환경·하니스·롤아웃·참조 풀이·평가 하니스·검증기), 8단계 워크스루(부록 A, 명령 포함), 용어집",
+      "제약·가격": "",
+      "호환·요구사항": "Harbor 하니스, HF 샌드박스(-e hf-sandbox), HF Inference Providers 라우터(api_base=https://router.huggingface.co/v1)"
+    },
+    "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "오픈소스",
+    "제목": "epistemic-guard — 서명된 툴 영수증으로 에이전트의 '했다' 주장 검증",
+    "제공자": "커뮤니티(AlienatedAliens)",
+    "출처": "arXiv 2611.27095",
+    "날짜": "2026-11-23",
+    "날짜근거": "공개일",
+    "신호": "arXiv cs.AI 신규 · PyPI 0.6.5 (11-23) · Glama MCP 디렉터리 등재",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.27095",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/AlienatedAliens/epistemic-guard"
+      },
+      {
+        "라벨": "PyPI",
+        "url": "https://pypi.org/project/epistemic-guard/"
+      },
+      {
+        "라벨": "데모",
+        "url": "https://huggingface.co/spaces/RollSolo/epistemic-guard"
+      }
+    ],
+    "한줄정리": "MCP 서버나 Claude Code·Codex 세션을 감싸 모든 툴 호출을 Ed25519 서명 + Merkle 로그 영수증으로 남기고, 에이전트의 최종 답변이 실제로 실행된 일과 맞는지 CPU에서 검사하는 오픈소스 라이브러리와 논문.",
+    "왜중요": "툴이 실패했거나 호출조차 안 됐는데 '파일을 저장했다'고 말하는 행동 날조, 답변에서 빠진 부작용(이메일 전송·삭제 등)을 실행 후에 잡는다는 점이 실행 전 검사하는 MCP 방화벽과 다르다. 논문 기준 고정 트레이스 250건에서 93.2% 정확도·17.9ms(CPU, VRAM 0)로 12B~14B GPU 판정 모델보다 6.4~6.8pt 높았지만, 실제 mcp-proxy 트레이스 60건에서는 위험 96.15%를 잡는 대신 오탐률이 38.24%라 README도 트래픽으로 보정한 뒤에 강제 모드(--enforce)를 켜라고 권한다. 1인 개발 초기 프로젝트(논문은 v0.5.2, PyPI 최신 0.6.5)다.",
+    "써보기": "pip install epistemic-guard\nepistemic-guard demo\n# Claude Code / Codex PostToolUse + Stop 훅에 설치\nepistemic-guard install-hooks --flag-undisclosed\n# 기존 MCP 설정 전체를 영수증 프록시로 감싸기\nepistemic-guard wrap-config --input mcp_config.json --output mcp_config.wrapped.json --log /var/log/agent/receipts.jsonl --pin-tools",
+    "세부": {
+      "핵심 변경점": "세 가지 런타임 검증 공백을 다룬다: 행동 날조(post-tool 문구가 실패·미실행 부작용을 서술), 출처 붕괴(검증 안 된 문구가 장기 메모리에 들어감), 신디케이션 반향(같은 출처 미러가 다중 출처 교차검증을 통과). 서명 키는 프록시 프로세스 밖으로 격리, RFC 6962 Merkle 로그, --probe-fs/--probe-git/--probe-sqlite로 실제 부작용 대조, 판정은 verified/contradicted/unverifiable 3단계.",
+      "제약·가격": "MIT 라이선스, LLM API 비용 없음. 선택적 OpenVINO INT8 모델 팩 약 227MB(epistemic-guard download-models). 실트래픽 오탐률이 높아 처음엔 경고 모드로 운용 권장.",
+      "호환·요구사항": "stdio·Streamable HTTP MCP 서버 래핑(Claude Desktop, Cursor, Cline, Windsurf 등), Claude Code·Codex 훅 설치 지원, 독립 MCP 검증 서버(mcp-server)로도 실행 가능. 변조 영수증 200건 100% 거부, 무단 메모리 쓰기 100건 100% 차단(논문 적합성 테스트)."
+    },
+    "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "모델·API",
     "태그": "업데이트",
     "제목": "OpenRouter 데이터 사고 대응 — 제공업체 3곳 퇴출, 125개 ZDR 해제",
     "제공자": "OpenRouter",
