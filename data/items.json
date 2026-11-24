@@ -2,6 +2,315 @@
   {
     "섹션": "모델·API",
     "태그": "오픈소스",
+    "제목": "ERNIE-5.5-Flash-Preview — 280B-A14B MoE 가중치 Apache 2.0 공개",
+    "제공자": "Baidu",
+    "출처": "Hugging Face baidu",
+    "날짜": "2026-11-24",
+    "날짜근거": "주목일",
+    "신호": "공식 조직 HF 공개 · ♥215, HF 트렌딩 상위",
+    "하이라이트": true,
+    "링크": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Preview",
+    "관련링크": [
+      {
+        "라벨": "발표 블로그",
+        "url": "https://ernie.baidu.com/release/ernie-5-5-flash-preview/"
+      },
+      {
+        "라벨": "vLLM 플러그인",
+        "url": "https://github.com/baidu/vLLM-ERNIE"
+      },
+      {
+        "라벨": "HF (BF16)",
+        "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Preview-BF16"
+      }
+    ],
+    "이미지": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/baidu/ERNIE-5.5-Flash-Preview.png",
+    "한줄정리": "Baidu가 ERNIE 5.5 Flash Base 위에 처음 포스트 트레이닝한 280B(토큰당 14B 활성)·1M 컨텍스트 MoE 모델 ERNIE-5.5-Flash-Preview의 가중치를 Apache 2.0으로 Hugging Face에 올렸다.",
+    "왜중요": "11월 11일 Qianfan API로 먼저 나오며 '곧 공개'로 예고됐던 가중치다. 코딩·게임 개발, Blender·CAD 3D 모델링, 문서·스프레드시트 작업, 영상 제작용으로 훈련됐고, FP4 전문가 가중치와 DSpark 드래프트 헤드로 긴 에이전트 작업을 빠르게 돌리도록 설계됐다. 공식 평가에서 Terminal-Bench 4.0 46.5, MCP-Atlas 84.6, BrowseComp 87.4를 기록했다. 포스트 트레이닝 중간 체크포인트라 일부 능력이 부족할 수 있다고 명시돼 있다.",
+    "써보기": "uv venv --python 3.12 ernie5-venv\nsource ernie5-venv/bin/activate\nuv pip install vllm==0.32.0\nuv pip install git+https://github.com/baidu/vLLM-ERNIE.git\nvllm serve baidu/ERNIE-5.5-Flash-Preview --trust-remote-code --port 30000 --data-parallel-size 4 --enable-expert-parallel --kv-cache-dtype fp8 --max-model-len 131072 --reasoning-parser ernie5 --tool-call-parser ernie5 --enable-auto-tool-choice",
+    "세부": {
+      "핵심 변경점": "Base와 같은 구조·토크나이저(43층, 512 routed experts top-10 + 1 shared)에 미드·포스트 트레이닝으로 학습 컨텍스트를 128K→1M로 확장, DSpark 추론 가속 드래프트 헤드 포함. 사고(thinking) 기본 켜짐, `enable_thinking: false`로 끄고 `reasoning_effort` low/medium/high 지정",
+      "제약·가격": "Apache 2.0(Preview 가중치에만 적용, Base는 자체 라이선스). 기본 리포는 MXFP4(W4A8) 전문가 가중치 — FP4 커널 없는 하드웨어는 -FP8 또는 -BF16 리포 사용, 파인튜닝은 BF16에서 시작 권장. 중간 체크포인트(정식판 예정)",
+      "호환·요구사항": "SGLang(`--speculative-algorithm DSPARK`) 또는 vLLM 0.32.0 + vLLM-ERNIE 플러그인. 예시 명령은 131,072 토큰 컨텍스트, 최대 1,048,576까지 설정 가능. ModelScope에도 공개"
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "신규출시",
+    "제목": "OpenAI Healthcare model configurations — 의료 특화 모델 구성",
+    "제공자": "OpenAI",
+    "출처": "OpenAI API 체인지로그",
+    "날짜": "2026-11-24",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://developers.openai.com/api/docs/pricing#healthcare-model-configurations",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://developers.openai.com/changelog"
+      },
+      {
+        "라벨": "웹 검색 도구",
+        "url": "https://developers.openai.com/api/docs/guides/tools-web-search"
+      }
+    ],
+    "한줄정리": "OpenAI가 일부 모델에 임상 질문용 하네스를 묶은 Healthcare model configurations(`gpt-6.2-astra-healthcare` 등 4종)를 Responses API에 내놓았다.",
+    "왜중요": "의료 질의를 위한 하네스가 모델 ID 하나로 제공되고, 모델이 웹 검색을 쓸 때 의료 출처 전용 인덱스를 검색한다. 가격표에는 법률용 구성(`gpt-6.2-astra-law`)과 나란히 도메인 특화 구성으로 올라 있다. 가격은 `gpt-6.2-astra-healthcare` 입력 $8·출력 $40, `gpt-6.2-sol-healthcare` 입력 $2·출력 $10(1M 토큰당)이며, 이 프로모션 가격은 최소 2026-12-31까지 적용된다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "모델 ID: gpt-6.2-astra-healthcare, gpt-6.2-sol-healthcare, gpt-6-astra-healthcare, gpt-6.1-sol-healthcare. 엔드포인트 v1/responses. 웹 검색 시 의료 출처 전용 인덱스 사용",
+      "제약·가격": "Standard(1M 토큰당 입력/출력/캐시 입력): 6.2 Astra $8/$40/$0.40, 6.2 Sol $2/$10/$0.10, 6 Astra $10/$50/$1.00, 6.1 Sol $2/$10/$0.10. Fast: 6.2 Astra $16/$80, 6.2 Sol $4/$20. 프로모션 가격은 최소 2026-12-31까지. 데이터 레지던시 엔드포인트는 10% 가산",
+      "호환·요구사항": "Responses API 전용(체인지로그 표기 v1/responses)"
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Copilot CLI 1.0.115 — `/model`에서 사용자 지정 제공자 모델 관리",
+    "제공자": "GitHub",
+    "출처": "GitHub github/copilot-cli",
+    "날짜": "2026-11-24",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm @github/copilot latest 11-24 13:03Z, changelog.md 표기 2026-11-23)",
+    "하이라이트": false,
+    "링크": "https://github.com/github/copilot-cli/releases/tag/v1.0.115",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://github.com/github/copilot-cli/blob/main/changelog.md"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@github/copilot"
+      }
+    ],
+    "한줄정리": "GitHub Copilot CLI가 `/model`에서 로컬 세션용 사용자 지정 제공자 모델을 추가·전환·관리하게 하고, GPT-6.2 Astra·Gemini 4 Hydrogen·MAI-Code-2-Flash를 모델 선택지에 넣었다.",
+    "왜중요": "`/model`에서 Ctrl+X 다음 A로 사용자 지정 제공자 모델을 추가하고 바로 바꿀 수 있어, 자체 제공자 모델을 설정 파일 없이 다룰 수 있다. Windows 샌드박스 패키지 조회가 기본으로 켜졌고(`sandbox.userPolicy.capabilities`를 `[]`로 끄기), macOS에서는 `sandbox.userPolicy.seatbelt.extraMachLookups`로 Keychain 접근 없이 특정 Mach 서비스 조회를 허용한다. 폼을 지원하는 ACP 에디터에서 구조화된 확인 질문이 켜졌고, 타임라인 항목에 시작·종료·경과 시간을 보여 주는 `showTimelineTimestamps` 설정이 생겼다.",
+    "써보기": "npm install -g @github/copilot",
+    "세부": {
+      "핵심 변경점": "`/model` 사용자 지정 제공자 모델 추가·관리, GPT-6.2 Astra·Gemini 4 Hydrogen(계정에 따라 Extra High 추론)·MAI-Code-2-Flash, ACP 구조화 질문, `showTimelineTimestamps`, `/sandbox policy`가 샌드박스 gh 명령이 쓰는 GitHub 계정 표시, 네이티브 확장 지연 활성화",
+      "제약·가격": "Gemini 4 Hydrogen은 계정에서 사용 가능할 때",
+      "호환·요구사항": "Windows 샌드박스 패키지 조회 기본 활성(`sandbox.userPolicy.capabilities`를 `[]`로 해제)"
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Mistral Vibe 3.1.5 — 전 폴더 세션 페이지·`/cd`로 세션 이동",
+    "제공자": "Mistral AI",
+    "출처": "GitHub mistralai/mistral-vibe",
+    "날짜": "2026-11-24",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (PyPI 11-24 16:50Z)",
+    "하이라이트": false,
+    "링크": "https://github.com/mistralai/mistral-vibe/releases/tag/v3.1.5",
+    "관련링크": [
+      {
+        "라벨": "PyPI",
+        "url": "https://pypi.org/project/mistral-vibe/3.1.5/"
+      },
+      {
+        "라벨": "CHANGELOG",
+        "url": "https://github.com/mistralai/mistral-vibe/blob/main/CHANGELOG.md"
+      }
+    ],
+    "한줄정리": "모든 폴더의 세션을 미리보기·검색·보관할 수 있는 Sessions 페이지와 대화를 유지한 채 세션을 다른 폴더로 옮기는 `/cd [path]`를 추가한 Mistral의 코딩 에이전트 CLI 업데이트다.",
+    "왜중요": "`/resume`과 `vibe --resume`이 현재 폴더뿐 아니라 모든 폴더의 세션을 보여 주는 Sessions 페이지로 열린다. 모델 선택기가 플랜에서 쓸 수 있는 Mistral 모델 목록을 내려받아 보여 주며(`enable_model_catalog = false`로 끔), `experimental_enable_remote_plugins`를 켜면 Mistral 플러그인 라이브러리의 플러그인이 동기화된다(실험). `/loop` 관리자에서 루프를 지우지 않고 편집하거나 `r`로 즉시 실행할 수 있고, 세션당 서브에이전트 128개 제한이 없어졌다.",
+    "써보기": "uv tool install --python 3.14 mistral-vibe\nvibe --resume",
+    "세부": {
+      "핵심 변경점": "Sessions 페이지(빈 프롬프트에서 ← 또는 `/sessions`), `/cd [path]`, 원격 플러그인 동기화(실험), `tool_result_images` 제공자 설정, `@` 완성의 프로젝트 밖 경로, `/loop` 편집·즉시 실행, 백그라운드 작업 실시간 출력 보기",
+      "제약·가격": "원격 플러그인은 실험 기능, 동기화된 플러그인은 읽기 전용",
+      "호환·요구사항": "`experimental_enable_model_catalog`→`enable_model_catalog` 이름 변경(자동 이전), `VIBE_EXPERIMENTAL_ENABLE_MODEL_CATALOG` 대신 `VIBE_ENABLE_MODEL_CATALOG`"
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Codex CLI 0.172.0 — 슬래시 명령 인자 Tab 완성·MCP 지연 시작",
+    "제공자": "OpenAI",
+    "출처": "GitHub openai/codex",
+    "날짜": "2026-11-24",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://github.com/openai/codex/releases/tag/rust-v0.172.0",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://developers.openai.com/codex/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@openai/codex"
+      }
+    ],
+    "한줄정리": "지원하는 슬래시 명령의 인자를 Tab으로 완성하고, 도구 목록이 캐시된 선택적 stdio MCP 서버를 첫 도구 호출 때 시작하도록 바꾼 Codex CLI 릴리스.",
+    "왜중요": "검색 결과·대화 기록의 스레드 링크를 따라 저장된 대화와 중첩 에이전트를 터미널에서 열 수 있고, 에이전트 커맨드 센터에서 Shift+Up/Down으로 작업 그룹 사이를 이동한다. `config.toml`에서 연결된 앱 도구별로 승인 검토자를 지정할 수 있고, 앱 서버 클라이언트는 설정·로그인 시 Amazon Bedrock Runtime을 고를 수 있다. `codex exec resume`이 저장된 샌드박스 권한·작업 디렉터리를 복원하고, API 지출 한도에 걸리면 어느 한도인지 알려 준다.",
+    "써보기": "npm install -g @openai/codex@0.172.0",
+    "세부": {
+      "핵심 변경점": "스레드 링크로 저장 대화·중첩 에이전트 열기, 슬래시 명령 인자 Tab 완성(예: `/mcp lo` → `/mcp login`), 작업 그룹 Shift+Up/Down 이동, 선택적 stdio MCP 서버 첫 호출 시 시작, 앱 도구별 승인 검토자, 앱 서버 Amazon Bedrock Runtime 선택",
+      "제약·가격": "",
+      "호환·요구사항": "Code Mode가 모든 호스트 연결에 gRPC 사용, `code_mode_host_grpc` 설정은 폐기 예정. 번들 openai-docs 스킬에 GPT-6.2 Astra·Sol 이전 안내 추가"
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "GitHub MCP Server 2.3.0 — 보안 알림을 에이전트가 직접 처리",
+    "제공자": "GitHub",
+    "출처": "GitHub github/github-mcp-server",
+    "날짜": "2026-11-24",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (MCP 레지스트리 등재)",
+    "하이라이트": false,
+    "링크": "https://github.com/github/github-mcp-server/releases/tag/v2.3.0",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/github/github-mcp-server"
+      }
+    ],
+    "이미지": "https://opengraph.githubassets.com/be5b8446b45ca9d92a8ff838e6f36c323bc2876d3f69c02c218ded467af1ae90/github/github-mcp-server/releases/tag/v2.3.0",
+    "한줄정리": "GitHub 공식 MCP 서버 2.3.0이 Dependabot·코드 스캐닝·시크릿 스캐닝 알림을 해제·재오픈·담당자 지정할 수 있는 `update_*_alert` 도구 3종을 추가했다.",
+    "왜중요": "지금까지는 보안 알림을 조회만 했다면, 이제 에이전트가 알림을 dismiss/resolve하거나 담당자를 바꾸는 데까지 처리할 수 있다. README 설명상 담당자에 `copilot-swe-agent[bot]`을 넣으면 소유권 지정이 아니라 수정 작업 요청이 시작되며, 세 도구 모두 `security_events` OAuth 스코프가 필요하다. 실험적 PR 아티팩트 도구(`pull_request_artifacts` 기능 플래그)와 `list_global_security_advisories`의 Swift 생태계 지원도 들어갔다.",
+    "써보기": "claude mcp add github -e GITHUB_PERSONAL_ACCESS_TOKEN=$GITHUB_PAT -- docker run -i --rm -e GITHUB_PERSONAL_ACCESS_TOKEN ghcr.io/github/github-mcp-server",
+    "세부": {
+      "핵심 변경점": "update_dependabot_alert, update_code_scanning_alert(create_request로 위임 해제 요청 가능, 정책 우회 없음), update_secret_scanning_alert(커스텀 패턴 알림만 validity 수동 지정) 추가. 실험적 PR 아티팩트 list·upsert·delete 도구. 삭제에만 자동화 확인 유지·도구 스키마 강화. Gemini 플러그인 매니페스트 추가. thread_resolution_reason 기능 플래그 제거",
+      "제약·가격": "보안 알림 업데이트 도구는 security_events 스코프 필요. PR 아티팩트 도구는 기능 플래그 뒤에 있고 저장소 롤아웃은 GitHub API가 결정",
+      "호환·요구사항": "Docker 이미지 ghcr.io/github/github-mcp-server:2.3.0 또는 원격 서버 https://api.githubcopilot.com/mcp/"
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "Grafana MCP 2.4.0 — 노트북·X-Ray·Azure Monitor 도구와 사용자별 모드",
+    "제공자": "Grafana Labs",
+    "출처": "GitHub grafana/mcp-grafana",
+    "날짜": "2026-11-24",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (MCP 레지스트리 등재)",
+    "하이라이트": false,
+    "링크": "https://github.com/grafana/mcp-grafana/releases/tag/v2.4.0",
+    "관련링크": [
+      {
+        "라벨": "CHANGELOG",
+        "url": "https://github.com/grafana/mcp-grafana/blob/main/CHANGELOG.md"
+      }
+    ],
+    "이미지": "https://opengraph.githubassets.com/0db29005ddc47bab8bca5fee4b6644db82c708daa522cf50173c8af6961063be/grafana/mcp-grafana/releases/tag/v2.4.0",
+    "한줄정리": "Grafana 공식 MCP 서버 2.4.0이 Grafana 13.3 노트북 도구, AWS X-Ray·Azure Monitor 조회 도구, 공유 HTTP 서버용 사용자별 인증 모드와 YAML 도구 설정을 추가했다.",
+    "왜중요": "에이전트가 조사 노트북을 만들고 PDF로 내보내거나 X-Ray 트레이스·Log Analytics(KQL)를 직접 조회할 수 있게 됐다. `--require-user-credentials`로 팀이 함께 쓰는 서버에서도 각자의 Grafana 권한으로만 호출하게 할 수 있고, `--log-tool-calls`로 호출자·도구·결과를 한 줄씩 남긴다(인자는 기록하지 않음). `alerting_rules_read`·`query_cloudwatch` 출력 형태와 기본 `--grafana-timeout`(10s→30s)이 바뀌는 Breaking 변경이 있으니 출력을 직접 파싱하는 코드는 확인이 필요하다.",
+    "써보기": "uvx mcp-grafana\ndocker run --rm -i -e GRAFANA_URL=http://localhost:3000 -e GRAFANA_SERVICE_ACCOUNT_TOKEN=<your service account token> grafana/mcp-grafana -t stdio",
+    "세부": {
+      "핵심 변경점": "노트북 도구 7종(list/search/get/render_notebook_pdf/create/update/delete), xray·azuremonitor 옵트인 카테고리, render_grafana_app의 query_datasource 소스(MCP Apps 호스트에서 Grafana 렌더러로 차트, Ask in chat), 빈 Prometheus·Loki 결과의 원인 힌트(hints.reason), --config/GRAFANA_MCP_CONFIG YAML 도구 선택, --server-auth-header, --prometheus-enforced-matchers, --dashboard-schema=v2, 429 재시도. App HTML 4.9 MB→1.3 MB",
+      "제약·가격": "노트북 도구는 기본 비활성 — Grafana 13.3+ 퍼블릭 프리뷰, dashboard.notebooks 기능 토글과 notebooks:* 스코프 필요, --enabled-tools에 notebooks 추가. X-Ray는 AWS X-Ray 데이터소스 플러그인 필요",
+      "호환·요구사항": "Grafana 9.0 이상. Breaking: alerting_rules_read 목록이 {rules, truncated, next_cursor}로, query_cloudwatch는 항상 series 아래 반환, 기본 타임아웃 30s. Go 임베더는 tools.Resolve(...).Register(s) 사용"
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "Context7 MCP 4.8.0 — Skills over MCP로 스킬 제공, 버전 지정 입력",
+    "제공자": "Upstash",
+    "출처": "npm @upstash/context7-mcp",
+    "날짜": "2026-11-24",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm·MCP 레지스트리 등재)",
+    "하이라이트": false,
+    "링크": "https://www.npmjs.com/package/@upstash/context7-mcp/v/4.8.0",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/upstash/context7"
+      },
+      {
+        "라벨": "CHANGELOG",
+        "url": "https://github.com/upstash/context7/blob/master/packages/mcp/CHANGELOG.md"
+      }
+    ],
+    "한줄정리": "라이브러리 최신 문서를 코딩 에이전트에 주는 Context7 MCP 4.8.0이 context7-mcp 스킬을 MCP skills extension(SEP-2640)으로 제공하고, `query-docs`에 프로젝트가 쓰는 버전을 별도 `version` 입력으로 받는다.",
+    "왜중요": "베타 중인 Skills over MCP 확장을 주요 MCP 서버가 실제로 쓰는 사례로, 서버를 연결하면 언제 Context7을 부를지 알려주는 스킬이 함께 따라온다. 버전은 라이브러리 ID 접미사가 아니라 `version` 값으로 보내고 Context7이 그 버전이나 가장 가까운 버전을 돌려주며, `resolve-library-id`는 더 이상 버전 목록을 내지 않는다. 함께 나온 CLI `ctx7` 0.13.0은 `ctx7 docs --tag`, `ctx7 setup --vscode-insiders`를 추가했다.",
+    "써보기": "npx ctx7 setup\nclaude mcp add --scope user context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY",
+    "세부": {
+      "핵심 변경점": "context7-mcp 스킬을 MCP skills extension(SEP-2640)으로 제공. query-docs(MCP·pi)에 version 입력, ctx7 docs에 --tag(/v2/context에 version으로 전송). resolve-library-id 버전 목록 제거. ctx7 0.13.0: --vscode-insiders, 팀스페이스가 API 키를 거부하면 OAuth로 진행, 온프레미스 OAuth용 키 없는 MCP 항목 생성, 터미널 제어 문자 제거",
+      "제약·가격": "Skills over MCP는 MCP 확장 베타 — 클라이언트 지원에 따라 동작",
+      "호환·요구사항": "npm @upstash/context7-mcp 4.8.0, ctx7 0.13.0. 원격 서버 https://mcp.context7.com/mcp"
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "오픈소스",
+    "제목": "ComputeWise — 연구 에이전트의 GPU 낭비 측정과 `gpu-harness` 플러그인",
+    "제공자": "Salesforce AI Research",
+    "출처": "arXiv 2611.31027",
+    "날짜": "2026-11-24",
+    "날짜근거": "공개일",
+    "신호": "arXiv 2611.31027 · 코드·데이터 공개(GitHub SalesforceAIResearch/computewise, HF Salesforce/computewise)",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.31027",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/SalesforceAIResearch/computewise"
+      },
+      {
+        "라벨": "데이터셋",
+        "url": "https://huggingface.co/datasets/Salesforce/computewise"
+      }
+    ],
+    "한줄정리": "AI 연구 에이전트가 GPU를 얼마나 낭비하는지 재는 벤치마크와, 그 낭비를 줄이는 Claude Code·Codex용 플러그인 `gpu-harness`를 함께 공개한 논문이다.",
+    "왜중요": "도움 없이 에이전트는 GPU 시간의 52%만 답에 필요한 작업에 썼고 22%는 불필요한 작업, 26%는 유휴였으며, '더 빨리 끝내라'·'GPU를 계속 바쁘게 하라'는 지시나 잡 스케줄러로는 해결되지 않았다. 프롬프트와 결정적 코드를 섞은 하네스가 5개 모델에서 답까지의 추가 시간을 80% 넘게 줄였다고 보고한다. 스윕·어블레이션을 에이전트에게 맡기는 팀에 바로 쓸 만하지만, 단일 GPU 잡만 지원하고(torchrun·DDP·sbatch 미지원) 실제 GPU에서는 아직 시험되지 않았다고 README가 밝힌다.",
+    "써보기": "claude plugin marketplace add SalesforceAIResearch/computewise\nclaude plugin install gpu-harness@computewise\n# Codex\ncodex plugin marketplace add SalesforceAIResearch/computewise\ncodex plugin add gpu-harness@computewise",
+    "세부": {
+      "핵심 변경점": "시뮬레이션 GPU(기록된 잡 재생)로 실제 GPU 없이 수백 회 실험. 하네스는 답을 결정하는 잡을 먼저 시작하고, 잡이 끝나면 즉시 GPU를 다시 채우며, 규칙으로 탈락한 후보의 잡을 멈춘다. README 기준 Claude Haiku 5.5, Sonnet 5.5 and Opus 5.5에서 기준 대비 초과 시간 합계가 about 90% 감소, GPT-6 Astra는 63% 감소.",
+      "제약·가격": "하네스 실행 토큰 비용 Haiku $0.17 to $0.42, Sonnet $2.28 to $7.16, Opus $4.60 to $14.89(README). 다중 GPU 잡·다중 머신·sbatch 미지원. 실제 GPU 미검증(시뮬레이션·가상 GPU에서만 시험).",
+      "호환·요구사항": "Linux + NVIDIA GPU(데모는 가상 GPU로 macOS 가능), Python 3.9+, Claude Code(agent teams 설정 `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`) 또는 Codex(`multi_agent` 활성, `GPUH_HOME` 지정)."
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "에이전트 개입 요인 분석 — 스킬·하네스·예산 중 무엇이 어떤 실패를 고치나",
+    "제공자": "커뮤니티(USC·Amazon 연구진)",
+    "출처": "arXiv 2611.29290",
+    "날짜": "2026-11-24",
+    "날짜근거": "공개일",
+    "신호": "arXiv 2611.29290 · 코드·데이터 공개(GitHub Zihan-Zoe/same-skill-different-harness, HF 데이터셋)",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.29290",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/Zihan-Zoe/same-skill-different-harness"
+      },
+      {
+        "라벨": "데이터셋",
+        "url": "https://huggingface.co/datasets/Zihan-Zoe/same-skill-different-harness"
+      }
+    ],
+    "한줄정리": "모델·스킬·하네스·추론 예산을 한 축씩 바꿔 9개 벤치마크에서 약 0.9 million 궤적을 돌려, 각 개입이 어떤 실패를 고치는지 분석한 연구다.",
+    "왜중요": "어디서나 최선인 구성은 없고 개입 효과는 더해지지 않고 상호작용하며, 지식 부족은 더 강한 모델로, 실행 오류는 더 풍부한 하네스로 고쳐진다는 결론이다. 에이전트 자신의 경험에서 진화시킨 스킬은 짧은 사람 작성 스킬을 거의 이기지 못하고, 데이터셋 지름길을 배우거나 다른 모델로 옮기면 깨진다고 보고해 스킬 자동 생성에 기대는 팀에 참고가 된다. 20개 과제 라벨 파일럿으로 벤치마크 단위 모델을 고르면 항상 강한 모델을 쓰는 것보다 성능은 높고 비용은 낮았다.",
+    "써보기": "uv venv .venv --python python3.10\nuv pip install -e .\ncp .env.example .env\ncd skills/frozen && sha256sum -c SHA256SUMS",
+    "세부": {
+      "핵심 변경점": "8개 주 벤치마크+BigCodeBench-Hard, 4개 모델(Qwen3.5-9B, Claude Sonnet 4.6, Claude Sonnet 5, GPT-5.6-sol), 4개 스킬 조건(NoSkill, Direct, SkillOpt, Trace2Skill), 하네스 H0–H3, 3개 예산. 피드백은 복구가 아니며, 보이는 오류 신호가 남는 실패 위주로 복구된다.",
+      "제약·가격": "레포에는 벤치마크 원본·정답·모델 출력이 없고, 실행 결과와 근본원인 라벨은 HF 데이터셋에 있음. MIT 라이선스.",
+      "호환·요구사항": "Python 3.10(uv), Qwen3.5-9B는 vLLM 서빙, API 모델은 각자 키 필요."
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "오픈소스",
     "제목": "Strands Decider v2 — 선택지 확률만 내는 Gemma 4 기반 판단 모델",
     "제공자": "AWS (Strands Agents)",
     "출처": "Strands Agents 블로그",
@@ -63,6 +372,33 @@
       "호환·요구사항": "Claude Console Organization Admin 권한, Amazon S3 또는 Google Cloud Storage 버킷(AWS는 us-east-2 권장). 레거시 ZDR 조직은 새 워크스페이스로 EFS 사용"
     },
     "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "업데이트",
+    "제목": "Claude Opus 4.5 제공 종료 예고 — 2027-01-22 API에서 retire",
+    "제공자": "Anthropic",
+    "출처": "Claude Platform 릴리스 노트",
+    "날짜": "2026-11-23",
+    "날짜근거": "발표일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+    "관련링크": [
+      {
+        "라벨": "릴리스 노트",
+        "url": "https://platform.claude.com/docs/en/release-notes/overview"
+      }
+    ],
+    "한줄정리": "Anthropic이 Claude Opus 4.5(`claude-opus-4-5-20251101`, `claude-opus-4-5`)를 deprecated로 지정하고 Claude API에서 2027년 1월 22일 retire한다고 공지했다.",
+    "왜중요": "날짜 없는 별칭 `claude-opus-4-5`도 함께 종료되므로 이 ID를 하드코딩한 앱은 두 달 안에 옮겨야 한다. 권장 대체 모델은 `claude-opus-5-5`이며, Claude Opus 5.5 마이그레이션 가이드의 'Migrating from Claude Opus 4.5 or earlier'를 따르면 된다. Claude Code나 다른 클라우드 플랫폼의 종료일은 다를 수 있어 Model deprecations 페이지에서 따로 확인해야 한다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "상태 Deprecated(2026-11-23 공지), Retirement 2027-01-22. 대상 claude-opus-4-5-20251101 및 claude-opus-4-5",
+      "제약·가격": "",
+      "호환·요구사항": "권장 대체: claude-opus-5-5"
+    },
+    "수집일": "2026-11-25"
   },
   {
     "섹션": "모델·API",
@@ -158,6 +494,59 @@
       "호환·요구사항": "macOS 15+ Apple 실리콘, Linux ARM64·x86-64. 오픈소스(strands-agents/box, v0.3.0 태그 2026-11-23)."
     },
     "수집일": "2026-11-24"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Claude Code 2.1.331 — 클라우드 Code Mode·`claude doctor` API 점검",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/claude-code",
+    "날짜": "2026-11-23",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm @anthropic-ai/claude-code 11-23 18:36Z)",
+    "하이라이트": false,
+    "링크": "https://github.com/anthropics/claude-code/releases/tag/v2.1.331",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://code.claude.com/docs/en/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@anthropic-ai/claude-code"
+      }
+    ],
+    "한줄정리": "Amazon Bedrock·Google Cloud Agent Platform·Microsoft Foundry·Claude Platform on AWS의 터미널 세션에서도 Code Mode를 쓸 수 있게 하고, `claude doctor`에 API 연결 점검을 추가한 릴리스.",
+    "왜중요": "`claude doctor`가 API에 닿는지 HTTP 상태나 오류로 알려 줘 프록시·게이트웨이 환경의 문제를 빨리 가를 수 있다. 압축 응답을 끊는 프록시 뒤에서는 `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION`으로 비압축 응답을 요청할 수 있고, 플러그인 매니페스트에 따로 끄거나 지울 수 있는 `optionalDependencies`가 생겼다. `claude_code.llm_request` 트레이스 스팬에 `gen_ai.usage.*` 등 속성이 추가됐고, 로컬·WebSocket MCP 서버의 잘못된 응답에 도구 호출이 최대 30분 멈추던 문제 등이 수정됐다.",
+    "써보기": "npm install -g @anthropic-ai/claude-code\nclaude doctor",
+    "세부": {
+      "핵심 변경점": "서드파티 클라우드 터미널 세션 Code Mode, `claude doctor` API 연결 섹션, Claude apps gateway `oidc.groups_jsonpath`·`CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME=1`, 플러그인 `optionalDependencies`, `gen_ai.usage.*`·`gen_ai.response.model`·`gen_ai.operation.name` 스팬 속성, 탭 모드 음성 받아쓰기 자동 종료 알림",
+      "제약·가격": "`CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION`은 self-hosted runner·Remote Control에는 아직 권장되지 않음",
+      "호환·요구사항": "Claude Agent SDK TypeScript 0.3.331·Python 0.2.188이 이 버전에 맞춰 함께 배포"
+    },
+    "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "신규출시",
+    "제목": "Claude Ship — PR 리뷰·수정·승인까지 맡기는 Claude 에이전트",
+    "제공자": "Anthropic",
+    "출처": "Claude 블로그(claude.com)",
+    "날짜": "2026-11-23",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · HN 80pt",
+    "하이라이트": false,
+    "링크": "https://claude.com/resources/articles/introducing-claude-ship",
+    "관련링크": [],
+    "한줄정리": "이미 GA인 Code Review에 CI 실패·충돌·리뷰 피드백을 고치는 PR Steward와 저장소의 정책 파일대로 승인 여부를 정하는 Claude Approvals(둘 다 베타)를 묶어, PR을 리뷰부터 승인 결정까지 처리하는 Claude Ship이 나왔다.",
+    "왜중요": "개발자는 Claude Code에서 `/ship`을 실행하면 Claude가 변경을 푸시하고 PR을 연 뒤 리뷰하고 피드백·실패한 체크를 처리한다. PR Steward는 PR을 승인·머지하지 않고 푸시마다 무엇을 바꿨고 어떻게 되돌리는지 댓글로 남기며, `@claude`로 지시하거나 `@claude stop`으로 멈출 수 있다. Claude Team·Enterprise 플랜의 GitHub 저장소 대상이고 토큰 기준 과금이며, Zero Data Retention·HIPAA 구성·고객 관리 암호화 키를 쓰는 조직은 쓸 수 없다.",
+    "써보기": "/ship",
+    "세부": {
+      "핵심 변경점": "Code Review(GA, Quick·Standard·Deep 리뷰 수준) + PR Steward(베타) + Claude Approvals(베타, 저장소 기본 브랜치의 정책 파일로 동작, 관찰 전용 모드 권장). Claude Code·데스크톱 앱에 `/ship` 명령 순차 배포",
+      "제약·가격": "Team·Enterprise, GitHub 저장소만. 토큰 과금, Code Review·PR Steward 지출 한도 설정 가능, Claude Approvals 기본 요금 없음(정책 내 분류기·Claude 리뷰는 과금). `/ship` 실행은 일반 Claude Code 사용량. 적격 Enterprise 조직은 2027-01-15까지 최소 $10,000 크레딧 신청 가능",
+      "호환·요구사항": "ZDR·HIPAA 구성·CMEK 조직 불가. 기존 브랜치 보호·필수 체크와 함께 동작"
+    },
+    "수집일": "2026-11-25"
   },
   {
     "섹션": "스킬·MCP",
