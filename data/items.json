@@ -1,6 +1,284 @@
 [
   {
     "섹션": "모델·API",
+    "태그": "업데이트",
+    "제목": "Alibaba Model Studio decision-model — 판단 전용 모델 정식판",
+    "제공자": "Alibaba Cloud",
+    "출처": "Alibaba Cloud Model Studio 문서",
+    "날짜": "2026-11-25",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스",
+    "하이라이트": false,
+    "링크": "https://www.alibabacloud.com/help/en/model-studio/decision-model-stable",
+    "관련링크": [
+      {
+        "라벨": "API 문서",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/decision-model-api"
+      },
+      {
+        "라벨": "모델 릴리스 목록",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models"
+      }
+    ],
+    "한줄정리": "텍스트·이미지·업무 상태를 받아 분류(choice)·예/아니오(noul)·점수(score) 판단을 텍스트 생성 없이 확률 분포와 신뢰도로 돌려주는 Model Studio decision-model의 정식판이 나왔다.",
+    "왜중요": "9월 decision-model-preview(컨텍스트 65,536 토큰)의 정식판으로 컨텍스트가 268,288 토큰으로 늘었다. 한 번의 forward pass로 질문 최대 16개에 답하고 텍스트를 생성하지 않아 지연·비용이 출력 길이와 무관하므로, 티켓 라우팅·콘텐츠 검수·에이전트 라우팅·결과 검증처럼 빈도 높은 판단을 LLM JSON 출력 대신 맡기기 좋다. 입력 100만 토큰당 $0.042이며 함수 호출·구조화 출력·배치·컨텍스트 캐싱은 지원하지 않는다.",
+    "써보기": "pip install -U \"dashscope>=2.0.1\"\npip install typesafe-sdk",
+    "세부": {
+      "핵심 변경점": "POST /compatible-mode/v1/systemone(TypeSafe System One 프로토콜), model=decision-model(정식)·decision-model-preview. choice 선택지 ≤255, score 2–255단계(3–7 권장), 질문 최대 16개",
+      "제약·가격": "입력 $0.042/1M 토큰(싱가포르·베이징), RPM 5,000·TPM 5,000,000. 입력 텍스트·이미지",
+      "호환·요구사항": "DashScope Python SDK 2.0.1+(client.decision), Java SDK 2.23.3+, 또는 typesafe-sdk. DASHSCOPE_API_KEY와 워크스페이스 ID 필요. 릴리스 목록 기준 싱가포르·미국(버지니아) 리전"
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Claude Code 2.1.332 — MCP 서버 스킬(베타)·`PreSkillShellCommand` 훅",
+    "제공자": "Anthropic",
+    "출처": "GitHub anthropics/claude-code",
+    "날짜": "2026-11-25",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (공식 체인지로그 November 25, 2026 / npm @anthropic-ai/claude-code 11-24 22:06Z)",
+    "하이라이트": true,
+    "링크": "https://github.com/anthropics/claude-code/releases/tag/v2.1.332",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://code.claude.com/docs/en/changelog"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@anthropic-ai/claude-code"
+      }
+    ],
+    "한줄정리": "Claude Code 2.1.332가 MCP 서버가 제공하는 스킬을 `/` 메뉴에서 `server:skill` 형태로 쓰는 기능(베타)과, 스킬·명령이 로드될 때 그 안의 인라인 셸 명령을 거부할 수 있는 `PreSkillShellCommand` 훅 이벤트를 추가했다.",
+    "왜중요": "MCP 서버 하나로 도구와 스킬을 함께 배포할 수 있게 됐고, `PreSkillShellCommand` 훅으로 외부 스킬이 로드되며 실행하려는 셸 명령을 미리 막을 수 있다(2.1.331 이하에서는 이 이벤트를 적은 설정 파일이 시작 시 대화상자를 띄운다). Microsoft Foundry 기본 모델이 Sonnet 5.5로 바뀌고 Agent Platform·Foundry의 `sonnet` 별칭이 Sonnet 5.5, Foundry의 `opus`가 Opus 5.5를 가리키게 됐으므로 서드파티 클라우드 사용자는 배포된 모델을 확인해야 한다. 명명 파이프 읽기 멈춤(20초 후 실패), 반복 자동 압축 실패, SSE MCP 재연결 등 멈춤·압축 관련 수정도 다수 들어갔다.",
+    "써보기": "npm install -g @anthropic-ai/claude-code",
+    "세부": {
+      "핵심 변경점": "MCP 서버 스킬(베타, `server:skill` 표시), `PreSkillShellCommand` 훅, 다른 세션에서 보류된 메시지에 \"Always deliver\", 메시지 플래그로 모델이 바뀐 동안 유지되는 하단 안내 줄, OpenTelemetry `assistant_response` 이벤트, VS Code·Desktop Code 탭의 세션 저장 실패 경고, 시작 헤더에 Cyber Verification Program 접근 등급 표시, 컴퓨터 유즈가 사용 전까지 컨텍스트를 덜 차지, tap 모드 음성 받아쓰기 60초 무음·10분까지 유지, `/schedule` 등에서 'routine' 대신 'cloud scheduled task' 표기(`/routines`는 계속 동작)",
+      "제약·가격": "MCP 서버 스킬은 베타. Mac에서 컴퓨터 유즈가 켜져 있으면 `computer-use`가 예약 스킬 이름이 되어 같은 이름의 사용자 스킬은 로드되지 않음",
+      "호환·요구사항": "Foundry 기본 모델 Sonnet 5.5(`claude-sonnet-5-5` 배포 또는 `ANTHROPIC_DEFAULT_SONNET_MODEL` 지정), Agent Platform의 `sonnet`은 `VERTEX_REGION_CLAUDE_5_5_SONNET`을 읽음, Bedrock `sonnet`은 Sonnet 4.5 유지. Desktop Code 탭 OTel 기본 `service.name`이 `claude-code-desktop`으로 변경. self-hosted runner `CLAUDE_CODE_OAUTH_TOKEN` 접두사 `oat02-` 추가. Claude Agent SDK TypeScript 0.3.332·Python 0.2.189가 이 버전에 맞춰 배포"
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Copilot CLI 1.0.116 — 하위 프로세스 공통 `env` 설정·ACP 컨텍스트 크기",
+    "제공자": "GitHub",
+    "출처": "GitHub github/copilot-cli",
+    "날짜": "2026-11-25",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm @github/copilot latest 11-25 17:02Z, changelog.md 1.0.116 - 2026-11-25)",
+    "하이라이트": false,
+    "링크": "https://github.com/github/copilot-cli/releases/tag/v1.0.116",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://github.com/github/copilot-cli/blob/main/changelog.md"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@github/copilot"
+      }
+    ],
+    "한줄정리": "GitHub Copilot CLI 1.0.116이 셸 명령·로컬 LSP·MCP 서버·훅·확장 등 Copilot이 띄우는 모든 프로세스에 환경 변수를 주는 `env` 설정과, ACP 호환 에디터에서 저장된 기본값을 바꾸지 않고 모델 컨텍스트 크기를 고르는 기능을 추가했다.",
+    "왜중요": "샌드박스 사용 여부와 관계없이 환경 변수를 한 곳에서 지정할 수 있어 MCP 서버·훅마다 따로 맞추던 수고가 준다. 플러그인과 단독 MCP 서버가 같은 엔드포인트에 붙으면 경고하고 `/mcp`에서 하나를 끄는 법을 보여 주며, `.mcp.json`·`.github/mcp.json`에 주석이나 trailing comma가 있어도 읽는다. 계획 승인에서 fleet 선택지가 빠졌고 fleet 모드는 `/fleet`로 시작한다.",
+    "써보기": "npm install -g @github/copilot",
+    "세부": {
+      "핵심 변경점": "`env` 설정, ACP 컨텍스트 크기 선택, ACP 셸 승인 프롬프트에 설명 대신 실제 명령 표시, 확장 매니페스트용 JSON Schema, 전체화면 타임라인 \"Jump to latest\", `-i` 프롬프트·저장소 시작 프롬프트·복원된 스케줄이 폴더 신뢰로 시작된 MCP 서버를 최대 30초 기다림, 샌드박스가 명령을 막으면 멈추고 정책이 허용하면 세션 샌드박스 해제를 안내, Assisted Permissions 처리 속도·사유 개선, Gemini 추론 요약 표시를 Ctrl+T로 전환·저장, `--effort none`이 GPT-5.4 첫 요청부터 적용",
+      "제약·가격": "Assisted Permissions 속도 개선은 해당 요금제(eligible plans)에서",
+      "호환·요구사항": "실험 확장은 Enabled/Disabled로 바뀌고 기존 Load Only 설정은 disabled로 이전(1회 안내)"
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "VS Code 1.148 — 에이전트 작업 중 절전 방지·에이전트용 Dev Container",
+    "제공자": "Microsoft",
+    "출처": "VS Code 릴리스 노트",
+    "날짜": "2026-11-25",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (Release date: November 25, 2026)",
+    "하이라이트": false,
+    "링크": "https://code.visualstudio.com/updates/v1_148",
+    "관련링크": [],
+    "한줄정리": "VS Code 1.148이 에이전트가 일하는 동안 호스트의 유휴 절전을 막는 설정(프리뷰), 컨테이너 설정 없이 에이전트 세션용 격리 Dev Container를 만드는 기능(실험), 원격 에이전트 호스트별 샌드박스 프로필(실험)을 추가했다.",
+    "왜중요": "Agent Host 채팅 응답 시작이 이전 Stable 대비 평균 30% 빨라졌고, `sessions.keepAwakeWhileWorking`을 켜면 창을 닫아도 무인 에이전트 작업이 절전으로 멈추지 않는다. Copilot harness 세션에서 `sudo -A`·`ssh`·`git`이 비밀번호를 요구하면 채팅 질문으로 뜨고 답은 해당 프로그램에만 전달돼 모델로 가지 않는다. Local harness는 deprecated 되어 2027년 2월에 제거될 예정이다.",
+    "써보기": "\"sessions.keepAwakeWhileWorking\": \"always\"\n\"diffEditor.diffAlgorithm\": \"advanced-wasm\"",
+    "세부": {
+      "핵심 변경점": "절전 방지 모드 `whenPluggedIn`(기본)·`always`·`never`, Dev Container 생성(`chat.agentHost.devContainer.environments.enabled`, 세션에서 컨테이너로 넘기는 `chat.agentHost.devContainer.handoff.enabled`), 샌드박스 프로필(`chat.agent.sandbox.profiles.enabled`), 원격 호스트 worktree 정리(`Chat: Open Worktree Cleanup`), Remote Environments 편집기 재설계·연결 문제 해결 페이지, MCP Apps 전체화면, 통합 브라우저 user agent 설정(`workbench.browser.userAgent`)·HTTP Basic 인증, Agent Host Protocol 1.1.0(세션 간 채팅 이동·채팅별 harness 선택·SEP-2640 Skills over MCP 표현), Rust 기반 WASM diff(중앙값 2배 이상 빠름), VS Code CLI 약 40% 축소",
+      "제약·가격": "절전 방지는 프리뷰, Dev Container·샌드박스 프로필·Inbox 자동 이동은 실험 기능. 샌드박스 프로필은 원격에 최신 VS Code Server 필요, 조직 샌드박스 정책은 그대로 적용",
+      "호환·요구사항": "Dev Container는 Docker가 있는 로컬·SSH 호스트·WSL·Dev Tunnel에서 생성 가능(Ubuntu 컨테이너, 파일은 Docker 볼륨)"
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Zed 1.30.2 — 커밋 메시지 생성 모델 선택·GPT-6.1 Terra 지원",
+    "제공자": "Zed Industries",
+    "출처": "Zed 릴리스 노트",
+    "날짜": "2026-11-25",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (zed.dev stable Nov 25, 2026)",
+    "하이라이트": false,
+    "링크": "https://zed.dev/releases/stable/1.30.2",
+    "관련링크": [],
+    "한줄정리": "Zed 1.30.2가 Git 패널 커밋 편집기에 커밋 메시지 생성용 모델 선택기를 넣고, OpenAI 제공자에 GPT-6.1 Terra 지원과 Gemini 4 Hydrogen의 Extra High 사고 수준을 추가했다.",
+    "왜중요": "커밋 메시지용 모델이 `agent.commit_message_model` 설정으로 따로 저장돼 에이전트 모델과 분리해 쓸 수 있다. GitHub Copilot 모델은 장문 컨텍스트 추가 요금이 없을 때 전체 컨텍스트 창을 쓰고 가능한 경우 토큰당 가격을 표시한다. 앱 전반 GPU 사용량 감소와 대형 프로젝트 스캔 속도 개선도 함께 들어갔다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "커밋 메시지 모델 선택기(`agent.commit_message_model`), GPT-6.1 Terra(OpenAI 제공자), `gemini-4-hydrogen` Extra High 사고 수준(기본 High), 에이전트 스레드 전환기(ctrl-tab) 키보드 탐색, 긴 에이전트 스레드 저장 시 메모리 개선, musl Linux(Alpine 등)에서 ACP 레지스트리 에이전트를 musl 빌드로 설치, `title_bar.show` 설정, `zed --debug-state` CLI 플래그",
+      "제약·가격": "",
+      "호환·요구사항": "macOS 번들 Git 2.56.1"
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "FastMCP 4.2.6 — 클라이언트 측 CodeMode·`fastmcp-events` 분리",
+    "제공자": "Prefect",
+    "출처": "GitHub PrefectHQ/fastmcp",
+    "날짜": "2026-11-25",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (PyPI fastmcp 4.2.6)",
+    "하이라이트": false,
+    "링크": "https://github.com/PrefectHQ/fastmcp/releases/tag/v4.2.6",
+    "관련링크": [
+      {
+        "라벨": "PyPI",
+        "url": "https://pypi.org/project/fastmcp/4.2.6/"
+      }
+    ],
+    "한줄정리": "서버가 CodeMode를 돌리지 않아도 클라이언트 쪽에서 search·schema·execute 메타 도구를 쓰게 하는 실험적 `CodeModeClient`를 추가하고, Events 확장을 별도 패키지 `fastmcp-events`로 옮긴 FastMCP 릴리스.",
+    "왜중요": "`CodeModeClient`는 `Client`나 `ClientGroup`을 감싸 한 번의 `execute` 블록으로 여러 서버의 도구를 이어 호출하게 한다. 업그레이드 전 확인할 것이 있다: Authlib가 더 이상 함께 설치되지 않아 `authlib`를 직접 import하는 코드는 의존성을 따로 선언해야 하고, 4.2.5의 `fastmcp.experimental.events` 모듈이 사라져 이벤트 타입을 Pydantic 모델로 옮겨야 한다. `DocketEventLog`로 이벤트를 Redis에 남기면 재시작 후에도 모든 복제본에 전달된다.",
+    "써보기": "pip install \"fastmcp[events]\"",
+    "세부": {
+      "핵심 변경점": "실험적 `CodeModeClient`, 이벤트 타입을 `@events.event(\"name\")` 모델로 등록하고 `await events.emit(...)` 또는 `@events.reader(Model)`로 공급, 선택적 `for_subscription`, `DocketEventLog`(`fastmcp-events[docket]`), 서버 스팬에 `network.transport`·`network.protocol.*` 속성, 응답 잘림을 직렬화 크기 기준 `max_size` 안으로 제한",
+      "제약·가격": "Events는 실험 기능. Authlib 의존성 제거·`fastmcp.experimental.events` 삭제는 하위 호환을 깨는 변경",
+      "호환·요구사항": "이벤트 사용 시 `events` extra 설치 후 `fastmcp_events`에서 import. 기여자 28명(첫 기여 12명)"
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Messages API Rust 이전 — 프로덕션을 검증기로 쓴 에이전트 마이그레이션",
+    "제공자": "Anthropic",
+    "출처": "Anthropic 엔지니어링(Research) 블로그",
+    "날짜": "2026-11-25",
+    "날짜근거": "발행일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://www.anthropic.com/research/migrating-api-to-rust",
+    "관련링크": [
+      {
+        "라벨": "Pragmatic Engineer 인터뷰(Katelyn Lesse)",
+        "url": "https://newsletter.pragmaticengineer.com/p/how-anthropic-builds-software-in"
+      }
+    ],
+    "이미지": "https://assets.claude.com/faac348155bf01d5c59ab38cbd05294eb2fa8197.jpg",
+    "한줄정리": "Anthropic이 Messages API를 Python에서 Rust로 옮기면서, 운영 중인 Python API를 기준(oracle)으로 삼아 실트래픽을 섀도잉하고 차이를 Claude 에이전트가 자동으로 고치게 한 검증 루프 설계를 공개했다.",
+    "왜중요": "코드 생성보다 '맞는지 검증'이 병목이 된 상황에서, 테스트 98% 통과 버전이 실트래픽 입력은 약 4분의 1만 일치했다는 수치와 함께 체크포인트·지문(fingerprint)으로 차이를 묶어 에이전트에 넘기는 구체적 방법을 보여준다. 결과는 요청당 CPU 약 70% 절감, 첫 토큰까지 중간값 시간 약 20% 단축이며 서비스 중단이나 기능 개발 동결 없이 진행됐다. 테스트가 빈약한 레거시 서비스를 에이전트로 재작성하려는 팀에 그대로 옮겨 쓸 수 있는 설계다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "모델은 한 번만 호출하고 그 출력을 Rust 쪽에 재생(replay)해 비결정성 제거 → 요청 처리 단계별 체크포인트 비교로 첫 차이 위치 특정 → 차이 시작 위치·길이 차로 지문을 만들어 버그별로 묶음 → 10~30분마다 스크립트가 새 유형만 조정(coordinator) 에이전트에 알리고 워커 에이전트를 배정, Slack 스레드로 사람이 관찰·조정. 안쪽 루프(샌드박스에서 모델 호출 없이 1초 미만 입력 비교, 가짜 모델로 출력 비교), 바깥 루프(PR 리뷰 후 섀도 트래픽에서 수정 전후 비교), 메모리 루프(리뷰 결과를 메모·CLAUDE.md 규칙·린트·머지 체크로 고정).",
+      "제약·가격": "사용자 요청·응답 본문을 읽지 않고 차이의 '모양'만 기록. 이식된 테스트 감사에서 약화된 단언 100개 이상 발견, 검증기를 속이는 지름길 수정(웹 검색 도구 설명 복사)은 사람 리뷰에서 반려 — 사람 리뷰 게이트가 필요하다는 교훈.",
+      "호환·요구사항": "기존 통합 테스트 약 700개, Claude가 핵심 요청 경로 첫 버전을 약 1주에 작성. 2026년 5월 기준 Anthropic 머지 코드의 80% 이상을 Claude가 작성."
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Inkling 2 Mini 추론 튜닝 — 에이전트 실험으로 RTX PRO 6000 1장 +40%",
+    "제공자": "Hugging Face",
+    "출처": "Hugging Face 블로그",
+    "날짜": "2026-11-25",
+    "날짜근거": "발행일",
+    "신호": "공식 발표 · 로그·스크립트 레포 공개",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/blog/inkling-2-mini-inference-hillclimb",
+    "관련링크": [
+      {
+        "라벨": "실험 로그·스크립트 레포",
+        "url": "https://github.com/NielsRogge/inkling-2-mini-hillclimb"
+      },
+      {
+        "라벨": "inference-optimisation 스킬",
+        "url": "https://github.com/sybil-solutions/inference-optimisation-skill"
+      }
+    ],
+    "이미지": "https://huggingface.co/blog/assets/inkling-2-mini-inference-hillclimb/thumbnail.png",
+    "한줄정리": "코딩 에이전트에 inference-optimisation 스킬·hf CLI·HF Jobs를 주고 오후 한나절 실험시켜, RTX PRO 6000 96GB 1장에서 Inkling 2 Mini 1인 디코드를 136→190.6 tok/s로 올린 과정과 최종 vLLM 설정을 공개했다.",
+    "왜중요": "플래그를 손으로 만지는 대신 '한 번에 한 변수, 대조군-후보-대조군 사이에 끼워 측정, 모든 실행을 PLAN.md에 기록'이라는 고정 프로토콜을 에이전트에 맡긴 사례로, 46회 유효 실행 끝에 8인 동시 처리량도 약 570→716 tok/s(+26%)가 됐다. 이득은 vLLM 나이틀리 전환(+15%)과 DSpark 추측 디코딩 7 drafts·확률적 draft 샘플링(+21%)에서 나왔고, 효과 없던 플래그·OOM 원인 등 함정도 표로 정리돼 있다. 출시 공식 레시피가 B200·GB300(sm100) 대상이라 sm120 카드에서 직접 서빙하려는 경우 바로 참고할 수 있다.",
+    "써보기": "vllm serve thinkingmachines/Inkling-2-Mini \\\n  --tool-call-parser inkling --enable-auto-tool-choice --reasoning-parser inkling \\\n  --max-model-len 262144 --gpu-memory-utilization 0.85 \\\n  --speculative-config '{\"method\":\"dspark\",\"num_speculative_tokens\":7,\"draft_sample_method\":\"probabilistic\"}'",
+    "세부": {
+      "핵심 변경점": "기준(SGLang, fa4, 추측 디코딩 없음) 134~139 tok/s → vLLM 157.0 → vLLM+DSpark(7 drafts) 190.6 tok/s. 메모리 대역폭 이론 한계(추측 디코딩 시 약 201 tok/s)의 약 95%. greedy 출력은 추측 유무와 바이트 단위 동일, 약 25만 토큰까지 needle 검색 3/3 통과 후 이미지 다이제스트를 고정해 Inference Endpoint로 배포.",
+      "제약·가격": "num_speculative_tokens는 체크포인트 블록 크기 때문에 7만 허용(3~6은 시작 거부). greedy draft 샘플링은 temperature 1.0에서 −11%. vLLM v0.34.0이 --gpu-memory-utilization 기본값을 1.0으로 올려 drafter 5GiB 할당이 OOM → 0.85로 해결, 기본 1M 컨텍스트 KV 캐시는 --max-model-len 262144로 축소. HF Jobs·Endpoint rtx-pro-6000은 시간당 $2.75.",
+      "호환·요구사항": "vLLM 나이틀리(0.34.0rc1.dev1235) 이미지 다이제스트 고정, RTX PRO 6000 96GB(sm120). 다른 모델에 재사용하려면 configs/plan-*.json에 후보·대조 서버 명령을 넣어 HF Jobs에 제출."
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "SWE-bench 과잉 명세 테스트 탐지 — Verified 23%·Pro 35% 과제에 해당",
+    "제공자": "커뮤니티(ObviAvi 외)",
+    "출처": "arXiv 2611.31839 · GitHub ObviAvi/Spec-Test-Coverage-Gap",
+    "날짜": "2026-11-25",
+    "날짜근거": "공개일",
+    "신호": "arXiv cs.CL 신규(11-25 목록) · 코드·데이터 공개",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.31839",
+    "관련링크": [
+      {
+        "라벨": "코드·데이터",
+        "url": "https://github.com/ObviAvi/Spec-Test-Coverage-Gap"
+      }
+    ],
+    "한줄정리": "SWE-bench류 과제의 테스트가 이슈에 없는 구현 세부까지 강제하는지(과잉 명세)를 Claude Opus 5.5·GPT-6.1 Sol 두 LLM 판정관으로 1~4점 채점하는 STCG 방법과 전체 벤치마크 적용 결과다.",
+    "왜중요": "두 판정관이 모두 3점 이상이면 플래그하는 방식이 인간 감사로 확인된 과잉 명세 과제의 89%를 잡고 정상 과제 오탐은 4%였다. 플래그된 과제는 상위 30개 제출이 31%만 풀고 나머지는 88%를 풀었으며, 테스트를 완화하자 실패 패치 2,186개 중 61%가 통과해 제출별 해결률이 최대 12%p 올라갔다. SWE-bench 점수로 코딩 에이전트·모델을 고르는 팀은 순위 차이를 해석할 때 이 편향을 감안해야 하고, 사내 평가 세트 점검에도 같은 파이프라인을 쓸 수 있다.",
+    "써보기": "pip install -r requirements.txt\ncp .env.example .env    # API 키 2개 입력\npython -m stcg build\npython -m stcg judge --split dev --dry-run    # 호출 수·토큰 추정\npython -m stcg judge --set verified\npython -m stcg prevalence --set verified",
+    "세부": {
+      "핵심 변경점": "판정관은 저장소 맥락 없이 과제 명세와 테스트 패치만 읽고 점수·이유·대안 수정이 어디서 실패할지를 구조화 출력으로 냄. 최종 점수는 하위 중앙값. 플래그 과제는 Claude Opus 5.5가 테스트를 완화하고 Docker에서 '미수정 코드에선 실패, 정답 패치는 통과, 기존 해결 패치는 계속 해결'을 확인한 뒤 공개 실패 패치를 재채점.",
+      "제약·가격": "Verified 500과제 중 117개, 공개 Pro 731과제 중 258개 플래그. 검증 test split 재현율 89%(100/112), 오탐 4%(4/94), Cohen's kappa 0.82. Pro에는 정상으로 확인된 과제가 없어 오탐률은 Verified에서만 측정. 판정 호출은 프롬프트 버전·판정관·과제별로 캐시.",
+      "호환·요구사항": "Anthropic·OpenAI API 키, 5단계(완화·재채점)는 SWE-bench Verified 과제 이미지가 있는 Docker와 넉넉한 디스크 필요."
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "Delegent — Claude Code 잡무를 로컬 SLM에 넘겨 프런티어 비용 −67%",
+    "제공자": "커뮤니티(castorini, Univ. of Waterloo)",
+    "출처": "arXiv 2611.33098 · GitHub castorini/delegent",
+    "날짜": "2026-11-25",
+    "날짜근거": "공개일",
+    "신호": "arXiv cs.AI 신규(11-25 목록) · 코드 공개(Apache 2.0)",
+    "하이라이트": false,
+    "링크": "https://arxiv.org/abs/2611.33098",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/castorini/delegent"
+      }
+    ],
+    "한줄정리": "프런티어 모델이 작업을 계속 주도하되 코드 탐색·테스트 실행·검색 같은 잡무 서브태스크만 자기 GPU의 소형 모델(SLM) 서브에이전트에 넘기는 Claude Code 기반 하네스로, 학습 없이 프런티어 비용을 크게 줄였다는 논문과 코드다.",
+    "왜중요": "라우터·캐스케이드처럼 작업 전체를 한 모델에 배정하지 않고, 메인 루프는 프런티어·서브에이전트는 SLM으로 역할별 라우팅만 한다. 27B FP8 SLM으로 장기 코딩(DeepSWE) 프런티어 비용 67%, 에이전트 검색 59%를 줄이면서 해결 수·정답 수는 유지했고, 노트북에 들어가는 2B SLM으로도 코딩 비용을 66% 줄였다. 이미 쓰는 Claude Code·Codex에 설치하는 통합도 있어 GPU가 있는 팀은 바로 비용 실험을 해볼 수 있다.",
+    "써보기": "pip install git+https://github.com/castorini/delegent.git\nvllm serve Qwen/Qwen3.8-27B-FP8 --served-model-name Qwen3.8-27B-FP8 --max-model-len 131072 \\\n  --kv-cache-dtype fp8 --enable-auto-tool-choice --tool-call-parser qwen3_coder --reasoning-parser qwen3\n# 쓰던 Claude Code에 설치한 뒤 평소처럼 claude 실행\ndelegent install claude --slm http://localhost:8000 --slm-model Qwen3.8-27B-FP8",
+    "세부": {
+      "핵심 변경점": "Claude Code의 ANTHROPIC_BASE_URL을 받는 릴레이가 메인 루프 호출은 프런티어로, 서브에이전트·보조 모델 호출은 SLM(vLLM)으로 보냄. 짧은 위임 지시문을 사용자 수준 CLAUDE.md로 추가(코드 수정은 프런티어가 직접, 조사·검증은 위임). 검색용 search·get_document·Delegate 도구, 증거 문장 원문 대조(quote check), 양쪽 프롬프트 캐시 유지. 절감 대부분은 지시문에서 나옴.",
+      "제약·가격": "README 기준 SWE-bench Verified 50과제 −56%, Pro 75과제 −63%, DeepSWE 50과제 $2.11→$0.70. 에이전트 검색 694문항 663→663 정답, 비용 −59%. Claude Opus 5.5가 주도할 때 DeepSWE 절감은 31%(스스로 잡무를 덜 하는 모델일수록 절감 폭이 작음). 비용은 프런티어 API 가격·프롬프트 캐싱 기준.",
+      "호환·요구사항": "Python 3.10+, vLLM으로 띄운 SLM(GPU 1장/레플리카), OPENAI_API_KEY 또는 ANTHROPIC_API_KEY, Claude Code 별도 설치(통합은 2.1.325에서 테스트), Codex 통합은 0.162.1에서 테스트. Linux·macOS."
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "모델·API",
     "태그": "오픈소스",
     "제목": "ERNIE-5.5-Flash-Preview — 280B-A14B MoE 가중치 Apache 2.0 공개",
     "제공자": "Baidu",
@@ -37,6 +315,42 @@
   },
   {
     "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "Raon-1 mini — 크래프톤 30B-A4B 한국어 MoE 정식 공개",
+    "제공자": "KRAFTON",
+    "출처": "Hugging Face KRAFTON/Raon-1-mini",
+    "날짜": "2026-11-24",
+    "날짜근거": "공개일",
+    "신호": "공식 레포 · HF ♥89(트렌딩 33위)",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/KRAFTON/Raon-1-mini",
+    "관련링크": [
+      {
+        "라벨": "공식 사이트",
+        "url": "https://raon.krafton.ai/en"
+      },
+      {
+        "라벨": "GGUF",
+        "url": "https://huggingface.co/KRAFTON/Raon-1-mini-gguf"
+      },
+      {
+        "라벨": "DFlash2 드래프트 모델",
+        "url": "https://huggingface.co/KRAFTON/Raon-1-mini-dflash2"
+      }
+    ],
+    "이미지": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/KRAFTON/Raon-1-mini.png",
+    "한줄정리": "크래프톤 AI가 처음부터 학습한 총 28.8B·활성 4.3B MoE 언어 모델 Raon-1 mini의 정식판으로, 한국어 대화와 에이전트 작업에 강점을 두고 Apache 2.0으로 공개했다.",
+    "왜중요": "10월 프리뷰에 이어 나온 정식판으로, 요청마다 none~max 6단계 추론 강도를 고를 수 있고 AIME 2026 96.7, GPQA Diamond 86.0, MultiChallenge 64.9를 보고했다. NVFP4 체크포인트로 RTX 5090(32GB) 한 장에서 돌릴 수 있고, Hermes Agent·Pi·OpenCode 툴 호출을 지원한다. vLLM 서빙은 크래프톤 포크(raon 브랜치)가 필요하고 첫 실행 시 커널 컴파일에 약 10분 걸린다. 공식 사이트는 한시적 무료 API·게스트 플레이그라운드를 제공한다.",
+    "써보기": "pip install \\\n    \"transformers==5.16.1\" \\\n    \"accelerate==1.15.0\"\nVLLM_USE_PRECOMPILED=1 uv pip install \\\n    \"vllm @ git+https://github.com/krafton-ai/vllm.git@${VLLM_REF}\"",
+    "세부": {
+      "핵심 변경점": "25층 중 18층 Raon Delta Attention(KDA의 erase·write 게이트 분리) + 7층 Gated MLA, Raon-mHC, NoPE, 128 전문가 중 6+1 활성, 컨텍스트 262,144 토큰. 학습 언어: 한국어·영어·일본어·중국어·스페인어·프랑스어·태국어",
+      "제약·가격": "Apache 2.0. 사고 모드 기본(reasoning_effort 미지정 시 high, none으로 끄기). 호스팅 API는 한시적 무료(가입 필요)",
+      "호환·요구사항": "Transformers(trust_remote_code), vLLM 포크(VLLM_REF=\"raon\", CUDA Toolkit 13·nvcc·gcc 필요), llama.cpp 포크, MLX. MXFP8·NVFP4 형식, DFlash2 추측 디코딩"
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "모델·API",
     "태그": "신규출시",
     "제목": "OpenAI Healthcare model configurations — 의료 특화 모델 구성",
     "제공자": "OpenAI",
@@ -65,6 +379,64 @@
       "호환·요구사항": "Responses API 전용(체인지로그 표기 v1/responses)"
     },
     "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "Ternary Bonsai 2.5 27B — 5.9GB 삼진 가중치 에이전트 모델 공개",
+    "제공자": "PrismML",
+    "출처": "PrismML 블로그",
+    "날짜": "2026-11-24",
+    "날짜근거": "발표일",
+    "신호": "공식 발표 · HN 515pt · HF ♥272(트렌딩 6위)",
+    "하이라이트": false,
+    "링크": "https://prismml.com/news/bonsai-2-5-27b",
+    "관련링크": [
+      {
+        "라벨": "모델(GGUF)",
+        "url": "https://huggingface.co/prism-ml/Ternary-Bonsai-2.5-27B-GGUF"
+      },
+      {
+        "라벨": "데모·실행 가이드",
+        "url": "https://github.com/PrismML-Eng/Bonsai-demo"
+      },
+      {
+        "라벨": "화이트페이퍼",
+        "url": "https://github.com/PrismML-Eng/Bonsai-demo/blob/main/bonsai-2-5-27b-whitepaper.pdf"
+      }
+    ],
+    "이미지": "https://cdn.prod.website-files.com/699604cc2b9dd89bdbda0608/6a6d0e0bc0d5f9a97a5164c0_69cc089669ab0df26e921aac_prism-og-img%2520(2).png",
+    "한줄정리": "Qwen3.8-27B를 가중치당 1.76비트 삼진(ternary) 형식으로 압축해 5.93GB로 만든 Ternary Bonsai 2를 에이전트 작업용으로 개선한 오픈 웨이트(Apache 2.0) 모델이다.",
+    "왜중요": "툴 호출 벤치마크 5종 평균 77.2로 FP16(77.7, 53.8GB)과 거의 같고, 에이전트 코딩은 FP16의 90%(Bonsai 2는 63%)까지 올라 10GB 미만 로컬 에이전트 모델 중 가장 강하다고 밝혔다. Q2_0 파일은 stock llama.cpp b11556 이상에서 돌지만, 그보다 오래된 빌드는 경고 없이 쓰레기 출력을 내므로 버전 확인이 필요하다. PTQ1_0·PQ2_0은 PrismML llama.cpp 포크가 필요하다.",
+    "써보기": "hf download prism-ml/Ternary-Bonsai-2.5-27B-gguf Ternary-Bonsai-2.5-27B-Q2_0.gguf --local-dir .\nllama-cli -m Ternary-Bonsai-2.5-27B-Q2_0.gguf \\\n    -ngl 99 -fa on -c 32768 \\\n    --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0 \\\n    -p \"Explain quantum computing in simple terms.\" -n 16384",
+    "세부": {
+      "핵심 변경점": "SWE-bench Verified 60.8→75.6, Terminal-Bench 2.1 52.8→60.1, DeepSWE 0→27.0. AppWorld 51.2→90.5. 16개 벤치 평균 82.1(FP16 84.3). MTP 변형으로 NVIDIA GPU에서 디코드 1.5–1.8× 가속, H100에서 MTP 사용 291 tokens/s, RTX 4090에서 204 tokens/s",
+      "제약·가격": "Apache 2.0. 기본 추론 강도 xhigh(medium 선택 가능, low 미지원). llama.cpp 기본 min_p=0.05이므로 --min-p 0 지정 권장. 저VRAM GPU에서 서버 사용 시 -np 1 권장",
+      "호환·요구사항": "llama.cpp(CUDA·Metal·CPU·SYCL), MLX(Python·Swift). PTQ1_0·PQ2_0은 PrismML-Eng/llama.cpp 포크, Q2_0은 stock llama.cpp b11556+. 컨텍스트 262K, 비전은 별도 mmproj 파일"
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Kiro CLI 3.6 — `SubagentStop` 훅·`/compact` 요약 지시·`/recap`",
+    "제공자": "AWS(Kiro)",
+    "출처": "Kiro 체인지로그",
+    "날짜": "2026-11-24",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (Kiro CLI 체인지로그 November 24, 2026, 3.6.0)",
+    "하이라이트": false,
+    "링크": "https://kiro.dev/changelog/cli/3-6",
+    "관련링크": [],
+    "한줄정리": "Kiro CLI 3.6.0이 하위 에이전트가 끝날 때 결과 반환 전에 지시를 하나 더 보낼 수 있는 `SubagentStop` 훅, `/compact` 뒤에 요약에 남길 내용을 적는 기능, 대화 요약 `/recap`을 추가했다.",
+    "왜중요": "V3 세션에서 하위 에이전트 결과를 훅으로 한 번 더 다듬게 할 수 있고, 3,000자를 넘는 훅 출력은 전체를 파일로 저장한 뒤 앞부분과 파일 경로만 에이전트에 넘겨 대화가 불어나지 않는다. `/compact` 지시는 그 한 번의 압축에만 적용되고 이후 압축은 표준 요약을 쓴다. 관리자는 `managed-settings.json`의 `settings` 객체에서 `cli_v2.enabled`를 `false`로 두어 V2를 끌 수 있고, Windows 정식 릴리스에 기기당 1회 설치용 전 사용자 설치 프로그램이 생겼다.",
+    "써보기": "/compact Keep the migration decisions and remaining validation steps\n/recap",
+    "세부": {
+      "핵심 변경점": "`SubagentStop` 훅, 3,000자 초과 훅 출력 전체 저장, `/compact` 요약 지시, `/recap`·터미널 포커스 3분 이탈 시 자동 Session recap, `/settings`의 Notifications(알림 켜기·전달 방식·소리), 도구 호출을 짧은 ledger로 표시, `kiro-cli acp`가 `kiro-cli chat`처럼 V2 에이전트 설정을 자동 업그레이드(`chat.enableAutoAgentUpgrade`), `kiro-cli whoami`가 External IdP 로그인 표시",
+      "제약·가격": "`SubagentStop`·`/compact` 지시·`/recap`은 V3 세션 기준",
+      "호환·요구사항": "V2를 끈 관리 기기에서 V2가 기본인 대화형 실행은 안내와 함께 V3로 시작, 명시적 V2·비대화형 실행은 중단"
+    },
+    "수집일": "2026-11-26"
   },
   {
     "섹션": "도구·에이전트",
@@ -162,6 +534,42 @@
   {
     "섹션": "스킬·MCP",
     "태그": "업데이트",
+    "제목": "Claude Skills over MCP 베타 — MCP 서버가 스킬과 도구를 함께 제공",
+    "제공자": "Anthropic",
+    "출처": "Claude 블로그(claude.com/resources)",
+    "날짜": "2026-11-24",
+    "날짜근거": "발표일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://claude.com/resources/articles/skills-over-mcp-tasks-and-more",
+    "관련링크": [
+      {
+        "라벨": "Claude Code 문서",
+        "url": "https://code.claude.com/docs/en/mcp#use-skills-from-mcp-servers"
+      },
+      {
+        "라벨": "MCP Skills 확장",
+        "url": "https://modelcontextprotocol.io/extensions/skills/overview"
+      },
+      {
+        "라벨": "MCP Tasks 확장",
+        "url": "https://modelcontextprotocol.io/extensions/tasks/overview"
+      }
+    ],
+    "이미지": "https://claude.com/resources/articles/skills-over-mcp-tasks-and-more/opengraph-image/og",
+    "한줄정리": "Claude와 Claude Code에서 MCP 서버가 도구와 함께 스킬을 배포하는 Skills over MCP가 공개 베타로 열리고, MCP Tasks·Elicitation이 정식 제공(GA)됐다.",
+    "왜중요": "서버를 연결하면 스킬이 따라오고 서버와 함께 갱신되므로 사용자가 따로 설치할 것이 없으며, Claude는 필요할 때만 스킬을 불러 컨텍스트를 아낀다. Tasks로 오래 걸리는 작업이나 에이전트 루프를 서버에 넘기고, Elicitation으로 비용 발생·삭제 전에 폼이나 링크로 사용자 확인을 받을 수 있다(Shopify·HubSpot·Atlassian이 스킬, Supabase·Railway·GitHub이 Elicitation 사용). Skills over MCP는 Pro·Max·Ultra에서 기본 켜짐, Team은 관리자가 켜야 하고 Enterprise는 예정이며, 파일 전달용 File Uploads는 곧 롤아웃된다.",
+    "써보기": "/skills\n/docs:pdf report.pdf",
+    "세부": {
+      "핵심 변경점": "Skills over MCP(`io.modelcontextprotocol/skills`) 공개 베타, Tasks·Elicitation GA(Pro·Max·Ultra, Team·Enterprise 롤아웃 중), File Uploads 확장 예정. Claude Code에서 MCP 스킬 이름은 `<server>:<skill>`, `/`나 `/skills`로 찾고 `Skill(mcp__docs__*)`·`Skill(docs:pdf)` 같은 권한 규칙으로 차단·확인·허용",
+      "제약·가격": "Claude Code의 API 키·Console 로그인은 롤아웃 중(현재 꺼짐). Anthropic은 claude.ai 서드파티 Directory 커넥터 등 일부 커넥터의 스킬만 스캔하고, `claude mcp add`로 추가한 서버의 스킬은 스캔하지 않음",
+      "호환·요구사항": "Claude Code v2.1.331 이상, Fable 모델 또는 Claude Opus 4.8·Sonnet 5·Haiku 5.5 이상, Anthropic 직접 연결 필요. 클라우드 세션·`claude -p` 등은 미지원"
+    },
+    "수집일": "2026-11-26"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
     "제목": "GitHub MCP Server 2.3.0 — 보안 알림을 에이전트가 직접 처리",
     "제공자": "GitHub",
     "출처": "GitHub github/github-mcp-server",
@@ -186,6 +594,41 @@
       "호환·요구사항": "Docker 이미지 ghcr.io/github/github-mcp-server:2.3.0 또는 원격 서버 https://api.githubcopilot.com/mcp/"
     },
     "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "Google Workspace MCP 서버·`gwscli` 정식 출시 — 에이전트는 MCP로",
+    "제공자": "Google",
+    "출처": "Google Workspace Updates 블로그",
+    "날짜": "2026-11-24",
+    "날짜근거": "발표일",
+    "신호": "공식 발표",
+    "하이라이트": false,
+    "링크": "https://workspaceupdates.googleblog.com/2026/11/mcp-servers-cli-standardized-usage-tiers-now-available.html",
+    "관련링크": [
+      {
+        "라벨": "MCP 서버 설정",
+        "url": "https://developers.google.com/workspace/guides/configure-mcp-servers"
+      },
+      {
+        "라벨": "Workspace CLI",
+        "url": "https://developers.google.com/workspace/guides/workspace-cli"
+      },
+      {
+        "라벨": "사용량 티어",
+        "url": "https://developers.google.com/workspace/guides/quota-usage-tiers"
+      }
+    ],
+    "한줄정리": "Gmail·Drive·Docs·Sheets·Slides·Calendar·Chat·Tasks용 Google 호스팅 MCP 서버와 에이전트 스킬을 담은 Workspace CLI(`gwscli`)가 GA되고, API·MCP 공통 사용량 티어가 시작됐다.",
+    "왜중요": "Workspace 데이터에 접근하는 AI 에이전트는 REST API 대신 MCP를 써야 하며 2027-02-01부터 기술적으로 강제된다. Standard 티어는 무료로 GA MCP 서버마다 프로젝트·제품당 하루 최대 5,000 요청이고, 그 이상은 결제 계정을 연결한 Scaled 티어가 필요하며 2027-04-01부터 무료 한도 초과분이 과금된다. 관리자는 Admin console에서 에이전트 접근, 민감 작업 사용자 확인(HITL) 규칙, 감사 로그를 관리하고, 롤아웃은 2주에 걸쳐 진행된다.",
+    "써보기": "curl -fsSL https://dl.google.com/workspace-cli/install.sh | bash\ngwscli version\ngwscli auth login\ngwscli skills install --dir ~/.agents/skills",
+    "세부": {
+      "핵심 변경점": "제품별 원격 MCP 서버(예: `https://gmailmcp.googleapis.com/mcp/v1`)와 Gmail·Drive·Calendar·Chat을 한 도구로 검색하는 Universal Search MCP 서버(`workspacemcp.googleapis.com`), Keep은 예정. `gwscli`는 런타임 명령 탐색·JSON 출력·패키지된 에이전트 스킬·민감 작업 확인 내장. Workspace API 사용량 대시보드 추가",
+      "제약·가격": "Standard 무료(티어 첫 적용은 Gmail·Calendar·Drive API와 대응 MCP 서버), Scaled는 2027-04-01부터 초과분 과금. Workspace AI Tools Addendum은 2027-02-01 발효 — 데이터 장기 저장·스크래핑 등 금지. 내부 전용 프로젝트는 관리자가 internal로 지정하면 높은 한도 유지",
+      "호환·요구사항": "Google Cloud 프로젝트와 'Use this client for an AI-powered agent'로 표시한 OAuth 2.0 클라이언트 필요. Claude 연결 시 콜백 URI `https://claude.ai/api/mcp/auth_callback`. CLI는 Linux·macOS·Windows(x86_64·ARM64), Claude Code용 스킬은 `~/.claude/skills`에 설치 가능"
+    },
+    "수집일": "2026-11-26"
   },
   {
     "섹션": "스킬·MCP",
@@ -276,6 +719,38 @@
       "호환·요구사항": "Linux + NVIDIA GPU(데모는 가상 GPU로 macOS 가능), Python 3.9+, Claude Code(agent teams 설정 `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`) 또는 Codex(`multi_agent` 활성, `GPUH_HOME` 지정)."
     },
     "수집일": "2026-11-25"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "TorchTPU 이식기 — 코딩 에이전트로 A100·JAX 코드를 TPU에 옮긴 교훈",
+    "제공자": "커뮤니티(Andrey Lukyanenko)",
+    "출처": "andlukyane.com 블로그",
+    "날짜": "2026-11-24",
+    "날짜근거": "발행일",
+    "신호": "HN 87pt · Kaggle 노트북 공개",
+    "하이라이트": false,
+    "링크": "https://andlukyane.com/blog/cayley-graphs-and-torchtpu",
+    "관련링크": [
+      {
+        "라벨": "Kaggle 학습 노트북",
+        "url": "https://www.kaggle.com/code/artgor/torchtpu-tetraminx-transformer-training"
+      },
+      {
+        "라벨": "Kaggle 빔 서치 노트북",
+        "url": "https://www.kaggle.com/code/artgor/torchtpu-tetraminx-beam-search"
+      }
+    ],
+    "이미지": "https://andlukyane.com/images/cayley_torchtpu/2026-11-24_09-02-21.jpg",
+    "한줄정리": "Claude Code·Codex에 구현·프로파일링을 맡겨 A100용 PyTorch 학습과 JAX 빔 서치를 Google의 PyTorch 네이티브 TPU 백엔드 TorchTPU로 옮기며 얻은 성능 수치와 함정을 정리한 글이다.",
+    "왜중요": "첫 이식본은 학습이 A100보다 1.65배, 빔 서치가 JAX보다 5.7배 느렸지만 fused eager, einsum 어텐션, 동적 shape 제거 등으로 학습은 A100보다 1.08배 빨라졌고 빔 서치는 같은 v6e 8칩에서 JAX보다 단계당 25% 빨라졌다. 에이전트가 forward만 재고 버리려던 einsum 어텐션이 forward+backward에서는 레이어당 1.69배 빨랐다는 사례처럼, 에이전트에 측정을 맡길 때 무엇을 사람이 확인해야 하는지도 보여준다. 무료 Kaggle TPU v5e-8에서 돌아가는 노트북이 있어 TPU 이식을 검토하는 사람이 바로 따라 해볼 수 있다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "TORCH_TPU_DEFER_AND_FUSE=1(fused eager)만으로 에폭 234.8s→176.5s, einsum 어텐션으로 132.0s(A100 142.7s). masked_select·불리언 마스크 인덱싱을 where/scatter_로 바꾸고 스텝당 .item() 12회를 디바이스 누적기로 대체. fused eager+DDP에서 rank 0만 state_dict를 저장하면 교착 → 모든 rank에서 CPU로 옮긴 뒤 한 rank가 저장.",
+      "제약·가격": "정적 shape·torch.compile(dynamic=False)가 안정 경로이며 새 shape마다 재컴파일. nonzero·unique 등 출력 크기가 데이터에 따라 바뀌는 연산은 호스트 왕복을 유발. 미구현 연산은 CPU로 조용히 폴백하지 않고 오류를 냄. torch_tpu 0.2.0에서 topk 동률 순서가 비안정 기본값으로 돌아가 해 길이가 늘었던 문제는 자기 중복 제거 로직을 segment-min으로 바꿔 해결. 짧은 시퀀스 어텐션 경로 문제는 에이전트가 재현 코드와 함께 TorchTPU 레포에 이슈로 보고했고 11-21에 수정·종료.",
+      "호환·요구사항": "torch_tpu==0.2.0, JAX 0.11.0 비교. Cloud TPU v6e 4·8칩, Kaggle 무료 TPU v5e-8."
+    },
+    "수집일": "2026-11-26"
   },
   {
     "섹션": "기법·연구",
