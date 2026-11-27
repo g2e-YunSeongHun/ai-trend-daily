@@ -1,6 +1,255 @@
 [
   {
     "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "GigaAM-v4·Multilingual-v2 — 스트리밍 지원 Sber 음성 인식 모델",
+    "제공자": "Sber (salute-developers)",
+    "출처": "Hugging Face ai-sage",
+    "날짜": "2026-11-27",
+    "날짜근거": "공개일",
+    "신호": "공식 공개 · MIT 라이선스 · HF 트렌딩 진입(♥26)",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/ai-sage/GigaAM-v4",
+    "관련링크": [
+      {
+        "라벨": "Multilingual-v2",
+        "url": "https://huggingface.co/ai-sage/GigaAM-Multilingual-v2"
+      },
+      {
+        "라벨": "레포",
+        "url": "https://github.com/salute-developers/GigaAM"
+      }
+    ],
+    "한줄정리": "Sber가 Zapformer 기반 음성 인식 모델 두 종을 MIT 라이선스로 공개했다. 러시아어·영어용 GigaAM-v4(238M)와 21개 언어용 GigaAM-Multilingual-v2(776M)다.",
+    "왜중요": "GigaAM-v4는 이전 GigaAM-v3-E2E보다 러시아어 WER을 35% 줄였고, 영어 Open ASR 공개 세트 평균 7.28%로 Whisper large-v3(7.70%)보다 낮다고 밝혔다. 두 모델 모두 160/320/640ms 스트리밍과 raw·e2e(서식 포함) 전사를 지원해 실시간 자막·콜센터 전사처럼 지연이 중요한 작업에 쓸 만하다. Multilingual-v2는 카자흐·우즈베크·조지아어 등 CIS 언어에서 WER 3~7%대를 냈다(카드 기준).",
+    "써보기": "pip install numpy \"transformers<5\" onnx onnxruntime hydra-core omegaconf sentencepiece tqdm\nfrom transformers import AutoModel\nmodel = AutoModel.from_pretrained(\"ai-sage/GigaAM-v4\", revision=\"rnnt\", trust_remote_code=True, device=\"cuda\", fp16_encoder=True).eval()\nresult = model.transcribe(\"example.wav\")\nprint(result[\"e2e\"].text)",
+    "세부": {
+      "핵심 변경점": "Zapformer 인코더, RNN-T·CTC 이중 헤드(raw/e2e), 160·320·640ms 스트리밍, ONNX 내보내기, 단어 단위 타임스탬프, 장문 전사, 내장 VAD",
+      "제약·가격": "MIT 라이선스. v4는 러시아어·영어 전용. 영어 평균 WER은 Qwen3-ASR(6.67%)보다 높음",
+      "호환·요구사항": "transformers<5, trust_remote_code 필요. revision: rnnt(main)/ctc/ssl"
+    },
+    "수집일": "2026-11-28"
+  },
+  {
+    "섹션": "모델·API",
+    "태그": "오픈소스",
+    "제목": "Sage-Med-Preview — 활성 3B 의료 멀티모달 MoE 가중치 공개",
+    "제공자": "Shanghai AI Laboratory (InternLM)",
+    "출처": "Hugging Face internlm",
+    "날짜": "2026-11-27",
+    "날짜근거": "공개일",
+    "신호": "공식 조직 공개 (HF internlm) · arXiv 2611.34575",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/internlm/Sage-Med-Preview",
+    "관련링크": [
+      {
+        "라벨": "논문",
+        "url": "https://arxiv.org/abs/2611.34575"
+      },
+      {
+        "라벨": "레포",
+        "url": "https://github.com/Sage-Med/Sage-Med-Preview"
+      }
+    ],
+    "한줄정리": "Intern-S2-Preview 기반 의료 멀티모달 모델로, 총 35B·활성 3B 파라미터로 의료 질의응답·영상 판독·판독문 작성·시각 그라운딩을 한 모델에서 처리한다.",
+    "왜중요": "공개 의료 멀티모달 벤치마크 31종 평균 58.26으로, 카드에 따르면 Hulu-Med-235B-A22B(50.99)와 GPT-5.4(52.78)보다 높고 MIMIC-CXR 판독문 생성에서 GPT-6.2-Sol을 앞섰다(ROUGE-L 33.37 대 30.31). 반면 MMMU Pro-Med·SuperGPQA-Med 같은 지식·추론 항목은 GPT-6.2-Sol보다 낮다. 연구·개발용이며 임상 적용에는 전문가 검증이 필요하다고 명시했고, 모델 카드에 라이선스 표기가 없다.",
+    "써보기": "pip install uv\nuv venv --python 3.12 ~/.venvs/sage-med-vllm\nsource ~/.venvs/sage-med-vllm/bin/activate\ncurl -fsSL https://huggingface.co/internlm/Sage-Med-Preview/resolve/main/requirements-h200.txt -o requirements-h200.txt\nuv pip install --torch-backend=cu129 -r requirements-h200.txt\nvllm serve internlm/Sage-Med-Preview --trust-remote-code --served-model-name sage-med-preview --max-model-len 32768",
+    "세부": {
+      "핵심 변경점": "약 1.64억 레코드·226B 토큰으로 학습. 연속 사전학습 → 중간학습 → 3단계 SFT → 난이도 적응형 RL",
+      "제약·가격": "Preview 버전. 라이선스 미표기. 연구·개발 용도",
+      "호환·요구사항": "단일 H200(BF16, 32K 컨텍스트)에서 테스트. CUDA 12.9 호환 드라이버, x86-64 Linux. 첫 실행 때 약 131GiB 다운로드"
+    },
+    "수집일": "2026-11-28"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Qwen Code 0.28.7 — 모델 루프 감지 제거·모델별 추론 강도 저장",
+    "제공자": "Alibaba Qwen",
+    "출처": "GitHub QwenLM/qwen-code",
+    "날짜": "2026-11-27",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm @qwen-code/qwen-code latest, 중국 현지 11-27)",
+    "하이라이트": false,
+    "링크": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7",
+    "관련링크": [
+      {
+        "라벨": "CHANGELOG",
+        "url": "https://github.com/QwenLM/qwen-code/blob/main/CHANGELOG.md"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@qwen-code/qwen-code"
+      }
+    ],
+    "한줄정리": "Qwen Code 0.28.7은 모델 루프 감지와 도구 호출 횟수 제한을 없애고, 모델마다 추론 강도·컨텍스트 창 설정을 저장하며, Claude Code 2.1.332용 mod도 불러온다.",
+    "왜중요": "도구 결과와 오류가 가공 없이 모델에 그대로 전달되지만, 루프를 감지해 실행을 끊어 주지 않으므로 장시간 작업은 동작을 직접 확인해야 한다(호환성 깨짐). 반복된 도구 호출이 거부되면 원인을 설명하고 `/compress`·`/clear`로 복구하라고 안내한다. 대화형 CLI는 모델을 바꾸거나 다시 실행해도 모델별 추론 강도와 컨텍스트 창 설정을 되살린다.",
+    "써보기": "npm install -g @qwen-code/qwen-code@latest",
+    "세부": {
+      "핵심 변경점": "Claude Code 2.1.332용 mod의 명령·밴드 등록, 워크스페이스별 worktree 스냅샷 보존 개수 설정(`worktree.maxRetained`), Web Shell 사고 수준 즉시 적용, 신뢰한 워크스페이스마다 MCP·Skills·Extensions·Channels·Settings 관리 메뉴",
+      "제약·가격": "",
+      "호환·요구사항": "Breaking: 모델 루프 감지와 도구 호출 횟수 제한 제거"
+    },
+    "수집일": "2026-11-28"
+  },
+  {
+    "섹션": "도구·에이전트",
+    "태그": "업데이트",
+    "제목": "Copilot CLI 1.0.117 — 샌드박스 사용자 CA 인증서·에이전트별 도구 노출",
+    "제공자": "GitHub",
+    "출처": "GitHub github/copilot-cli",
+    "날짜": "2026-11-27",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm @github/copilot latest)",
+    "하이라이트": false,
+    "링크": "https://github.com/github/copilot-cli/releases/tag/v1.0.117",
+    "관련링크": [
+      {
+        "라벨": "체인지로그",
+        "url": "https://github.com/github/copilot-cli/blob/main/changelog.md"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@github/copilot"
+      }
+    ],
+    "한줄정리": "GitHub Copilot CLI 1.0.117에서는 TLS를 가로채는 프록시 뒤에서도 샌드박스 명령이 사용자 지정 CA 인증서를 신뢰하게 하는 `sandbox.userPolicy.network.extraCaCertificates` 설정과, 커스텀 에이전트가 쓸 도구를 직접 골라 켜는 명시적 도구 노출이 추가됐다.",
+    "왜중요": "사내 프록시가 TLS를 가로채는 환경에서도 샌드박스를 켠 채 네트워크 명령을 돌릴 수 있다. MCP 서버 이름이 내장 권한 유형과 같을 때 그 서버 도구를 승인하면 셸 명령·메모리 저장 같은 내장 요청까지 함께 승인되던 문제가 고쳐졌다. CLI 재시작 후 세션을 재개해도 백그라운드 에이전트가 대화를 이어 가고, autopilot으로 시작하면 확장마다 실행 여부를 묻는다.",
+    "써보기": "npm install -g @github/copilot",
+    "세부": {
+      "핵심 변경점": "`sandbox.userPolicy.network.extraCaCertificates`, 커스텀 에이전트 명시적 도구 노출, `/mcp search`가 설치 불가 레지스트리 서버 사유 표시, MCP 서버 이름 대소문자 무시, `/model` 선택기에 서비스 공지·종료 예정 모델 표시, `/sandbox policy`가 깨진 심볼릭 링크 경고",
+      "제약·가격": "",
+      "호환·요구사항": "config.json 파싱 실패 시 파일은 그대로 두고 플러그인 없이 시작. Plan 모드 Assisted Permissions는 계획 승인 전 브랜치 생성·패키지 설치를 자동 승인하지 않음"
+    },
+    "수집일": "2026-11-28"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "MCP Inspector 2.17.0 — Events 확장 구독·폴링을 웹·CLI·TUI에서 테스트",
+    "제공자": "Model Context Protocol",
+    "출처": "GitHub modelcontextprotocol/inspector",
+    "날짜": "2026-11-27",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 · npm 게시",
+    "하이라이트": false,
+    "링크": "https://github.com/modelcontextprotocol/inspector/releases/tag/2.17.0",
+    "관련링크": [
+      {
+        "라벨": "Events 확장 문서",
+        "url": "https://modelcontextprotocol.io/extensions/events/overview"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@modelcontextprotocol/inspector"
+      }
+    ],
+    "한줄정리": "MCP 서버 디버깅 도구 Inspector에 Events 확장(`io.modelcontextprotocol/events`, SEP-3415) 지원과 SSRF 보안 수정이 들어갔다.",
+    "왜중요": "Events 확장을 구현한 서버를 웹 UI의 Events 탭과 CLI·TUI·mcpdo로 바로 확인할 수 있고, poll·push 구독과 웹훅 구독 관리까지 된다. 이 확장은 2026-07-28 프로토콜에서만 동작하므로 CLI에서는 `--protocol-era modern`이 필요하다. 함께 고친 GHSA-v2gx-m79c-pvxj는 NAT64 같은 IPv4 내장 IPv6 주소로 SSRF 가드를 우회해 클라우드 메타데이터에 닿을 수 있던 문제로, v1 라인도 1.0.7에서 고쳤다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "Events 확장 코어 프로토콜 계층, poll·push 구독 엔진, 웹 Events 탭, CLI·mcpdo·TUI 지원, 웹훅 구독 관리. 같은 출처 OAuth 요청에 사용자 지정 헤더 전송",
+      "제약·가격": "Events는 2026-07-28 프로토콜 이상에서만 동작",
+      "호환·요구사항": "Node ^22.23.4 || ^24.22.1 || >=26.12.1. v1 라인은 1.0.7(@v1-latest)"
+    },
+    "수집일": "2026-11-28"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "MCP 레퍼런스 서버 v2.6.0 — git·memory·fetch 보안 취약점 8건 수정",
+    "제공자": "Model Context Protocol",
+    "출처": "GitHub modelcontextprotocol/servers",
+    "날짜": "2026-11-27",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 (npm·PyPI·MCP 레지스트리 동시 게시)",
+    "하이라이트": true,
+    "링크": "https://github.com/modelcontextprotocol/servers/releases/tag/v2.6.0",
+    "관련링크": [
+      {
+        "라벨": "PyPI mcp-server-git",
+        "url": "https://pypi.org/project/mcp-server-git/"
+      },
+      {
+        "라벨": "npm server-memory",
+        "url": "https://www.npmjs.com/package/@modelcontextprotocol/server-memory"
+      }
+    ],
+    "한줄정리": "MCP 공식 레퍼런스 서버 묶음의 보안 릴리스로, git·memory·fetch 서버의 취약점 8건을 고치고 v2.5.0에서 덜 끝난 수정 2건을 마무리했다.",
+    "왜중요": "mcp-server-git은 Git LFS가 설치된 환경(공식 Docker 이미지 포함)에서 읽기 전용인 `git_status`까지 저장소 설정에 적힌 프로그램을 서버 권한으로 실행할 수 있었고, `repo_path` 환경 변수 확장으로 서버 환경 변수가 새는 문제 등도 있었다. git·fetch는 2026.11.27, memory는 2.2.2, Windows의 filesystem은 2.4.1로 올려야 한다. 날짜 버전(2025.x·2026.x)의 memory·filesystem을 쓰던 경우 패키지 매니저가 새 semver 버전을 업그레이드로 제안하지 않으므로 버전을 직접 지정해야 한다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "git: Git LFS 확장·커스텀 전송 설정 차단(GHSA-6663-fm5v-gqm5), .git 포인터 재지정 거부, git_remote 자격 증명 마스킹 우회 차단, repo_path 환경 변수 미확장, alternates 경쟁 상태 차단, 머지 커밋의 무시 파일 덮어쓰기 거부. memory 2.2.2: saveGraph 임시 파일 경쟁 수정. fetch: robots.txt 우회 표기 대조. filesystem 2.4.1(Windows) 디렉터리 재검사. everything 2.4.0: Events 확장(SEP-3415) 제공",
+      "제약·가격": "Windows에서 디렉터리를 읽는 도중 바꿨다가 되돌리는 경우는 여전히 탐지되지 않음",
+      "호환·요구사항": "server-everything 2.4.0, server-filesystem 2.4.1, server-memory 2.2.2(npm), mcp-server-fetch·git·time 2026.11.27(PyPI)"
+    },
+    "수집일": "2026-11-28"
+  },
+  {
+    "섹션": "스킬·MCP",
+    "태그": "업데이트",
+    "제목": "Firefox MCP 0.11.1 — 요소 대기 `wait_for` 도구·컨테이너 세션 지원",
+    "제공자": "Mozilla",
+    "출처": "GitHub mozilla/firefox-mcp",
+    "날짜": "2026-11-27",
+    "날짜근거": "릴리스일",
+    "신호": "공식 릴리스 · npm·MCP 레지스트리 등재",
+    "하이라이트": false,
+    "링크": "https://github.com/mozilla/firefox-mcp/releases/tag/v0.11.1",
+    "관련링크": [
+      {
+        "라벨": "CHANGELOG",
+        "url": "https://github.com/mozilla/firefox-mcp/blob/main/CHANGELOG.md"
+      },
+      {
+        "라벨": "npm",
+        "url": "https://www.npmjs.com/package/@mozilla/firefox-mcp"
+      }
+    ],
+    "한줄정리": "에이전트가 Firefox를 조작·디버깅하게 해 주는 Mozilla MCP 서버에 텍스트나 요소가 나타나거나 사라질 때까지 기다리는 `wait_for` 도구가 생겼다.",
+    "왜중요": "동적으로 그려지는 페이지에서 요소를 기다리는 작업을 `wait_for` 한 번으로 처리하며, open shadow root와 같은 출처 iframe 안까지 찾는다. 단일 컨테이너에 제한된 WebDriver 세션에도 붙을 수 있고, 남은 도구를 WebDriver BiDi로 옮겨 이제 BiDi만 사용한다. Claude 플러그인 이름이 `firefox-mcp`(`/firefox-mcp:*`)로 바뀌어, 기존 `firefox-devtools-mcp` 플러그인은 서버만 돌고 스킬·에이전트·명령은 빠진다.",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "wait_for(text·CSS 선택자, gone 옵션, timeout 기본 5000ms·최대 30000ms), 컨테이너 제한 세션 지원, BiDi 전환, POST 재전송 프롬프트 자동 수락, Claude 플러그인 개명",
+      "제약·가격": "재전송 자동 수락 설정은 --connect-existing에서는 적용되지 않음",
+      "호환·요구사항": "Node.js ≥ 20.19.0, Firefox 100+"
+    },
+    "수집일": "2026-11-28"
+  },
+  {
+    "섹션": "기법·연구",
+    "태그": "실전팁",
+    "제목": "LTX-2.5 on Trainium3 — 샷 체이닝 영상 제작과 병렬화 최적화 기록",
+    "제공자": "Hugging Face",
+    "출처": "Hugging Face 블로그",
+    "날짜": "2026-11-27",
+    "날짜근거": "발행일",
+    "신호": "공식 발표 (HF 블로그, 코드 레포 공개)",
+    "하이라이트": false,
+    "링크": "https://huggingface.co/blog/video-trainium3",
+    "관련링크": [
+      {
+        "라벨": "레포",
+        "url": "https://github.com/dacorvo/video-generation"
+      },
+      {
+        "라벨": "모델",
+        "url": "https://huggingface.co/Lightricks/LTX-2.5-Diffusers"
+      }
+    ],
+    "이미지": "https://huggingface.co/blog/assets/video-trainium3/thumbnail.jpg",
+    "한줄정리": "diffusers의 LTX-2.5 파이프라인을 Trainium3(trn3.48xlarge)에서 돌려 여러 샷을 이어 붙인 짧은 영상을 만들고, 10초 클립 생성 시간을 약 5분 20초에서 22~23초로 줄인 과정을 정리한 글이다.",
+    "왜중요": "프롬프트만으로는 샷이 바뀌면 같은 피사체가 유지되지 않으므로, 샷마다 다른 샷의 마지막 프레임에서 시작(`from`)하거나 다음 샷의 첫 프레임으로 끝나게(`to`) 연결한다. 이 기법은 diffusers의 LTX2ConditionPipeline으로 하드웨어와 상관없이 쓸 수 있다. Trainium 쪽 병렬화·메모리 우회책은 수치와 함께 표로 정리돼 있다(코어당 메모리 22.96GiB→10.2GiB 등).",
+    "써보기": "",
+    "세부": {
+      "핵심 변경점": "샷 JSON(name·prompt·seed·from·to)으로 영상을 구성하고 핵심 샷을 먼저 만든 뒤 앞뒤 샷을 맞춰 잇는다. 텐서·시퀀스 병렬화, 파라미터 버퍼 패킹 등 최적화",
+      "제약·가격": "trn3.48xlarge의 절반 사용. 샷당 여러 테이크가 필요하고 사운드는 샷 사이에 이어지지 않음",
+      "호환·요구사항": "Lightricks/LTX-2.5-Diffusers 약관 동의 필요"
+    },
+    "수집일": "2026-11-28"
+  },
+  {
+    "섹션": "모델·API",
     "태그": "업데이트",
     "제목": "GPT-6.2 과금 오류 수정 — ChatGPT·Codex 플랜 한도 소진 빨라짐",
     "제공자": "OpenAI",
